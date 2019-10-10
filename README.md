@@ -14,6 +14,10 @@
 |DeckOfCards|トランプ一覧|-|
 |TODO|TODO|-|
 
+## memo
+
+![リポジトリ作成スクリーンショット](documents/newRepository.png "リポジトリ作成スクリーンショット") 
+
 ## todo
 
 - todo1
