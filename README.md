@@ -5,6 +5,7 @@
 |MainActivity|ゲーム一覧|-|
 |BlackJackActivity|ブラックジャック詳細|-|
 |HighAndLowActivity|ハイアンドロー詳細|-|
+|test|test|test|
 
 ## クラス設計
 
