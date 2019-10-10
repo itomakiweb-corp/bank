@@ -6,6 +6,13 @@
 |BlackJackActivity|ブラックジャック詳細|-|
 |HighAndLowActivity|ハイアンドロー詳細|-|
 
+## クラス設計
+
+|クラス|説明|備考|
+|:---|:---|:---|
+|DeckOfCards|トランプ一覧|-|
+|TODO|TODO|-|
+
 ## todo
 
 - todo1
