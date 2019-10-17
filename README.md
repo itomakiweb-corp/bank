@@ -18,7 +18,7 @@
 |ブランチ名|kebab-case|-|
 |クラス名|UpperCamelCase|-|
 |View ID|lowerCamelCase|Kotlin変数名として記述することになるので、kebab-caseは不可|
-|Resource Name|lowerCamelCase|-|
+|Resource Name|lowerCamelCase|デフォルトは、snake_caseの模様だが、View IDと合わせる|
 
 ## Screen
 
