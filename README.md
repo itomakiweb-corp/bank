@@ -1,3 +1,25 @@
+## Flow
+
+- git checkout master
+- git pull origin master
+- git branches, new branch
+- 新しいブランチ上で必要な修正を実施
+- emulatorなどで動作確認
+- git commit
+- git push
+- web pull request, reviewersを指定
+- web reviewersのレビューとマージ待ち
+- 最初に戻る
+
+## Rule
+
+|項目|内容|備考|
+|:---|:---|:---|
+|ブランチ名|kebab-case|-|
+|クラス名|UpperCamelCase|-|
+|ID|lowerCamelCase|-|
+|Resource Name|lowerCamelCase|-|
+
 ## 画面一覧
 
 |Activity|説明|備考|
@@ -14,23 +36,9 @@
 |DeckOfCards|トランプ一覧|-|
 |TODO|TODO|-|
 
-## memo
+## etc
 
-- リポジトリ作成スクリーンショット
-  - ![リポジトリ作成スクリーンショット](documents/newRepository.png "リポジトリ作成スクリーンショット") 
-
-## 大まかな流れ
-
-- git checkout master
-- git pull origin master
-- git branches, new branch
-- 新しいブランチ上で必要な修正を実施
-- emulatorなどで動作確認
-- git commit
-- git push
-- web pull request, reviewersを指定
-- web reviewersのレビューとマージ待ち
-- 最初に戻る
+- [memo.md](documents/memo.md)
 
 <!---
 # memo
@@ -43,12 +51,3 @@
   - test
     - test
 -->
-
-## rule
-
-|項目|内容|備考|
-|:---|:---|:---|
-|ブランチ名|kebab-case|-|
-|クラス名|UpperCamelCase|-|
-|ID|lowerCamelCase|-|
-|Resource Name|lowerCamelCase|-|
