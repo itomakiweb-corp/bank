@@ -43,3 +43,11 @@
   - test
     - test
 -->
+
+## rule
+
+|クラス|説明|備考|
+|:---|:---|:---|
+|ブランチ名|kebab-case|-|
+|クラス名|UpperCamelCase|-|
+|ID|localCamelCase|-|
