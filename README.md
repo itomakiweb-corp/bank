@@ -2,7 +2,7 @@
 
 1. git checkout master
 1. git pull origin master
-1. git branches, new branch
+1. git branch, new branch
 1. 新しいブランチ上で必要な修正を実施
 1. emulatorなどで動作確認
 1. git commit
@@ -39,7 +39,7 @@
 ## etc
 
 - [memo.md](documents/memo.md)
-- 2019-10-17時点で、MacのAndroid Studio 3.5.1で、以下ワーニングが出る
+- 2019-10-17時点で、MacのAndroid Studio 3.5.1で、以下warningが出る
   - ProjectRoot/.ideaディレクトリを削除すればローカルを正常化できるが、全体に反映する方法はない模様
 ```
 Unsupported Modules Detected: Compilation is not supported for following modules: bank. Unfortunately you can't have non-Gradle Java modules and Android-Gradle modules in one project.
