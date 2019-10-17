@@ -44,6 +44,6 @@
 ```
 Unsupported Modules Detected: Compilation is not supported for following modules: bank. Unfortunately you can't have non-Gradle Java modules and Android-Gradle modules in one project.
 ```
-- test
-  - test
-    - test
+- Screen備考に、画面遷移を記述するか？
+  - 画像で、画面遷移を作成するか？
+    - モブプログラミングのメンバで、どうするかを決定して作成していく
