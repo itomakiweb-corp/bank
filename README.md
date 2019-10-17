@@ -19,15 +19,23 @@
 - リポジトリ作成スクリーンショット
   - ![リポジトリ作成スクリーンショット](documents/newRepository.png "リポジトリ作成スクリーンショット") 
 
-## todo
+## 大まかな流れ
 
-- todo1
-  - test
-- todo2
+- git checkout master
+- git pull origin master
+- git branches, new branch
+- 修正
+- emulatorなどで動作確認
+- git commit
+- git push
+- web pull request, reviewersを指定
+- web reviewersのレビューとマージ待ち
+- 最初に戻る
+
+# memo
+
+1. test
+1. test
+1. test
   - test
     - test
-- todo3
-
-1. test
-1. test
-1. test
