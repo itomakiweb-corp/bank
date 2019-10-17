@@ -17,7 +17,7 @@
 |:---|:---|:---|
 |ブランチ名|kebab-case|-|
 |クラス名|UpperCamelCase|-|
-|ID|lowerCamelCase|-|
+|View ID|lowerCamelCase|Kotlin変数名として記述することになるので、kebab-caseは不可|
 |Resource Name|lowerCamelCase|-|
 
 ## 画面一覧
