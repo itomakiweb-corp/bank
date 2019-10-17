@@ -1,15 +1,15 @@
 ## Flow
 
-- git checkout master
-- git pull origin master
-- git branches, new branch
-- 新しいブランチ上で必要な修正を実施
-- emulatorなどで動作確認
-- git commit
-- git push
-- web pull request, reviewersを指定
-- web reviewersのレビューとマージ待ち
-- 最初に戻る
+1. git checkout master
+1. git pull origin master
+1. git branches, new branch
+1. 新しいブランチ上で必要な修正を実施
+1. emulatorなどで動作確認
+1. git commit
+1. git push
+1. web pull request, reviewersを指定
+1. web reviewersのレビューとマージ待ち
+1. 最初に戻る
 
 ## Rule
 
@@ -20,7 +20,7 @@
 |View ID|lowerCamelCase|Kotlin変数名として記述することになるので、kebab-caseは不可|
 |Resource Name|lowerCamelCase|-|
 
-## 画面一覧
+## Screen
 
 |Activity|説明|備考|
 |:---|:---|:---|
@@ -29,7 +29,7 @@
 |HighAndLowActivity|ハイアンドロー詳細|-|
 |test|test|test|
 
-## クラス設計
+## Class
 
 |クラス|説明|備考|
 |:---|:---|:---|
@@ -42,10 +42,6 @@
 
 <!---
 # memo
-
-1. test
-1. test
-1. test
 
 - test
   - test
