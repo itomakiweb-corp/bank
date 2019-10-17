@@ -50,4 +50,4 @@
 |:---|:---|:---|
 |ブランチ名|kebab-case|-|
 |クラス名|UpperCamelCase|-|
-|ID|localCamelCase|-|
+|ID|lowerCamelCase|-|
