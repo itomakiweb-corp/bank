@@ -1,5 +1,6 @@
 ## Flow
 
+1. [モブプログラミングの担当をランダムに決める](https://paiza.io/projects/SHMoTiDcBPG9eI86P-WS5A)
 1. git checkout master
 1. git pull origin master
 1. git branch, new branch
