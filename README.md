@@ -24,7 +24,7 @@
 - git checkout master
 - git pull origin master
 - git branches, new branch
-- 修正
+- 新しいブランチ上で必要な修正を実施
 - emulatorなどで動作確認
 - git commit
 - git push
@@ -46,7 +46,7 @@
 
 ## rule
 
-|クラス|説明|備考|
+|項目|内容|備考|
 |:---|:---|:---|
 |ブランチ名|kebab-case|-|
 |クラス名|UpperCamelCase|-|
