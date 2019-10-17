@@ -7,7 +7,7 @@
 1. emulatorなどで動作確認
 1. git commit
 1. git push
-1. web pull request, reviewersを指定
+1. web [pull request](https://github.com/itomakiweb-corp/bank/pulls), reviewersを指定
 1. web reviewersのレビューとマージ待ち
 1. 最初に戻る
 
@@ -39,11 +39,11 @@
 ## etc
 
 - [memo.md](documents/memo.md)
-
-<!---
-# memo
-
+- 2019-10-17時点で、MacのAndroid Studio 3.5.1で、以下ワーニングが出る
+  - ProjectRoot/.ideaディレクトリを削除すればローカルを正常化できるが、全体に反映する方法はない模様
+```
+Unsupported Modules Detected: Compilation is not supported for following modules: bank. Unfortunately you can't have non-Gradle Java modules and Android-Gradle modules in one project.
+```
 - test
   - test
     - test
--->
