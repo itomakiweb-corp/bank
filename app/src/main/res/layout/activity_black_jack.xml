@@ -4,15 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/toBlackJack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/toBlackJack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="368dp" />
+    tools:context=".BlackJackActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
