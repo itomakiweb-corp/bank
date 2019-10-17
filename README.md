@@ -51,3 +51,4 @@
 |ブランチ名|kebab-case|-|
 |クラス名|UpperCamelCase|-|
 |ID|lowerCamelCase|-|
+|Resource Name|lowerCamelCase|-|
