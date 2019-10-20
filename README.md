@@ -1,6 +1,6 @@
 ## Flow
 
-1. [先週のまとめ](https://github.com/itomakiweb-corp/bank/milestones?state=closed)と[今週の予定](https://github.com/itomakiweb-corp/bank/milestones)を確認して検討する
+1. [先週のまとめ](https://github.com/itomakiweb-corp/bank/milestones?state=closed)と[今週と来週の予定](https://github.com/itomakiweb-corp/bank/milestones)を確認して検討する
 1. [モブプログラミングの担当をランダムに決める](https://paiza.io/projects/SHMoTiDcBPG9eI86P-WS5A)（[ソースコード](https://github.com/itomakiweb-corp/bank/blob/master/tools/selectRandomUsers.kt)）
 1. git checkout master
 1. git pull origin master
