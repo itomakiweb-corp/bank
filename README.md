@@ -9,7 +9,8 @@
 1. git checkout -b newBranch
 1. 新しいブランチ上で必要な修正を実施する
 1. emulatorなどで動作確認する
-1. git commit
+1. git add .
+1. git commit -av
 1. git push origin newBranch -u -n
 1. web [pull request](https://github.com/itomakiweb-corp/bank/pulls), reviewersを指定する
 1. web reviewersのレビューとマージを待つ
