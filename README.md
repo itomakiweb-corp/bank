@@ -42,6 +42,16 @@
 |DeckOfCards|トランプ一覧|-|
 |TODO|TODO|-|
 
+## Env
+
+- install
+  - https://git-scm.com/downloads
+  - https://developer.android.com/studio?hl=ja
+- open Android Studio
+  - Check out project from Version Control, Git
+  - https://github.com/itomakiweb-corp/bank.git
+- Run 'app'
+  
 ## etc
 
 - [memo.md](documents/memo.md)
