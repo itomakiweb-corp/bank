@@ -51,6 +51,9 @@
   - Check out project from Version Control, Git
   - https://github.com/itomakiweb-corp/bank.git
 - Run 'app'
+  - Open AVD Manager
+  - Create Virtual Device
+  - Pixel 3, Q (Android 10.0)
   
 ## etc
 
