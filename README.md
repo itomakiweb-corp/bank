@@ -56,6 +56,7 @@
 
 - [memo.md](documents/memo.md)
 - 2019-10-17時点で、MacのAndroid Studio 3.5.1で、以下warningが出る
+  - 動作には問題ない模様なので、無視しても良い
   - ProjectRoot/.ideaディレクトリを削除すればローカルを正常化できるが、全体に反映する方法はない模様
 ```
 Unsupported Modules Detected: Compilation is not supported for following modules: bank. Unfortunately you can't have non-Gradle Java modules and Android-Gradle modules in one project.
