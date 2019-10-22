@@ -4,21 +4,22 @@
 1. [先週のまとめ](https://github.com/itomakiweb-corp/bank/milestones?state=closed)と[今週と来週の予定](https://github.com/itomakiweb-corp/bank/milestones)を確認して検討する
 1. [モブプログラミングの担当をランダムに決める](https://paiza.io/projects/SHMoTiDcBPG9eI86P-WS5A)（[ソースコード](https://github.com/itomakiweb-corp/bank/blob/master/tools/selectRandomUsers.kt)）
 1. git checkout master
-1. git pull origin master
+1. git pull # origin master
 1. git branch -a
-1. git checkout -b newBranch
+1. git branch -d new-branch # 必要に応じて削除を実行する（マージ前なら、-D指定）
+1. git checkout -b new-branch
 1. 新しいブランチ上で必要な修正を実施する
 1. emulatorなどで動作確認する
 1. git add .
 1. git commit -av
-1. git push origin newBranch -u -n
+1. git push origin new-branch -u -n
 1. web [pull request](https://github.com/itomakiweb-corp/bank/pulls), reviewersを指定する
-1. web reviewersのレビューとマージを待つ
+1. web reviewersのレビュー/マージ/new-branch削除を待つ
 1. 最初に戻る
 
 ## Rule
 
-|項目|内容|備考|
+|対象|命名規則|備考|
 |:---|:---|:---|
 |ブランチ名|kebab-case|開発している機能名などを推奨する|
 |クラス名|UpperCamelCase|-|
