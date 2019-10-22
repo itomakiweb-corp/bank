@@ -21,8 +21,9 @@
 
 |対象|命名規則|備考|
 |:---|:---|:---|
-|ブランチ名|kebab-case|開発している機能名などを推奨する|
-|クラス名|UpperCamelCase|-|
+|git branch name|kebab-case|開発している機能名などを推奨する|
+|kotlin class name|UpperCamelCase|-|
+|kotlin fun name|lowerCamelCase|-|
 |View ID|lowerCamelCase|Kotlin変数名として記述することになるので、kebab-caseは不可|
 |Resource Name|lowerCamelCase|デフォルトはsnake_caseの模様だが、View IDと合わせる|
 
