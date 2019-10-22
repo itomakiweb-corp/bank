@@ -61,6 +61,13 @@
 ```
 Unsupported Modules Detected: Compilation is not supported for following modules: bank. Unfortunately you can't have non-Gradle Java modules and Android-Gradle modules in one project.
 ```
+- 2019-10-22時点で、MacのAndroid Studio 3.5.1で、emulator実行時に、以下warningが出る
+  - 動作には問題ない模様なので、無視しても良い
+  - 正常化する方法はわからない
+```
+Qt WebEngine ICU data not found at /Users/joshuaduong/qt-build-5.12.1/install-darwin-x86_64/resources. Trying parent directory...
+...
+```
 - Screen備考に、画面遷移を記述するか？
   - 画像で、画面遷移を作成するか？
     - モブプログラミングのメンバで、どうするかを決定して作成していく
