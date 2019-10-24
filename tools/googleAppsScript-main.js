@@ -28,7 +28,17 @@ function postDoneAndTodoToSlack() {
     .replace('${todoUrl}', todoUrl)
   log(body)
 
-  const doneAndTodoQuest = postIssueToGithub(title, body)
+  const configs = getConfigs()
+  const variables = {
+    repositoryId: configs.GITHUB_REPOSITORY_ID,
+    title: title,
+    body: body,
+    // assigneeIds: configs.GITHUB_TODO_ASSIGNEE_IDS,
+    labelIds: configs.GITHUB_TODO_LABEL_IDS,
+    projectIds: configs.GITHUB_TODO_PROJECT_IDS,
+    milestoneId: todoMilestone.id,
+  }
+  const doneAndTodoQuest = postIssueToGithub(variables)
   log(doneAndTodoQuest)
 
   const doneAndTodoMessage = postMessageToSlack(body)
@@ -60,8 +70,8 @@ function postMilestoneToGithub() {
     title: 'sprint: ' + startDateFormat + '-' + endDateFormat,
     due_on: endDate.toISOString(), // ex: 2019-11-06T15:16:00.908Z, GitHub仕様では、末尾のミリ秒は含まないが、実行可能
   }
-  const milestone = postGithubV3(method, path, payload)
-  log(milestone)
+  const json = postGithubV3(method, path, payload)
+  log(json)
 }
 
 /**
@@ -78,7 +88,7 @@ function fetchMilestoneFromGithub(states, direction) {
   const query = 'query($owner: String!, $name: String!, $states: [MilestoneState!], $direction: OrderDirection!) {\
     repository(owner: $owner, name: $name) {\
       milestones(first:1, states: $states, orderBy: { field: DUE_DATE, direction: $direction }) {\
-        edges { node { title url} }\
+        edges { node { id, title url} }\
       }\
     }\
   }'
@@ -100,12 +110,10 @@ function fetchMilestoneFromGithub(states, direction) {
  *
  * @see https://developer.github.com/v4/mutation/createissue/
  *
- * @param {string} タイトル
- * @param {string} 本文
+ * @param {Object} リクエスト内容
  * @return {Object} レスポンスJSON
  */
-function postIssueToGitHub(title, body) {
-  const configs = getConfigs()
+function postIssueToGitHub(variables) {
   const query = 'mutation($input: CreateIssueInput!) {\
     createIssue(input:$input) {\
       issue {\
@@ -114,11 +122,6 @@ function postIssueToGitHub(title, body) {
       }\
     }\
   }';
-  const variables = {
-    repositoryId: configs.GITHUB_REPOSITORY_ID,
-    title: title,
-    body: body,
-  }
   const json = postGithubV4(query, variables)
 
   return json
@@ -149,6 +152,7 @@ function postMessageToSlack(body) {
  * GitHub API V4 (GraphQL) に、リクエストする
  *
  * @param {string} GraphQLクエリ
+ * @param {Object} リクエスト内容
  * @return {Object} レスポンスJSON
  */
 function postGithubV4(query, variables) {
@@ -295,9 +299,26 @@ function getConfigs() {
     GITHUB_OWNER: 'itomakiweb-corp',
     GITHUB_REPOSITORY: 'bank',
     // 以下コマンドでID確認
+    // https://brew.sh/index_ja
+    // brew install jq
     // token="正当な値を設定"
-    // curl -X POST -H "Authorization: Bearer ${token}" -H 'Accept: application/vnd.github.v4.idl' -d '{"query": "query { repository(owner:\"itomakiweb-corp\", name:\"bank\") { id } }"' https://api.github.com/graphql
+    // curl -s -X POST -H "Authorization: Bearer ${token}" -H 'Accept: application/vnd.github.v4.idl' -d '{"query": "query { repository(owner:\"itomakiweb-corp\", name:\"bank\") { id, assignableUsers(first: 100) { edges { node { id, login, name } } }, labels(first: 100) { edges { node { id, name } } }, projects(first: 100) { edges { node { id, name } } }, milestones(first: 100) { edges { node { id, title } } } } }"' https://api.github.com/graphql | jq
     GITHUB_REPOSITORY_ID: 'MDEwOlJlcG9zaXRvcnkyMTQxODM2ODE=',
+    GITHUB_TODO_ASSIGNEE_IDS: [
+      'MDQ6VXNlcjQzMjU1ODgw', // adachi-swivel
+      'MDQ6VXNlcjQzNDM1OTg1', // bac0907
+      'MDQ6VXNlcjE2NTA1Mjcx', // itomakiweb
+      'MDQ6VXNlcjQzMTE0NDQx', // kazucharo
+      'MDQ6VXNlcjQ1MDA2Njgz', // tanukinoyu
+      'MDQ6VXNlcjQ0MjUyMzIx', // undine411
+    ],
+    GITHUB_TODO_LABEL_IDS: [
+      'MDU6TGFiZWwxNjE1ODYwNTc0', // -priority: 5
+      'MDU6TGFiZWwxNjE1ODY0MDA4', // cost-pre: 3
+    ],
+    GITHUB_TODO_PROJECT_IDS: [
+      'MDc6UHJvamVjdDMzNTEwODU=', // Quest
+    ],
 
     // URLでID確認
     // SLACK_CHANNEL: '#tmp', // tmp
