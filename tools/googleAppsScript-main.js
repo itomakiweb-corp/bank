@@ -1,3 +1,5 @@
+// https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
+
 /**
  * GitHubに、先週のまとめと今週の予定を確認するクエストを登録する
  * Slackに、先週のまとめと今週の予定を送信する
@@ -75,6 +77,30 @@ function postMilestoneToGithub() {
 }
 
 /**
+ * GitHubから、リポジトリ関連情報を取得する
+ *
+ * @see https://developer.github.com/v4/object/repository/
+ */
+function fetchRepositoryInfoFromGithub() {
+  const configs = getConfigs()
+  const query = 'query($owner: String!, $name: String!) {\
+    repository(owner: $owner, name: $name) {\
+      id\
+      assignableUsers(first: 100) { edges { node { id, url, login, name } } }\
+      labels(first: 100) { edges { node { id, url, name } } }\
+      projects(first: 100) { edges { node { id, url, name } } }\
+      milestones(first: 100) { edges { node { id, url, title } } }\
+    }\
+  }'
+  const variables = {
+    owner: configs.GITHUB_OWNER,
+    name: configs.GITHUB_REPOSITORY,
+  }
+  const json = postGithubV4(query, variables)
+  log(json)
+}
+
+/**
  * GitHubから、Milestoneを取得する
  *
  * @see https://developer.github.com/v4/object/repository/#milestones
@@ -88,7 +114,7 @@ function fetchMilestoneFromGithub(states, direction) {
   const query = 'query($owner: String!, $name: String!, $states: [MilestoneState!], $direction: OrderDirection!) {\
     repository(owner: $owner, name: $name) {\
       milestones(first:1, states: $states, orderBy: { field: DUE_DATE, direction: $direction }) {\
-        edges { node { id, title url} }\
+        edges { node { id, url, title } }\
       }\
     }\
   }'
@@ -282,10 +308,11 @@ function getDate8(date) {
  * @param {Object} 出力内容
  */
 function log(messageItem) {
+  const message = JSON.stringify(messageItem, null, 2)
   // エディタ上で、Cmd + Enter でのログ確認
-  Logger.log(messageItem)
+  Logger.log(message)
   // https://script.google.com/home/executions でのログ確認
-  console.log(messageItem)
+  console.log(message)
 }
 
 /**
@@ -355,7 +382,7 @@ function tmp() {
   - https://script.google.com/home/executions
 - GitHub token
   - https://github.com/settings/tokens
-  - TODO itomakiweb-botユーザを作成して利用するようにしたいかも（現状、itomakiwebのtokenを利用）
+  - https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
 - GraphQL
   - variablesを使う場合、query()内にも定義が必要なので注意
   - https://developer.github.com/v4/explorer/
