@@ -9,4 +9,5 @@
     <string name="nameHide">hide</string>
     <string name="nameNobu">nobu</string>
     <string name="toStaffRole">STAFF ROLE</string>
+    <string name="showStaffRoleResult">SHOW</string>
 </resources>
