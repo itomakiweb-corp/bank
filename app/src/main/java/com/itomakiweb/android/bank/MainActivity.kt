@@ -15,5 +15,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, BlackJackActivity::class.java)
             startActivity(intent)
         }
+
+        toStaffRole.setOnClickListener{
+            val intent = Intent(this, StaffRoleActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 }

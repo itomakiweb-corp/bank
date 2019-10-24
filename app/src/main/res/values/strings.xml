@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">BANK</string>
     <string name="toBlackJack">BLACK JACK</string>
+    <string name="nameIkki">ikki</string>
+    <string name="nameKazucharo">kazucharo</string>
+    <string name="nameYu">yu</string>
+    <string name="nameAda">ada</string>
+    <string name="nameBe">be-</string>
+    <string name="nameHide">hide</string>
+    <string name="nameNobu">nobu</string>
+    <string name="toStaffRole">STAFF ROLE</string>
 </resources>
