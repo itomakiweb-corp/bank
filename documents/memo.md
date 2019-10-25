@@ -2,6 +2,7 @@
 
 - bot
   - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
+    - 閲覧権限でも実行できてしまうので注意（環境変数は見られない）
 - GASエディタ操作
   - Cmd + r: 実行
   - Cmd + Enter: ログ確認
@@ -33,6 +34,7 @@ curl -s -X POST -H "Authorization: Bearer ${token}" -H 'Accept: application/vnd.
 - Slack token
   - https://api.slack.com/apps
   - https://api.slack.com/apps/APQQU1DQU/oauth?
+  - メッセージ送信なら、デフォルトのbot権限とBot User OAuth Access Tokenで可能
   - not_authedエラー
     - BearerのBを小文字にしていたら、Slack APIにアクセスできなかった
     - GitHub APIはアクセス可能だったので、調査が難航した
