@@ -34,16 +34,16 @@ function postDoneAndTodoToSlack() {
   log(body)
 
   const configs = getConfigs()
-  const variables = {
+  const input = {
     repositoryId: configs.GITHUB_REPOSITORY_ID,
     title: title,
     body: body,
-    // TODO assigneeIds: configs.GITHUB_TODO_ASSIGNEE_IDS,
+    assigneeIds: configs.GITHUB_TODO_ASSIGNEE_IDS,
     labelIds: configs.GITHUB_TODO_LABEL_IDS,
     projectIds: configs.GITHUB_TODO_PROJECT_IDS,
     milestoneId: todoMilestone.id,
   }
-  const doneAndTodoQuest = postIssueToGithub(variables)
+  const doneAndTodoQuest = postIssueToGithub(input)
   log(doneAndTodoQuest)
 
   const doneAndTodoMessage = postMessageToSlack(body)
@@ -145,7 +145,7 @@ function fetchMilestoneFromGithub(states, direction) {
  * @param {Object} リクエスト内容
  * @return {Object} レスポンスJSON
  */
-function postIssueToGitHub(variables) {
+function postIssueToGithub(input) {
   const query = 'mutation($input: CreateIssueInput!) {\
     createIssue(input:$input) {\
       issue {\
@@ -154,6 +154,9 @@ function postIssueToGitHub(variables) {
       }\
     }\
   }';
+  const variables = {
+    input: input
+  }
   const json = postGithubV4(query, variables)
 
   return json
