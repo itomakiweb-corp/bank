@@ -1,5 +1,8 @@
 // https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
 
+
+// ## main（triggersなどからの実行を想定）
+
 /**
  * GitHubに、先週のまとめと今週の予定を確認するクエストを登録する
  * Slackに、先週のまとめと今週の予定を送信する
@@ -35,7 +38,7 @@ function postDoneAndTodoToSlack() {
     repositoryId: configs.GITHUB_REPOSITORY_ID,
     title: title,
     body: body,
-    // assigneeIds: configs.GITHUB_TODO_ASSIGNEE_IDS,
+    // TODO assigneeIds: configs.GITHUB_TODO_ASSIGNEE_IDS,
     labelIds: configs.GITHUB_TODO_LABEL_IDS,
     projectIds: configs.GITHUB_TODO_PROJECT_IDS,
     milestoneId: todoMilestone.id,
@@ -99,6 +102,9 @@ function fetchRepositoryInfoFromGithub() {
   const json = postGithubV4(query, variables)
   log(json)
 }
+
+
+// ## library
 
 /**
  * GitHubから、Milestoneを取得する
@@ -252,7 +258,8 @@ function postSlack(method, path, payload) {
  * @return {Object} リクエストヘッダ
  */
 function getOauthJsonHeaders(tokenKey, additionalHeaders) {
-  const token = PropertiesService.getScriptProperties().getProperty(tokenKey) // TODO move config
+  const configs = getConfigs()
+  const token = configs[tokenKey]
   const headers = {
     // ES2015なら、以下で代替可能
     // Authorization: `Bearer ${token}`,
@@ -293,9 +300,9 @@ function postJson(url, options) {
  */
 function getDate8(date) {
   const configs = getConfigs()
-  // toISOString()はUTCになるので、locale表示のために、一時的に+09:00して元に戻す
-  date.setHours(date.getHours() + configs.LOCALE_HOUR)
   // ex: date.toISOString(): 2019-11-06T15:16:00.908Z => 20191106
+  // toISOString()はUTCになるので、locale表示のために、一時的に時差を加算して元に戻す
+  date.setHours(date.getHours() + configs.LOCALE_HOUR)
   const date8 = date.toISOString().replace(/-/g, '').replace(/T.*/, '')
   date.setHours(date.getHours() - configs.LOCALE_HOUR)
 
