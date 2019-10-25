@@ -55,6 +55,8 @@
   - Open AVD Manager
   - Create Virtual Device
   - Pixel 3, Q (Android 10.0)
+- Other for Mac
+  - https://brew.sh/index_ja
   
 ## etc
 

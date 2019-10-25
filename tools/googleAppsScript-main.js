@@ -1,4 +1,8 @@
-// https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
+/**
+ * プロジェクト全般定期実行Google Apps Script
+ *
+ * @see https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
+ */
 
 
 // ## main（triggersなどからの実行を想定）
@@ -333,13 +337,9 @@ function getConfigs() {
   const configs = {
     LOCALE_HOUR: +9, // Asia/Tokyo
 
+    // 設定値は、fetchRepositoryInfoFromGithubの実行などで確認可能
     GITHUB_OWNER: 'itomakiweb-corp',
     GITHUB_REPOSITORY: 'bank',
-    // 以下コマンドでID確認
-    // https://brew.sh/index_ja
-    // brew install jq
-    // token="正当な値を設定"
-    // curl -s -X POST -H "Authorization: Bearer ${token}" -H 'Accept: application/vnd.github.v4.idl' -d '{"query": "query { repository(owner:\"itomakiweb-corp\", name:\"bank\") { id, assignableUsers(first: 100) { edges { node { id, login, name } } }, labels(first: 100) { edges { node { id, name } } }, projects(first: 100) { edges { node { id, name } } }, milestones(first: 100) { edges { node { id, title } } } } }"' https://api.github.com/graphql | jq
     GITHUB_REPOSITORY_ID: 'MDEwOlJlcG9zaXRvcnkyMTQxODM2ODE=',
     GITHUB_TODO_ASSIGNEE_IDS: [
       'MDQ6VXNlcjQzMjU1ODgw', // adachi-swivel
@@ -364,54 +364,19 @@ function getConfigs() {
     // SLACK_CHANNEL: 'GEED5096Z', // dev-study
   }
 
+  const scriptProperties = PropertiesService.getScriptProperties().getProperties()
+  // ファイル => プロジェクトのプロパティ => スクリプトのプロパティ　で設定した環境変数を保存
+  // GITHUB_TOKEN, SLACK_TOKENなど
+  for (var key in scriptProperties) configs[key] = scriptProperties[key]
+
   return configs
 }
 
-function tmp() {
-  const dueDate = new Date()
-  dueDate.setHours(8)
-  const dueDateFormat = getDate8(dueDate)
-  const title = '先週のまとめと今週と来週の予定を確認して検討する（${dueDateFormat}）'
-    .replace('${dueDateFormat}', dueDateFormat)
-  log(title)
+
+// ## testCode
+
+/**
+ * TODO
+ */
+function test() {
 }
-
-// TODO testコードを追加
-
-/*
-## memo
-
-- GASエディタ操作
-  - Cmd + r: 実行
-  - Cmd + Enter: ログ確認
-- GAS環境変数
-  - ファイル => プロジェクトのプロパティ => スクリプトのプロパティ　で設定可能
-  - PropertiesService.getScriptProperties().getProperty(keyName)で参照
-- GAS定期実行
-  - https://script.google.com/home/triggers
-  - https://script.google.com/home/executions
-- GitHub token
-  - https://github.com/settings/tokens
-  - https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
-- GraphQL
-  - variablesを使う場合、query()内にも定義が必要なので注意
-  - https://developer.github.com/v4/explorer/
-    - query詳細を入力しながら確認
-  - https://employment.en-japan.com/engineerhub/entry/2018/12/26/103000
-    - 概要確認
-  - https://graphql.github.io/learn/queries/
-    - 未読
-- Slack token
-  - https://api.slack.com/apps
-  - https://api.slack.com/apps/APQQU1DQU/oauth?
-  - not_authedエラー
-    - BearerのBを小文字にしていたら、Slack APIにアクセスできなかった
-    - GitHub APIはアクセス可能だったので、調査が難航した
-    - 以下サンプルが小文字になっていたため、間違えた
-    - https://developer.github.com/v4/guides/forming-calls/#communicating-with-graphql
-  - channel_not_foundエラー
-    - private channelは、botの招待が必要
-    - サイドメニュー => App + => itomakiweb-botを表示 => @itomakiweb-botをクリック => チャンネルにこのアプリを連携
-    - https://app.slack.com/client/TCWKJAQG1/DPTFFNKJA
-    - 
-*/
