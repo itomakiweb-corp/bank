@@ -12,6 +12,8 @@
  * Slackに、先週のまとめと今週の予定を送信する
  */
 function postDoneAndTodoToSlack() {
+  const configs = getConfigs()
+
   const dueDate = new Date()
   const dueDateFormat = getDate8(dueDate)
   const title = '先週のまとめと今週と来週の予定を確認して検討する（${dueDateFormat}）'
@@ -23,9 +25,12 @@ function postDoneAndTodoToSlack() {
   log(doneMilestone)
   log(todoMilestone)
 
+  const mainUrl = configs.MAIN_URL
   const doneUrl = doneMilestone.url + '?closed=1'
   const todoUrl = todoMilestone.url
   const body = '\
+- 作業の流れ\n\
+  - ${mainUrl}\n\
 - 先週やった内容\n\
   - ${doneUrl}\n\
 - 今週やる予定\n\
@@ -33,11 +38,11 @@ function postDoneAndTodoToSlack() {
 - 以下から自動送信\n\
   - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v\
 '
+    .replace('${mainUrl}', mainUrl)
     .replace('${doneUrl}', doneUrl)
     .replace('${todoUrl}', todoUrl)
   log(body)
 
-  const configs = getConfigs()
   const input = {
     repositoryId: configs.GITHUB_REPOSITORY_ID,
     title: title,
@@ -337,6 +342,8 @@ function getConfigs() {
   const configs = {
     LOCALE_HOUR: +9, // Asia/Tokyo
 
+    MAIN_URL: 'https://github.com/itomakiweb-corp/bank#flow',
+
     // 設定値は、fetchRepositoryInfoFromGithubの実行などで確認可能
     GITHUB_OWNER: 'itomakiweb-corp',
     GITHUB_REPOSITORY: 'bank',
@@ -364,9 +371,9 @@ function getConfigs() {
     // SLACK_CHANNEL: 'GEED5096Z', // dev-study
   }
 
-  const scriptProperties = PropertiesService.getScriptProperties().getProperties()
   // ファイル => プロジェクトのプロパティ => スクリプトのプロパティ　で設定した環境変数を保存
   // GITHUB_TOKEN, SLACK_TOKENなど
+  const scriptProperties = PropertiesService.getScriptProperties().getProperties()
   for (var key in scriptProperties) configs[key] = scriptProperties[key]
 
   return configs

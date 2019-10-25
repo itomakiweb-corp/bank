@@ -11,6 +11,8 @@
 - GAS定期実行
   - https://script.google.com/home/triggers
   - https://script.google.com/home/executions
+- GAS Reference
+  - https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app
 - GitHub token
   - https://github.com/settings/tokens
   - https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
