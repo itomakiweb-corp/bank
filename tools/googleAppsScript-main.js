@@ -366,12 +366,12 @@ function getConfigs() {
 
     // URLでID確認
     // SLACK_CHANNEL: '#tmp', // tmp
-    SLACK_CHANNEL: 'GPDVCDL2F', // tmp
+    // SLACK_CHANNEL: 'GPDVCDL2F', // tmp
     // SLACK_CHANNEL: 'DCX7CRT6E', // hide
-    // SLACK_CHANNEL: 'GEED5096Z', // dev-study
+    SLACK_CHANNEL: 'GEED5096Z', // dev-study
   }
 
-  // ファイル => プロジェクトのプロパティ => スクリプトのプロパティ　で設定した環境変数を保存
+  // ファイル => プロジェクトのプロパティ => スクリプトのプロパティ　で設定した環境変数を参照
   // GITHUB_TOKEN, SLACK_TOKENなど
   const scriptProperties = PropertiesService.getScriptProperties().getProperties()
   for (var key in scriptProperties) configs[key] = scriptProperties[key]
