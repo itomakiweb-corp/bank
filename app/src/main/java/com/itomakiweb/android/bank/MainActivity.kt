@@ -16,11 +16,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        toStaffRole.setOnClickListener{
-            val intent = Intent(this, StaffRoleActivity::class.java)
+        toHighAndLow.setOnClickListener {
+            val intent = Intent(this, HighAndLowActivity::class.java)
             startActivity(intent)
         }
 
-
+        toStaffRole.setOnClickListener {
+            val intent = Intent(this, StaffRoleActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
