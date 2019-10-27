@@ -10,7 +10,7 @@
 <h1>新規クエスト発行</h1>
 <form id="newQuest">
 <ul>
-  <li><label><input type="text" name="token" value="" size="72" placeholder="token" /></label></li>
+  <li><label><input type="password" name="token" value="" size="72" placeholder="token" /></label></li>
   <li><label><input type="text" name="title" value="" size="72" placeholder="title (required)" /></label></li>
   <li><label><textarea name="body" cols="72" rows="4" placeholder="body">
 - 
@@ -33,7 +33,12 @@
 </ul>
 </form>
 <script>
+// scope
+(() => {
 const $newQuest = document.querySelector('#newQuest')
+const defaultBody = $newQuest.querySelector('textarea[name="body"]').value
+
+// TODO 二度押し防止
 $newQuest.addEventListener('submit', (e) => {
   // ブラウザデフォルト挙動の画面遷移を停止（後にreturn falseが必要な模様）
   e.preventDefault()
@@ -92,7 +97,7 @@ $newQuest.addEventListener('submit', (e) => {
       $result.value = JSON.stringify(data, null, 2)
       if (!data.errors) {
         $newQuest.querySelector('input[name="title"]').value = ''
-        $newQuest.querySelector('textarea[name="body"]').value = ''
+        $newQuest.querySelector('textarea[name="body"]').value = defaultBody
       }
     })
     .catch(e => {
@@ -103,6 +108,7 @@ $newQuest.addEventListener('submit', (e) => {
   // ブラウザデフォルト挙動の画面遷移を停止
   return false
 })
+
 const configs = {
   GITHUB_REPOSITORY_ID: 'MDEwOlJlcG9zaXRvcnkyMTQxODM2ODE=',
   GITHUB_TODO_ASSIGNEE_IDS: [
@@ -117,6 +123,7 @@ const configs = {
     'MDc6UHJvamVjdDMzNTEwODU=', // Quest
   ],
 }
+})()
 </script>
 </body>
 </html>
