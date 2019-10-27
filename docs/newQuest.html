@@ -46,7 +46,7 @@ const $submit = $newQuest.querySelector('button[name="submit"]')
 const $result = $newQuest.querySelector('textarea[name="result"]')
 const defaultBody = $body.value
 
-$newQuest.addEventListener('submit', (e) => {
+$newQuest.addEventListener('submit', e => {
   // ブラウザデフォルト挙動の画面遷移を停止（後にreturn falseが必要な模様）
   e.preventDefault()
 
