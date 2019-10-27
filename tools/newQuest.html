@@ -88,8 +88,8 @@ $newQuest.addEventListener('submit', (e) => {
     .then(data => {
       $result.value = JSON.stringify(data, null, 2)
       if (!data.errors) {
-        $newQuest.reset()
-        $newQuest.querySelector('input[name="token"]').value = token
+        $newQuest.querySelector('input[name="title"]').value = ''
+        $newQuest.querySelector('textarea[name="body"]').value = ''
       }
     })
     .catch(e => {
