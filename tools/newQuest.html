@@ -31,6 +31,9 @@ $newQuest.addEventListener('submit', (e) => {
   // ブラウザデフォルト挙動の画面遷移を停止（後にreturn falseが必要な模様）
   e.preventDefault()
 
+  const $result = $newQuest.querySelector('textarea[name="result"]')
+  $result.value = ''
+
   const url = 'https://api.github.com/graphql'
 
   const token = $newQuest.querySelector('input[name="token"]').value
@@ -48,15 +51,23 @@ $newQuest.addEventListener('submit', (e) => {
       }
     }
   }`
-  const input = {
-    repositoryId: configs.GITHUB_REPOSITORY_ID,
-    title: $newQuest.querySelector('input[name="title"]').value,
-    body: $newQuest.querySelector('textarea[name="body"]').value,
-    labelIds: [
-      $newQuest.querySelector('input[name="priority"]:checked').value,
-      $newQuest.querySelector('input[name="cost-pre"]:checked').value,
-    ],
-    projectIds: configs.GITHUB_TODO_PROJECT_IDS,
+  let input
+  try {
+    input = {
+      repositoryId: configs.GITHUB_REPOSITORY_ID,
+      title: $newQuest.querySelector('input[name="title"]').value,
+      body: $newQuest.querySelector('textarea[name="body"]').value,
+      labelIds: [
+        $newQuest.querySelector('input[name="priority"]:checked').value,
+        $newQuest.querySelector('input[name="cost-pre"]:checked').value,
+      ],
+      projectIds: configs.GITHUB_TODO_PROJECT_IDS,
+    }
+  } catch (e) {
+    $result.value = 'ラジオボタンを選択してください'
+    console.error(e)
+
+    return false
   }
   const variables = {
     input,
@@ -71,21 +82,20 @@ $newQuest.addEventListener('submit', (e) => {
     headers,
     body: JSON.stringify(payload),
   }
-  console.log(options)
 
-  const $result = $newQuest.querySelector('textarea[name="result"]')
-  /*
   fetch(url, options)
     .then(response => response.json())
     .then(data => {
       $result.value = JSON.stringify(data, null, 2)
-      console.log(data)
+      if (!data.errors) {
+        $newQuest.reset()
+        $newQuest.querySelector('input[name="token"]').value = token
+      }
     })
-    .catch(error => {
-      $result.value = JSON.stringify(error, null, 2)
-      console.error(error)
+    .catch(e => {
+      $result.value = e.message
+      console.error(e)
     })
-  */
 
   // ブラウザデフォルト挙動の画面遷移を停止
   return false
