@@ -166,9 +166,9 @@ function postIssueToGithub(input) {
         title\
       }\
     }\
-  }';
+  }'
   const variables = {
-    input: input
+    input: input,
   }
   const json = postGithubV4(query, variables)
 
