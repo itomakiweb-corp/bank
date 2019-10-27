@@ -13,12 +13,12 @@
   <li><label><input type="text" name="title" value="" size="72" placeholder="title" /></label></li>
   <li><label><textarea name="body" cols="72" rows="12" placeholder="body"></textarea></label></li>
   <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODU5Njg5" />-priority: 1</label></li>
-  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwMTE1" />-priority: 3</label></li>
+  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwMTE1" checked="checked" />-priority: 3</label></li>
   <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwNTc0" />-priority: 5</label></li>
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzMDQ3" />cost-pre: 0</label></li>
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzNDE5" />cost-pre: 1</label></li>
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzODc5" />cost-pre: 2</label></li>
-  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MDA4" />cost-pre: 3</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MDA4" checked="checked" />cost-pre: 3</label></li>
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MTc2" />cost-pre: 5</label></li>
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYyMTE4" />cost-pre: ?</label></li>
   <li><label><input type="submit" name="submit" value="クエスト発行" /></label></li>
@@ -51,23 +51,16 @@ $newQuest.addEventListener('submit', (e) => {
       }
     }
   }`
-  let input
-  try {
-    input = {
-      repositoryId: configs.GITHUB_REPOSITORY_ID,
-      title: $newQuest.querySelector('input[name="title"]').value,
-      body: $newQuest.querySelector('textarea[name="body"]').value,
-      labelIds: [
-        $newQuest.querySelector('input[name="priority"]:checked').value,
-        $newQuest.querySelector('input[name="cost-pre"]:checked').value,
-      ],
-      projectIds: configs.GITHUB_TODO_PROJECT_IDS,
-    }
-  } catch (e) {
-    $result.value = 'ラジオボタンを選択してください'
-    console.error(e)
-
-    return false
+  const input = {
+    repositoryId: configs.GITHUB_REPOSITORY_ID,
+    title: $newQuest.querySelector('input[name="title"]').value,
+    body: $newQuest.querySelector('textarea[name="body"]').value,
+    // assigneeIds: configs.GITHUB_TODO_ASSIGNEE_IDS,
+    labelIds: [
+      $newQuest.querySelector('input[name="priority"]:checked').value,
+      $newQuest.querySelector('input[name="cost-pre"]:checked').value,
+    ],
+    projectIds: configs.GITHUB_TODO_PROJECT_IDS,
   }
   const variables = {
     input,
