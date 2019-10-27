@@ -47,7 +47,6 @@ const $submit = $newQuest.querySelector('input[name="submit"]')
 const $result = $newQuest.querySelector('textarea[name="result"]')
 const defaultBody = $body.value
 
-// TODO 二度押し防止
 $newQuest.addEventListener('submit', (e) => {
   // ブラウザデフォルト挙動の画面遷移を停止（後にreturn falseが必要な模様）
   e.preventDefault()
@@ -59,6 +58,7 @@ $newQuest.addEventListener('submit', (e) => {
     $submit.disabled = true
   }, 1)
 
+  // リクエスト生成
   const url = 'https://api.github.com/graphql'
 
   const token = $token.value
@@ -106,6 +106,7 @@ $newQuest.addEventListener('submit', (e) => {
     body: JSON.stringify(payload),
   }
 
+  // リクエスト実行
   fetch(url, options)
     .then(response => response.json())
     .then(data => {
@@ -120,6 +121,7 @@ $newQuest.addEventListener('submit', (e) => {
       $result.value = e.message
       console.error(e)
     })
+    // APIリクエスト完了後、二度押し防止解除
     .finally(() => {
       $submit.disabled = false
     })
