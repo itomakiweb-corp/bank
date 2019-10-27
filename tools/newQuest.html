@@ -28,7 +28,9 @@
 <script>
 $newQuest = document.querySelector('#newQuest')
 $newQuest.addEventListener('submit', (e) => {
+  // ブラウザデフォルト挙動の画面遷移を停止（後にreturn falseが必要な模様）
   e.preventDefault()
+
   const getElement = (name, element = 'input') => {
     return $newQuest.querySelector(`${element}[name="${name}"]`)
   }
@@ -36,8 +38,7 @@ $newQuest.addEventListener('submit', (e) => {
     return getElement(name, element).value
   }
 
-  const path = `repos/${configs.GITHUB_OWNER}/${configs.GITHUB_REPOSITORY}/labels`
-  const url = 'https://api.github.com/' + path
+  const url = 'https://api.github.com/graphql'
 
   const token = getValue('token')
   const headers = {
@@ -45,7 +46,17 @@ $newQuest.addEventListener('submit', (e) => {
     'Content-Type': 'application/json; charset=UTF-8',
   }
 
-  const payload = {
+  const query = `mutation($input: CreateIssueInput!) {
+    createIssue(input: $input) {
+      issue {
+        id
+        url
+        title
+      }
+    }
+  }`
+  const input = {
+    repositoryId: configs.GITHUB_REPOSITORY_ID,
     title: getValue('title'),
     body: getValue('body', 'textarea'),
     labelIds: [
@@ -54,12 +65,19 @@ $newQuest.addEventListener('submit', (e) => {
     ],
     projectIds: configs.GITHUB_TODO_PROJECT_IDS,
   }
+  const variables = {
+    input,
+  }
+  const payload = {
+    query: query,
+    variables: variables,
+  }
   console.log(payload)
 
   const options = {
-    method: 'get',
+    method: 'post',
     headers,
-    // body: JSON.stringify(payload),
+    body: JSON.stringify(payload),
   }
 
   const $result = getElement('result', 'textarea')
@@ -74,11 +92,10 @@ $newQuest.addEventListener('submit', (e) => {
       console.error(error)
     })
 
+  // ブラウザデフォルト挙動の画面遷移を停止
   return false
 })
 const configs = {
-  GITHUB_OWNER: 'itomakiweb-corp',
-  GITHUB_REPOSITORY: 'bank',
   GITHUB_REPOSITORY_ID: 'MDEwOlJlcG9zaXRvcnkyMTQxODM2ODE=',
   GITHUB_TODO_PROJECT_IDS: [
     'MDc6UHJvamVjdDMzNTEwODU=', // Quest
