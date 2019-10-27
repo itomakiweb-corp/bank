@@ -26,21 +26,14 @@
 </ul>
 </form>
 <script>
-$newQuest = document.querySelector('#newQuest')
+const $newQuest = document.querySelector('#newQuest')
 $newQuest.addEventListener('submit', (e) => {
   // ブラウザデフォルト挙動の画面遷移を停止（後にreturn falseが必要な模様）
   e.preventDefault()
 
-  const getElement = (name, element = 'input') => {
-    return $newQuest.querySelector(`${element}[name="${name}"]`)
-  }
-  const getValue = (name, element = 'input') => {
-    return getElement(name, element).value
-  }
-
   const url = 'https://api.github.com/graphql'
 
-  const token = getValue('token')
+  const token = $newQuest.querySelector('input[name="token"]').value
   const headers = {
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json; charset=UTF-8',
@@ -57,11 +50,11 @@ $newQuest.addEventListener('submit', (e) => {
   }`
   const input = {
     repositoryId: configs.GITHUB_REPOSITORY_ID,
-    title: getValue('title'),
-    body: getValue('body', 'textarea'),
+    title: $newQuest.querySelector('input[name="title"]').value,
+    body: $newQuest.querySelector('textarea[name="body"]').value,
     labelIds: [
-      getValue('priority'),
-      getValue('cost-pre'),
+      $newQuest.querySelector('input[name="priority"]:checked').value,
+      $newQuest.querySelector('input[name="cost-pre"]:checked').value,
     ],
     projectIds: configs.GITHUB_TODO_PROJECT_IDS,
   }
@@ -69,18 +62,19 @@ $newQuest.addEventListener('submit', (e) => {
     input,
   }
   const payload = {
-    query: query,
-    variables: variables,
+    query,
+    variables,
   }
-  console.log(payload)
 
   const options = {
     method: 'post',
     headers,
     body: JSON.stringify(payload),
   }
+  console.log(options)
 
-  const $result = getElement('result', 'textarea')
+  const $result = $newQuest.querySelector('textarea[name="result"]')
+  /*
   fetch(url, options)
     .then(response => response.json())
     .then(data => {
@@ -91,6 +85,7 @@ $newQuest.addEventListener('submit', (e) => {
       $result.value = JSON.stringify(error, null, 2)
       console.error(error)
     })
+  */
 
   // ブラウザデフォルト挙動の画面遷移を停止
   return false
