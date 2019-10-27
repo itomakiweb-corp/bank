@@ -10,23 +10,23 @@
 <h1>新規クエスト発行</h1>
 <form id="newQuest">
 <ul>
-  <li><label><input type="password" name="token" value="" size="72" placeholder="token" /></label></li>
-  <li><label><input type="text" name="title" value="" size="72" placeholder="title (required)" /></label></li>
+  <li><label><input type="password" name="token" value="" size="72" placeholder="token (required)" required="required" /></label></li>
+  <li><label><input type="text" name="title" value="" size="72" placeholder="title (required)" required="required" /></label></li>
   <li><label><textarea name="body" cols="72" rows="4" placeholder="body">
 - 
 - 
 - 
 </textarea></label></li>
   <li><label><input type="checkbox" name="assignAll" value="ALL" />全員に割り当てる</label></li>
-  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODU5Njg5" />-priority: 1</label></li>
-  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwMTE1" checked="checked" />-priority: 3</label></li>
-  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwNTc0" />-priority: 5</label></li>
-  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzMDQ3" />cost-pre: 0</label></li>
-  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzNDE5" />cost-pre: 1</label></li>
-  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzODc5" />cost-pre: 2</label></li>
-  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MDA4" checked="checked" />cost-pre: 3</label></li>
-  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MTc2" />cost-pre: 5</label></li>
-  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYyMTE4" />cost-pre: ?</label></li>
+  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODU5Njg5" required="required" />-priority: 1</label></li>
+  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwMTE1" required="required" checked="checked" />-priority: 3</label></li>
+  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwNTc0" required="required" />-priority: 5</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzMDQ3" required="required" />cost-pre: 0</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzNDE5" required="required" />cost-pre: 1</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzODc5" required="required" />cost-pre: 2</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MDA4" required="required" checked="checked" />cost-pre: 3</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MTc2" required="required" />cost-pre: 5</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYyMTE4" required="required" />cost-pre: ?</label></li>
   <li><label><input type="text" name="milestoneId" value="" size="72" placeholder="milestoneId" /></label></li>
   <li><label><button type="submit" name="submit" value="SUBMIT" />クエスト発行</button></label></li>
   <li><label><textarea name="result" cols="72" rows="12" placeholder="result (readonly)" readonly="readonly"></textarea></label></li>
