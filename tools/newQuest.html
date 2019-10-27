@@ -33,7 +33,9 @@
 </ul>
 </form>
 <script>
-// scope
+// NOTE 動作確認ブラウザ: 20191027 Mac Firefox/Chrome最新版
+
+// scope生成のために関数で囲み、即時実行
 (() => {
 const $newQuest = document.querySelector('#newQuest')
 const $token = $newQuest.querySelector('input[name="token"]')
@@ -54,6 +56,7 @@ $newQuest.addEventListener('submit', (e) => {
   // 結果初期化
   $result.value = ''
   // 二度押し防止（投稿を正常に行うため、1ミリ秒遅延させる）
+  // NOTE 今はsetTimeoutは不要な可能性もあり（要確認）
   setTimeout(() => {
     $submit.disabled = true
   }, 1)
