@@ -25,25 +25,29 @@ function postDoneAndTodoToSlack() {
   log(doneMilestone)
   log(todoMilestone)
 
-  const mainUrl = configs.MAIN_URL
   const doneUrl = doneMilestone.url + '?closed=1'
   const todoUrl = todoMilestone.url
   const body = '\
 - 作業の流れ\n\
-  - ${mainUrl}\n\
+  - ${configs.URL_MAIN}\n\
 - 先週やった内容\n\
   - ${doneUrl}\n\
 - 今週やる予定\n\
   - ${todoUrl}\n\
   - Milestoneをきちんと設定する\n\
   - 今週の作業が完了したら、Milestoneをクローズする\n\
+- クエスト追加\n\
+  - ${configs.URL_NEW_QUEST}\n\
 - 以下から自動送信\n\
-  - https://github.com/itomakiweb-corp/bank/blob/master/tools/gas-main.js\n\
-  - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v\n\
+  - ${configs.URL_GAS}\n\
+  - ${configs.URL_GAS_SOURCE}\n\
 '
-    .replace('${mainUrl}', mainUrl)
+    .replace('${configs.URL_MAIN}', configs.URL_MAIN)
     .replace('${doneUrl}', doneUrl)
     .replace('${todoUrl}', todoUrl)
+    .replace('${configs.URL_NEW_QUEST}', configs.URL_NEW_QUEST)
+    .replace('${configs.URL_GAS}', configs.URL_GAS)
+    .replace('${configs.URL_GAS_SOURCE}', configs.URL_GAS_SOURCE)
   log(body)
 
   const input = {
@@ -346,7 +350,10 @@ function getConfigs() {
   const configs = {
     LOCALE_HOUR: +9, // Asia/Tokyo
 
-    MAIN_URL: 'https://github.com/itomakiweb-corp/bank#flow',
+    URL_MAIN: 'https://github.com/itomakiweb-corp/bank#flow',
+    URL_NEW_QUEST: 'https://itomakiweb.com/bank/newQuest',
+    URL_GAS: 'https://github.com/itomakiweb-corp/bank/blob/master/tools/gas-main.js',
+    URL_GAS_SOURCE: 'https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v',
 
     // 設定値は、fetchRepositoryInfoFromGithubの実行などで確認可能
     GITHUB_OWNER: 'itomakiweb-corp',
