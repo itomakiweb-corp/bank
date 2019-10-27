@@ -57,6 +57,9 @@
   - Pixel 3, Q (Android 10.0)
 - Other for Mac
   - https://brew.sh/index_ja
+- bots
+  - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
+    - 閲覧権限でも実行できてしまうので注意（環境変数は見られない）
   
 ## etc
 

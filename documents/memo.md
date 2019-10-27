@@ -1,8 +1,5 @@
 ## memo
 
-- bot
-  - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
-    - 閲覧権限でも実行できてしまうので注意（環境変数は見られない）
 - GASエディタ操作
   - Cmd + r: 選択した関数を実行
   - Cmd + Enter: 直前の実行ログを確認
