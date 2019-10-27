@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>クエスト発行</title>
+  <meta name="description" content="新規クエストを発行します。" />
+  <meta name="viewport" content="initial-scale=1" />
+</head>
+<body>
+<form id="newQuest">
+<ul>
+  <li><label><input type="text" name="token" value="" size="72" placeholder="token" /></label></li>
+  <li><label><input type="text" name="title" value="" size="72" placeholder="title" /></label></li>
+  <li><label><textarea name="body" cols="72" rows="12" placeholder="body"></textarea></label></li>
+  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODU5Njg5" />-priority: 1</label></li>
+  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwMTE1" />-priority: 3</label></li>
+  <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwNTc0" />-priority: 5</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzMDQ3" />cost-pre: 0</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzNDE5" />cost-pre: 1</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYzODc5" />cost-pre: 2</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MDA4" />cost-pre: 3</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MTc2" />cost-pre: 5</label></li>
+  <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYyMTE4" />cost-pre: ?</label></li>
+  <li><label><input type="submit" name="submit" value="クエスト発行" /></label></li>
+  <li><label><textarea name="result" cols="72" rows="12" placeholder="result" readonly></textarea></label></li>
+</ul>
+</form>
+<script>
+$newQuest = document.querySelector('#newQuest')
+$newQuest.addEventListener('submit', (e) => {
+  e.preventDefault()
+  const getElement = (name, element = 'input') => {
+    return $newQuest.querySelector(`${element}[name="${name}"]`)
+  }
+  const getValue = (name, element = 'input') => {
+    return getElement(name, element).value
+  }
+
+  const path = `repos/${configs.GITHUB_OWNER}/${configs.GITHUB_REPOSITORY}/labels`
+  const url = 'https://api.github.com/' + path
+
+  const token = getValue('token')
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json; charset=UTF-8',
+  }
+
+  const payload = {
+    title: getValue('title'),
+    body: getValue('body', 'textarea'),
+    labelIds: [
+      getValue('priority'),
+      getValue('cost-pre'),
+    ],
+    projectIds: configs.GITHUB_TODO_PROJECT_IDS,
+  }
+  console.log(payload)
+
+  const options = {
+    method: 'get',
+    headers,
+    // body: JSON.stringify(payload),
+  }
+
+  const $result = getElement('result', 'textarea')
+  fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      $result.value = JSON.stringify(data, null, 2)
+      console.log(data)
+    })
+    .catch(error => {
+      $result.value = JSON.stringify(error, null, 2)
+      console.error(error)
+    })
+
+  return false
+})
+const configs = {
+  GITHUB_OWNER: 'itomakiweb-corp',
+  GITHUB_REPOSITORY: 'bank',
+  GITHUB_REPOSITORY_ID: 'MDEwOlJlcG9zaXRvcnkyMTQxODM2ODE=',
+  GITHUB_TODO_PROJECT_IDS: [
+    'MDc6UHJvamVjdDMzNTEwODU=', // Quest
+  ],
+}
+</script>
+</body>
+</html>
