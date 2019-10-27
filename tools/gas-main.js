@@ -35,8 +35,11 @@ function postDoneAndTodoToSlack() {
   - ${doneUrl}\n\
 - 今週やる予定\n\
   - ${todoUrl}\n\
+  - Milestoneをきちんと設定する\n\
+  - 今週の作業が完了したら、Milestoneをクローズする\n\
 - 以下から自動送信\n\
-  - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v\
+  - https://github.com/itomakiweb-corp/bank/blob/master/tools/gas-main.js\n\
+  - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v\n\
 '
     .replace('${mainUrl}', mainUrl)
     .replace('${doneUrl}', doneUrl)
@@ -61,7 +64,7 @@ function postDoneAndTodoToSlack() {
 
 /**
  * GitHubに、Milestoneを登録する
- * 2019-10-23時点で、GitHub GraphQL APIに存在しないので、v3で代替
+ * 2019-10-23時点で、GitHub API V4に存在しないので、V3で代替
  *
  * @see https://developer.github.com/v3/issues/milestones/
  */
@@ -156,10 +159,11 @@ function fetchMilestoneFromGithub(states, direction) {
  */
 function postIssueToGithub(input) {
   const query = 'mutation($input: CreateIssueInput!) {\
-    createIssue(input:$input) {\
+    createIssue(input: $input) {\
       issue {\
-        title,\
+        id\
         url\
+        title\
       }\
     }\
   }';
