@@ -12,6 +12,7 @@
   <li><label><input type="text" name="token" value="" size="72" placeholder="token" /></label></li>
   <li><label><input type="text" name="title" value="" size="72" placeholder="title" /></label></li>
   <li><label><textarea name="body" cols="72" rows="12" placeholder="body"></textarea></label></li>
+  <li><label><input type="checkbox" name="assignAll" value="ALL" />全員に割り当てる</label></li>
   <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODU5Njg5" />-priority: 1</label></li>
   <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwMTE1" checked="checked" />-priority: 3</label></li>
   <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwNTc0" />-priority: 5</label></li>
@@ -55,12 +56,14 @@ $newQuest.addEventListener('submit', (e) => {
     repositoryId: configs.GITHUB_REPOSITORY_ID,
     title: $newQuest.querySelector('input[name="title"]').value,
     body: $newQuest.querySelector('textarea[name="body"]').value,
-    // assigneeIds: configs.GITHUB_TODO_ASSIGNEE_IDS,
     labelIds: [
       $newQuest.querySelector('input[name="priority"]:checked').value,
       $newQuest.querySelector('input[name="cost-pre"]:checked').value,
     ],
     projectIds: configs.GITHUB_TODO_PROJECT_IDS,
+  }
+  if ($newQuest.querySelector('input[name="assignAll"]:checked')) {
+    input.assigneeIds = configs.GITHUB_TODO_ASSIGNEE_IDS
   }
   const variables = {
     input,
@@ -95,6 +98,14 @@ $newQuest.addEventListener('submit', (e) => {
 })
 const configs = {
   GITHUB_REPOSITORY_ID: 'MDEwOlJlcG9zaXRvcnkyMTQxODM2ODE=',
+  GITHUB_TODO_ASSIGNEE_IDS: [
+    'MDQ6VXNlcjQzMjU1ODgw', // adachi-swivel
+    'MDQ6VXNlcjQzNDM1OTg1', // bac0907
+    'MDQ6VXNlcjE2NTA1Mjcx', // itomakiweb
+    'MDQ6VXNlcjQzMTE0NDQx', // kazucharo
+    'MDQ6VXNlcjQ1MDA2Njgz', // tanukinoyu
+    'MDQ6VXNlcjQ0MjUyMzIx', // undine411
+  ],
   GITHUB_TODO_PROJECT_IDS: [
     'MDc6UHJvamVjdDMzNTEwODU=', // Quest
   ],
