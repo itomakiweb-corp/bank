@@ -41,9 +41,6 @@ const $newQuest = document.querySelector('#newQuest')
 const $token = $newQuest.querySelector('input[name="token"]')
 const $title = $newQuest.querySelector('input[name="title"]')
 const $body = $newQuest.querySelector('textarea[name="body"]')
-const $assignAll = $newQuest.querySelector('input[name="assignAll"]:checked')
-const $priority = $newQuest.querySelector('input[name="priority"]:checked')
-const $costPre = $newQuest.querySelector('input[name="cost-pre"]:checked')
 const $milestoneId = $newQuest.querySelector('input[name="milestoneId"]')
 const $submit = $newQuest.querySelector('input[name="submit"]')
 const $result = $newQuest.querySelector('textarea[name="result"]')
@@ -53,8 +50,13 @@ $newQuest.addEventListener('submit', (e) => {
   // ブラウザデフォルト挙動の画面遷移を停止（後にreturn falseが必要な模様）
   e.preventDefault()
 
-  // 結果初期化
+  // 初期化
+  // checkedは、submit内で実行しないと、デフォルト値が選ばれてしまう
+  const $assignAll = $newQuest.querySelector('input[name="assignAll"]:checked')
+  const $priority = $newQuest.querySelector('input[name="priority"]:checked')
+  const $costPre = $newQuest.querySelector('input[name="cost-pre"]:checked')
   $result.value = ''
+
   // 二度押し防止（投稿を正常に行うため、1ミリ秒遅延させる）
   // NOTE 今はsetTimeoutは不要な可能性もあり（要確認）
   setTimeout(() => {
@@ -95,6 +97,7 @@ $newQuest.addEventListener('submit', (e) => {
   if ($milestoneId.value) {
     input.milestoneId = $milestoneId.value
   }
+  console.log(input)
   const variables = {
     input,
   }
