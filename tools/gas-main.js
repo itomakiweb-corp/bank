@@ -352,8 +352,8 @@ function getConfigs() {
 
     URL_MAIN: 'https://github.com/itomakiweb-corp/bank#flow',
     URL_NEW_QUEST: 'https://itomakiweb.com/bank/newQuest',
-    URL_GAS: 'https://github.com/itomakiweb-corp/bank/blob/master/tools/gas-main.js',
-    URL_GAS_SOURCE: 'https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v',
+    URL_GAS: 'https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v',
+    URL_GAS_SOURCE: 'https://github.com/itomakiweb-corp/bank/blob/master/tools/gas-main.js',
 
     // 設定値は、fetchRepositoryInfoFromGithubの実行などで確認可能
     GITHUB_OWNER: 'itomakiweb-corp',
