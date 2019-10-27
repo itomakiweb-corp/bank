@@ -10,7 +10,7 @@
 <form id="newQuest">
 <ul>
   <li><label><input type="text" name="token" value="" size="72" placeholder="token" /></label></li>
-  <li><label><input type="text" name="title" value="" size="72" placeholder="title" /></label></li>
+  <li><label><input type="text" name="title" value="" size="72" placeholder="title (required)" /></label></li>
   <li><label><textarea name="body" cols="72" rows="12" placeholder="body"></textarea></label></li>
   <li><label><input type="checkbox" name="assignAll" value="ALL" />全員に割り当てる</label></li>
   <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODU5Njg5" />-priority: 1</label></li>
@@ -22,6 +22,7 @@
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MDA4" checked="checked" />cost-pre: 3</label></li>
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MTc2" />cost-pre: 5</label></li>
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYyMTE4" />cost-pre: ?</label></li>
+  <li><label><input type="text" name="milestoneId" value="" size="72" placeholder="milestoneId" /></label></li>
   <li><label><input type="submit" name="submit" value="クエスト発行" /></label></li>
   <li><label><textarea name="result" cols="72" rows="12" placeholder="result" readonly></textarea></label></li>
 </ul>
@@ -61,6 +62,7 @@ $newQuest.addEventListener('submit', (e) => {
       $newQuest.querySelector('input[name="cost-pre"]:checked').value,
     ],
     projectIds: configs.GITHUB_TODO_PROJECT_IDS,
+    milestoneId: $newQuest.querySelector('input[name="milestoneId"]').value,
   }
   if ($newQuest.querySelector('input[name="assignAll"]:checked')) {
     input.assigneeIds = configs.GITHUB_TODO_ASSIGNEE_IDS
