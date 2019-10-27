@@ -43,6 +43,7 @@ const $assignAll = $newQuest.querySelector('input[name="assignAll"]:checked')
 const $priority = $newQuest.querySelector('input[name="priority"]:checked')
 const $costPre = $newQuest.querySelector('input[name="cost-pre"]:checked')
 const $milestoneId = $newQuest.querySelector('input[name="milestoneId"]')
+const $submit = $newQuest.querySelector('input[name="submit"]')
 const $result = $newQuest.querySelector('textarea[name="result"]')
 const defaultBody = $body.value
 
@@ -51,7 +52,12 @@ $newQuest.addEventListener('submit', (e) => {
   // ブラウザデフォルト挙動の画面遷移を停止（後にreturn falseが必要な模様）
   e.preventDefault()
 
+  // 結果初期化
   $result.value = ''
+  // 二度押し防止（投稿を正常に行うため、1ミリ秒遅延させる）
+  setTimeout(() => {
+    $submit.disabled = true
+  }, 1)
 
   const url = 'https://api.github.com/graphql'
 
@@ -79,10 +85,12 @@ $newQuest.addEventListener('submit', (e) => {
       $costPre.value,
     ],
     projectIds: configs.GITHUB_TODO_PROJECT_IDS,
-    milestoneId: $milestoneId.value,
   }
   if ($assignAll) {
     input.assigneeIds = configs.GITHUB_TODO_ASSIGNEE_IDS
+  }
+  if ($milestoneId.value) {
+    input.milestoneId = $milestoneId.value
   }
   const variables = {
     input,
@@ -111,6 +119,9 @@ $newQuest.addEventListener('submit', (e) => {
     .catch(e => {
       $result.value = e.message
       console.error(e)
+    })
+    .finally(() => {
+      $submit.disabled = false
     })
 
   // ブラウザデフォルト挙動の画面遷移を停止
