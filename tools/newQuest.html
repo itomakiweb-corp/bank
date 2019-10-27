@@ -2,16 +2,21 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <title>クエスト発行</title>
+  <title>新規クエスト発行</title>
   <meta name="description" content="新規クエストを発行します。" />
   <meta name="viewport" content="initial-scale=1" />
 </head>
 <body>
+<h1>新規クエスト発行</h1>
 <form id="newQuest">
 <ul>
   <li><label><input type="text" name="token" value="" size="72" placeholder="token" /></label></li>
   <li><label><input type="text" name="title" value="" size="72" placeholder="title (required)" /></label></li>
-  <li><label><textarea name="body" cols="72" rows="12" placeholder="body"></textarea></label></li>
+  <li><label><textarea name="body" cols="72" rows="12" placeholder="body">
+- 
+- 
+- 
+</textarea></label></li>
   <li><label><input type="checkbox" name="assignAll" value="ALL" />全員に割り当てる</label></li>
   <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODU5Njg5" />-priority: 1</label></li>
   <li><label><input type="radio" name="priority" value="MDU6TGFiZWwxNjE1ODYwMTE1" checked="checked" />-priority: 3</label></li>
@@ -24,7 +29,7 @@
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYyMTE4" />cost-pre: ?</label></li>
   <li><label><input type="text" name="milestoneId" value="" size="72" placeholder="milestoneId" /></label></li>
   <li><label><input type="submit" name="submit" value="クエスト発行" /></label></li>
-  <li><label><textarea name="result" cols="72" rows="12" placeholder="result" readonly></textarea></label></li>
+  <li><label><textarea name="result" cols="72" rows="12" placeholder="result (readonly)" readonly></textarea></label></li>
 </ul>
 </form>
 <script>
