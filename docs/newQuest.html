@@ -28,8 +28,8 @@
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MTc2" />cost-pre: 5</label></li>
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYyMTE4" />cost-pre: ?</label></li>
   <li><label><input type="text" name="milestoneId" value="" size="72" placeholder="milestoneId" /></label></li>
-  <li><label><input type="submit" name="submit" value="クエスト発行" /></label></li>
-  <li><label><textarea name="result" cols="72" rows="12" placeholder="result (readonly)" readonly></textarea></label></li>
+  <li><label><button type="submit" name="submit" value="SUBMIT" />クエスト発行</button></label></li>
+  <li><label><textarea name="result" cols="72" rows="12" placeholder="result (readonly)" readonly="readonly"></textarea></label></li>
 </ul>
 </form>
 <script>
@@ -42,7 +42,7 @@ const $token = $newQuest.querySelector('input[name="token"]')
 const $title = $newQuest.querySelector('input[name="title"]')
 const $body = $newQuest.querySelector('textarea[name="body"]')
 const $milestoneId = $newQuest.querySelector('input[name="milestoneId"]')
-const $submit = $newQuest.querySelector('input[name="submit"]')
+const $submit = $newQuest.querySelector('button[name="submit"]')
 const $result = $newQuest.querySelector('textarea[name="result"]')
 const defaultBody = $body.value
 
