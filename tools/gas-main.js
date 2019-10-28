@@ -88,7 +88,7 @@ function postMilestoneToGithub() {
   const endDateFormat = getDate8(endDate)
 
   const payload = {
-    title: 'sprint: ' + startDateFormat + '-' + endDateFormat,
+    title: startDateFormat + '-' + endDateFormat,
     due_on: endDate.toISOString(), // ex: 2019-11-06T15:16:00.908Z, GitHub仕様では、末尾のミリ秒は含まないが、実行可能
   }
   const json = postGithubV3(method, path, payload)
