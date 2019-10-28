@@ -49,6 +49,7 @@ const $body = $newQuest.querySelector('textarea[name="body"]')
 const $milestoneId = $newQuest.querySelector('input[name="milestoneId"]')
 const $submit = $newQuest.querySelector('button[name="submit"]')
 const $result = $newQuest.querySelector('textarea[name="result"]')
+$title.focus()
 const defaultBody = $body.value
 
 $newQuest.addEventListener('submit', e => {
@@ -126,6 +127,7 @@ $newQuest.addEventListener('submit', e => {
       if (!data.errors) {
         $title.value = ''
         $body.value = defaultBody
+        $title.focus()
       }
     })
     .catch(e => {
