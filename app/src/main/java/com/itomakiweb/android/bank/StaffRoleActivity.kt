@@ -10,11 +10,28 @@ class StaffRoleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_staff_role)
 
-        val staffList: MutableList<String> = mutableListOf()
-
         showStaffRoleResult.setOnClickListener {
+            val staffList: MutableList<String> = mutableListOf()
             if (nameIkki.isChecked){
                 staffList.add("ikki")
+            }
+            if (nameKazucharo.isChecked){
+                staffList.add("kazucharo")
+            }
+            if (nameYu.isChecked){
+                staffList.add("yu-")
+            }
+            if (nameAda.isChecked){
+                staffList.add("Ada")
+            }
+            if (nameBe.isChecked){
+                staffList.add("be-")
+            }
+            if (nameHide.isChecked){
+                staffList.add("Hide")
+            }
+            if (nameNobu.isChecked){
+                staffList.add("Nobu")
             }
 
             staffRoleResult.text = staffList.shuffled().toString()
