@@ -1,9 +1,21 @@
 ## Flow
 
 1. [クエスト](https://github.com/itomakiweb-corp/bank/projects/1)を確認する（[クエストを追加する](https://itomakiweb.com/bank/newQuest)）
+    - 優先度が高く、着手可能なクエストが、上に並んでいる
+    - 列の種別: memo, dev, required, priority5, priority3, priority1
+    - labelのpriority: 自分が思う優先度を暫定で設定する
+    - labelのcost-pre: #4 の完了を1とした場合の相対値を暫定で設定する
+    - 自分ができないタスクでも、クエストに登録するのを推奨する
+        - 誰かが分解できるから
+        - 分解したら、元のクエストは分解クエストと名称を変更してクローズする
 1. [先週のまとめ](https://github.com/itomakiweb-corp/bank/milestones?state=closed)と[今週と来週の予定](https://github.com/itomakiweb-corp/bank/milestones)を確認して検討する
+    - 重要なクエストは、人数分作成する（場合によっては、全員を1つのクエストにassign）
+    - 取れるクエストは、随時自分をassignして問題ない（学習目的なので、積極的にクエストを担当するのを推奨）
+    - やってみよう！　の精神を大事に
 1. [モブプログラミングの担当をランダムに決める](https://paiza.io/projects/SHMoTiDcBPG9eI86P-WS5A)（[ソースコード](https://github.com/itomakiweb-corp/bank/blob/master/tools/selectRandomUsers.kt)）
     - 30分交代でプルリクエスト作成まで完了させる（途中でも問題ない）
+1. 今回対応するクエストを、全員で決定する
+1. web 対応するクエストを開き、自分をassignする
 1. git checkout master
 1. git pull # origin master
 1. git branch -a
@@ -16,7 +28,11 @@
 1. git push origin new-branch -u -n
 1. web [pull request](https://github.com/itomakiweb-corp/bank/pulls), reviewersを指定する
 1. web reviewersのレビュー/マージ/new-branch削除を待つ
+1. 終わったクエストに、cost-realを設定する
 1. 最初に戻る
+1. その週のクエストが全て終わったら、Milestoneをクローズする
+    - 終わらなかったクエストを、unfinishedとしてMilestoneの説明文に追記する
+    - 終わらなかったクエストを、翌週のMilestoneに移動する
 
 ## Rule
 
