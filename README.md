@@ -8,13 +8,13 @@
     - 自分ができないタスクでも、クエストに登録するのを推奨する
         - 誰かが分解できるから
         - 分解したら、元のクエストは分解クエストと名称を変更してクローズする
-1. [先週のまとめ](https://github.com/itomakiweb-corp/bank/milestones?state=closed)と[今週と来週の予定](https://github.com/itomakiweb-corp/bank/milestones)を確認して検討する
     - 重要なクエストは、人数分作成する（場合によっては、全員を1つのクエストにassign）
     - 取れるクエストは、随時自分をassignして問題ない（学習目的なので、積極的にクエストを担当するのを推奨）
     - やってみよう！　の精神を大事に
+1. [先週のまとめ](https://github.com/itomakiweb-corp/bank/milestones?state=closed)と[今週と来週の予定](https://github.com/itomakiweb-corp/bank/milestones)を確認して検討する
+    - 今回対応するクエストを、全員で決定する
 1. [モブプログラミングの担当をランダムに決める](https://paiza.io/projects/SHMoTiDcBPG9eI86P-WS5A)（[ソースコード](https://github.com/itomakiweb-corp/bank/blob/master/tools/selectRandomUsers.kt)）
     - 30分交代でプルリクエスト作成まで完了させる（途中でも問題ない）
-1. 今回対応するクエストを、全員で決定する
 1. web 対応するクエストを開き、自分をassignする
 1. git checkout master
 1. git pull # origin master
