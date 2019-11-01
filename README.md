@@ -3,6 +3,7 @@
 1. [クエスト](https://github.com/itomakiweb-corp/bank/projects/1)を確認する（[クエストを追加する](https://itomakiweb.com/bank/newQuest)）
 1. [先週のまとめ](https://github.com/itomakiweb-corp/bank/milestones?state=closed)と[今週と来週の予定](https://github.com/itomakiweb-corp/bank/milestones)を確認して検討する
 1. [モブプログラミングの担当をランダムに決める](https://paiza.io/projects/SHMoTiDcBPG9eI86P-WS5A)（[ソースコード](https://github.com/itomakiweb-corp/bank/blob/master/tools/selectRandomUsers.kt)）
+    - 30分交代でプルリクエスト作成まで完了させる（途中でも問題ない）
 1. git checkout master
 1. git pull # origin master
 1. git branch -a
@@ -46,37 +47,37 @@
 ## Env
 
 - install
-  - https://git-scm.com/downloads
-  - https://developer.android.com/studio?hl=ja
+    - https://git-scm.com/downloads
+    - https://developer.android.com/studio?hl=ja
 - open Android Studio
-  - Check out project from Version Control, Git
-  - https://github.com/itomakiweb-corp/bank.git
+    - Check out project from Version Control, Git
+    - https://github.com/itomakiweb-corp/bank.git
 - Run 'app'
-  - Open AVD Manager
-  - Create Virtual Device
-  - Pixel 3, Q (Android 10.0)
+    - Open AVD Manager
+    - Create Virtual Device
+    - Pixel 3, Q (Android 10.0)
 - Other for Mac
-  - https://brew.sh/index_ja
+    - https://brew.sh/index_ja
 - bots
-  - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
-    - 閲覧権限でも実行できてしまうので注意（環境変数は見られない）
+    - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
+        - 閲覧権限でも実行できてしまうので注意（環境変数は見られない）
   
 ## etc
 
 - [memo.md](documents/memo.md)
 - 2019-10-17時点で、MacのAndroid Studio 3.5.1で、以下warningが出る
-  - 動作には問題ない模様なので、無視しても良い
-  - ProjectRoot/.ideaディレクトリを削除すればローカルを正常化できるが、全体に反映する方法はない模様
+    - 動作には問題ない模様なので、無視しても良い
+    - ProjectRoot/.ideaディレクトリを削除すればローカルを正常化できるが、全体に反映する方法はない模様
 ```
 Unsupported Modules Detected: Compilation is not supported for following modules: bank. Unfortunately you can't have non-Gradle Java modules and Android-Gradle modules in one project.
 ```
 - 2019-10-22時点で、MacのAndroid Studio 3.5.1で、emulator実行時に、以下warningが出る
-  - 動作には問題ない模様なので、無視しても良い
-  - 正常化する方法はわからない
+    - 動作には問題ない模様なので、無視しても良い
+    - 正常化する方法はわからない
 ```
 Qt WebEngine ICU data not found at /Users/joshuaduong/qt-build-5.12.1/install-darwin-x86_64/resources. Trying parent directory...
 ...
 ```
 - Screen備考に、画面遷移を記述するか？
-  - 画像で、画面遷移を作成するか？
-    - モブプログラミングのメンバで、どうするかを決定して作成していく
+    - 画像で、画面遷移を作成するか？
+        - モブプログラミングのメンバで、どうするかを決定して作成していく
