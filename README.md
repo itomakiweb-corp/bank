@@ -2,7 +2,7 @@
 
 1. [クエスト](https://github.com/itomakiweb-corp/bank/projects/1)を確認する（[クエストを追加する](https://itomakiweb.com/bank/newQuest)）
     - 優先度が高く、着手可能なクエストが、上に並んでいる
-    - 列の種別: memo, dev, required, priority5, priority3, priority1
+    - 列の種別: memo, dev, required, priority5, priority3, priority1, optional
     - labelのpriority: 自分が思う優先度を暫定で設定する
     - labelのcost-pre: #4 の完了を1とした場合の相対値を暫定で設定する
     - 自分ができないタスクでも、クエストに登録するのを推奨する
