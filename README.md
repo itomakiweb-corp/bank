@@ -13,6 +13,7 @@
     - やってみよう！　の精神を大事に
 1. [先週のまとめ](https://github.com/itomakiweb-corp/bank/milestones?state=closed)と[今週と来週の予定](https://github.com/itomakiweb-corp/bank/milestones)を確認して検討する
     - 今回対応するクエストを、全員で決定する
+    - 来週対応するクエストも、同時に検討する
 1. [モブプログラミングの担当をランダムに決める](https://paiza.io/projects/SHMoTiDcBPG9eI86P-WS5A)（[ソースコード](https://github.com/itomakiweb-corp/bank/blob/master/tools/selectRandomUsers.kt)）
     - 30分交代でプルリクエスト作成まで完了させる（途中でも問題ない）
 1. web 対応するクエストを開き、自分をassignする
