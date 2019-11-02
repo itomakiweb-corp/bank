@@ -39,7 +39,7 @@
 
 |対象|命名規則|備考|
 |:---|:---|:---|
-|git branch name|kebab-case|開発している機能名などを推奨する|
+|git branch name|lower-kebab-case|開発している機能名などを推奨する|
 |kotlin class name|UpperCamelCase|PascalCaseとも呼ばれる|
 |kotlin fun name|lowerCamelCase|-|
 |kotlin const name|UPPER_SNAKE_CASE|定数|
