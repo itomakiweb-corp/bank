@@ -44,7 +44,7 @@
 |kotlin fun name|lowerCamelCase|-|
 |kotlin const name|UPPER_SNAKE_CASE|定数|
 |View ID|lowerCamelCase|Kotlin変数名として記述することになるので、kebab-caseは不可|
-|Resource Name|lowerCamelCase|デフォルトはsnake_caseの模様だが、View IDと合わせる|
+|Resource Name|lowerCamelCase|デフォルトはlower_snake_caseの模様だが、View IDと合わせる|
 
 ## Screen
 
