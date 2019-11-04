@@ -1,8 +1,9 @@
-package com.itomakiweb.android.bank
+package com.itomakiweb.android.bank.pages
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
