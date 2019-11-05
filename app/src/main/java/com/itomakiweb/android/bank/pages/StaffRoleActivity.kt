@@ -2,8 +2,13 @@ package com.itomakiweb.android.bank.pages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.itomakiweb.android.bank.R
+import com.itomakiweb.android.bank.libraries.GithubApi
 import kotlinx.android.synthetic.main.activity_staff_role.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class StaffRoleActivity : AppCompatActivity() {
 
@@ -36,6 +41,16 @@ class StaffRoleActivity : AppCompatActivity() {
             }
 
             staffRoleResult.text = staffList.shuffled().toString()
+
+            GlobalScope.launch {
+                Log.i("Hide", "test")
+                try {
+                    val user = GithubApi.instance.fetchUser("itomakiweb")
+                    Log.i("Hide", user.toString())
+                } catch (e: HttpException) {
+                    // リクエスト失敗時の処理を行う
+                }
+            }
         }
 
     }
