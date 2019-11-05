@@ -6,10 +6,8 @@ import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
+
 
 interface GithubApi {
     companion object {
@@ -37,6 +35,29 @@ interface GithubApi {
     ): GithubRepositories
 }
 
+interface SlackApi {
+    companion object {
+        val instance = Retrofit.Builder()
+            .baseUrl(BuildConfig.SLACK_API)
+            .addConverterFactory(MoshiConverterFactory.create(
+                Moshi.Builder()
+                    // .add(KotlinJsonAdapterFactory())
+                    .build()
+            ))
+            .build()
+            .create(SlackApi::class.java)
+    }
+
+    @POST("chat.postMessage")
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.SLACK_TOKEN}",
+        "Content-Type: application/json; charset=UTF-8"
+    )
+    suspend fun createMessage(
+        @Body input: SlackPostMessageInput
+    ): SlackPostMessage
+}
+
 
 @JsonClass(generateAdapter = true)
 data class GithubUser(
@@ -59,4 +80,16 @@ data class GithubUser(
 data class GithubRepositories(
     @Json(name = "total_count")
     val totalCount: Int
+)
+
+@JsonClass(generateAdapter = true)
+data class SlackPostMessageInput(
+    val text: String,
+
+    val channel: String = BuildConfig.SLACK_CHANNEL
+)
+
+@JsonClass(generateAdapter = true)
+data class SlackPostMessage(
+    val ok: Boolean
 )

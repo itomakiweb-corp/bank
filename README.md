@@ -84,6 +84,7 @@ SLACK_TOKEN={YOUR_TOKEN_HERE}
 - bots
     - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
         - 閲覧権限でも実行できてしまうので注意（環境変数は見られない）
+    - https://script.google.com/home/executions
   
 ## etc
 

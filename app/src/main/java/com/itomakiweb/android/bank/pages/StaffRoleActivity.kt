@@ -1,10 +1,11 @@
 package com.itomakiweb.android.bank.pages
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.itomakiweb.android.bank.R
-import com.itomakiweb.android.bank.libraries.GithubApi
+import com.itomakiweb.android.bank.libraries.SlackApi
+import com.itomakiweb.android.bank.libraries.SlackPostMessageInput
 import kotlinx.android.synthetic.main.activity_staff_role.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -40,13 +41,18 @@ class StaffRoleActivity : AppCompatActivity() {
                 staffList.add("Nobu")
             }
 
-            staffRoleResult.text = staffList.shuffled().toString()
+            val result = staffList.shuffled().toString()
+            staffRoleResult.text = result
 
+// TODO no use GlobalScope, tokenセット時のみ実行
             GlobalScope.launch {
                 Log.i("Hide", "test")
                 try {
-                    val user = GithubApi.instance.fetchUser("itomakiweb")
-                    Log.i("Hide", user.toString())
+                    val input = SlackPostMessageInput(
+                        text = result
+                    )
+                    val message = SlackApi.instance.createMessage(input)
+                    Log.i("Hide", message.toString())
                 } catch (e: HttpException) {
                     // リクエスト失敗時の処理を行う
                 }

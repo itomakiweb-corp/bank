@@ -32,6 +32,7 @@ android {
         buildConfigField 'String', 'GITHUB_TOKEN', "\"${GITHUB_TOKEN}\""
         buildConfigField 'String', 'SLACK_API', '"https://slack.com/api/"'
         buildConfigField 'String', 'SLACK_TOKEN', "\"${SLACK_TOKEN}\""
+        buildConfigField 'String', 'SLACK_CHANNEL', '"GPDVCDL2F"' // next TODO // '"GEED5096Z"' // dev-study
     }
 
     buildTypes {
