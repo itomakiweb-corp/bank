@@ -70,6 +70,11 @@
 - open Android Studio
     - Check out project from Version Control, Git
     - https://github.com/itomakiweb-corp/bank.git
+- set projectRoot/local.properties
+```
+GITHUB_TOKEN={YOUR_TOKEN_HERE}
+SLACK_TOKEN={YOUR_TOKEN_HERE}
+```
 - Run 'app'
     - Open AVD Manager
     - Create Virtual Device

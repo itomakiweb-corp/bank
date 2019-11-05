@@ -23,7 +23,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // add by manual
+        def properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def GITHUB_TOKEN = properties.getProperty('GITHUB_TOKEN', System.getenv('GITHUB_TOKEN'))
+        def SLACK_TOKEN = properties.getProperty('SLACK_TOKEN', System.getenv('SLACK_TOKEN'))
+
         buildConfigField 'String', 'GITHUB_API', '"https://api.github.com/"'
+        buildConfigField 'String', 'GITHUB_TOKEN', "\"${GITHUB_TOKEN}\""
+        buildConfigField 'String', 'SLACK_API', '"https://slack.com/api/"'
+        buildConfigField 'String', 'SLACK_TOKEN', "\"${SLACK_TOKEN}\""
     }
 
     buildTypes {
