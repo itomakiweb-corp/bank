@@ -14,12 +14,16 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
+        // default
         applicationId "com.itomakiweb.android.bank"
         minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // add by manual
+        buildConfigField 'String', 'GITHUB_API', '"https://api.github.com/"'
     }
 
     buildTypes {
@@ -64,7 +68,7 @@ dependencies {
     // for convert json to object
     def moshiVersion = '1.9.1'
     implementation "com.squareup.moshi:moshi:${moshiVersion}"
-    implementation "com.squareup.moshi:moshi-kotlin:${moshiVersion}"
+    // implementation "com.squareup.moshi:moshi-kotlin:${moshiVersion}"
     // for convert snake_case to lowerCamelCase, require apply plugin: 'kotlin-kapt'
     kapt "com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}"
 }
