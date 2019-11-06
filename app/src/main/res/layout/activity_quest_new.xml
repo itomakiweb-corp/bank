@@ -6,196 +6,151 @@
     android:layout_height="match_parent"
     tools:context=".pages.QuestNewActivity">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow
+        <EditText
+            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/questTitle"
+            android:inputType="textShortMessage" />
 
-            <EditText
-                android:id="@+id/title"
+        <EditText
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/questBody"
+            android:inputType="textMultiLine"
+            android:text="@string/questBodyDefault" />
+
+        <CheckBox
+            android:id="@+id/assignAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/questAssignAll" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/questPriority" />
+
+        <RadioGroup
+            android:id="@+id/priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@id/priority3"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/priority1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/questTitle"
-                android:inputType="textShortMessage" />
-        </TableRow>
+                android:text="@string/questPriority1" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <EditText
-                android:id="@+id/body"
+            <RadioButton
+                android:id="@+id/priority3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/questBody"
-                android:inputType="textMultiLine"
-                android:text="@string/questBodyDefault" />
-        </TableRow>
+                android:text="@string/questPriority3" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <CheckBox
-                android:id="@+id/assignAll"
+            <RadioButton
+                android:id="@+id/priority5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/questAssignAll" />
-        </TableRow>
+                android:text="@string/questPriority5" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        </RadioGroup>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/questPriority" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/questCostPre" />
 
-        </TableRow>
+        <RadioGroup
+            android:id="@+id/costPre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@id/costPre3"
+            android:orientation="horizontal">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RadioGroup
-                android:id="@+id/priority"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkedButton="@id/priority3"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/priority1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/questPriority1" />
-
-                <RadioButton
-                    android:id="@+id/priority3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/questPriority3" />
-
-                <RadioButton
-                    android:id="@+id/priority5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/questPriority5" />
-
-            </RadioGroup>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
+            <RadioButton
+                android:id="@+id/costPre0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/questCostPre" />
-        </TableRow>
+                android:text="@string/questCostPre0" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <RadioGroup
-                android:id="@+id/costPre"
+            <RadioButton
+                android:id="@+id/costPre1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkedButton="@id/costPre3"
-                android:orientation="horizontal">
+                android:text="@string/questCostPre1" />
 
-                <RadioButton
-                    android:id="@+id/costPre0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/questCostPre0" />
-
-                <RadioButton
-                    android:id="@+id/costPre1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/questCostPre1" />
-
-                <RadioButton
-                    android:id="@+id/costPre2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/questCostPre2" />
-
-                <RadioButton
-                    android:id="@+id/costPre3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/questCostPre3" />
-
-                <RadioButton
-                    android:id="@+id/costPre5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/questCostPre5" />
-
-                <RadioButton
-                    android:id="@+id/costPreX"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/questCostPreX" />
-
-            </RadioGroup>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <EditText
-                android:id="@+id/milestoneId"
+            <RadioButton
+                android:id="@+id/costPre2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/questMilestoneId"
-                android:inputType="textShortMessage" />
-        </TableRow>
+                android:layout_weight="1"
+                android:text="@string/questCostPre2" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <Button
-                android:id="@+id/createQuest"
+            <RadioButton
+                android:id="@+id/costPre3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/questSubmit" />
-        </TableRow>
+                android:layout_weight="1"
+                android:text="@string/questCostPre3" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <EditText
-                android:id="@+id/result"
+            <RadioButton
+                android:id="@+id/costPre5"
                 android:layout_width="wrap_content"
-                android:layout_height="160dp"
-                android:editable="false"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/questResult"
-                android:inputType="none|textMultiLine" />
-        </TableRow>
-    </TableLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/questCostPre5" />
+
+            <RadioButton
+                android:id="@+id/costPreX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/questCostPreX" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/milestoneId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/questMilestoneId"
+            android:inputType="textShortMessage" />
+
+        <Button
+            android:id="@+id/createQuest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/questSubmit" />
+
+        <EditText
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:editable="false"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/questResult"
+            android:inputType="none|textMultiLine" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
