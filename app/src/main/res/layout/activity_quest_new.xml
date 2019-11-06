@@ -15,8 +15,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- titleだとActivity内で重複が発生するので、suffix追加 -->
         <EditText
-            android:id="@+id/title"
+            android:id="@+id/titleQuest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
