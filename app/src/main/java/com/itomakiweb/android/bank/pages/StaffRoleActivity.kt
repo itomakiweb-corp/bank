@@ -61,9 +61,11 @@ class StaffRoleActivity : ScopedAppActivity() {
                 val input = SlackChatMessageInput(
                     text = text
                 )
+                Log.i("api", "${input}")
+
                 val message = SlackApi.instance.createChatMessage(input)
 
-                Log.i("api", message.toString())
+                Log.i("api", "${message}")
             } catch (e: Exception) {
                 val result = e.message
                 staffRoleResult.text = result

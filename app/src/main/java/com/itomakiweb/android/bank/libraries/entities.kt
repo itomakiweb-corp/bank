@@ -6,16 +6,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GithubGraphqlInput(
-    val query: String = """mutation(${'$'}input: CreateIssueInput!) {
-    createIssue(input: ${'$'}input) {
-        issue {
-            id
-            url
-            title
-        }
-    }
-}
-""",
+    val query: String,
 
     val variables: Any
 )

@@ -28,7 +28,7 @@ interface GithubApi {
         "Content-Type: application/json; charset=UTF-8"
     )
     suspend fun createIssue(
-        @Body input: GithubCreateIssueInput
+        @Body input: GithubGraphqlInput
     ): GithubCreateIssueOutput
 
     @GET("users/{login}")

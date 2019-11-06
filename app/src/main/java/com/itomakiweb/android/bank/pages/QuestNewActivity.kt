@@ -7,6 +7,7 @@ import com.itomakiweb.android.bank.BuildConfig
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.GithubApi
 import com.itomakiweb.android.bank.libraries.GithubCreateIssueInput
+import com.itomakiweb.android.bank.libraries.GithubGraphqlInput
 import kotlinx.android.synthetic.main.activity_quest_new.*
 import kotlinx.coroutines.runBlocking
 
@@ -51,9 +52,7 @@ class QuestNewActivity : AppCompatActivity() {
                 ),
                 milestoneId = milestoneId.text.toString()
             )
-            Log.i("test", input.toString())
-            /*
-            */
+            createGithubIssue(input)
         }
     }
 
@@ -61,9 +60,26 @@ class QuestNewActivity : AppCompatActivity() {
         // TODO いずれ、処理の共通化を検討
         runBlocking {
             try {
-                val message = GithubApi.instance.createIssue(input)
+                val payload = GithubGraphqlInput(
+                    query = """mutation(${'$'}input: CreateIssueInput!) {
+    createIssue(input: ${'$'}input) {
+        issue {
+            id
+            url
+            title
+        }
+    }
+}
+""",
+                    variables = mapOf(
+                        "input" to input
+                    )
+                )
+                Log.i("api", "${payload}")
 
-                Log.i("api", message.toString())
+                val issueOutput = GithubApi.instance.createIssue(payload)
+
+                Log.i("api", "${issueOutput}")
             } catch (e: Exception) {
                 val result = e.message
 
