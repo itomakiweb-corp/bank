@@ -191,10 +191,11 @@
                 android:id="@+id/result"
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
+                android:editable="false"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/questResult"
-                android:inputType="textMultiLine" />
+                android:inputType="none|textMultiLine" />
         </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

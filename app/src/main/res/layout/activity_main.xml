@@ -6,37 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".pages.MainActivity">
 
-    <Button
-        android:id="@+id/toBlackJack"
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/toBlackJack"
-        app:layout_constraintBottom_toTopOf="@+id/toStaffRole"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/toStaffRole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/toStaffRole"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/toHighAndLow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/toHighAndLow"
-        app:layout_constraintBottom_toTopOf="@+id/toStaffRole"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toBlackJack" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/toBlackJack"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:text="@string/toBlackJack" />
+
+            <Button
+                android:id="@+id/toHighAndLow"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:text="@string/toHighAndLow" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="?android:attr/buttonBarStyle"
+            android:layout_marginTop="160dp">
+
+            <Button
+                android:id="@+id/toStaffRole"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:text="@string/toStaffRole" />
+
+            <Button
+                android:id="@+id/toQuestNew"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:text="@string/toQuestNew" />
+        </TableRow>
+
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
