@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">BANK</string>
-    <string name="toBlackJack">BLACK JACK</string>
     <string name="nameIkki">ikki</string>
     <string name="nameKazucharo">kazucharo</string>
     <string name="nameYu">yu</string>
@@ -8,9 +7,29 @@
     <string name="nameBe">be-</string>
     <string name="nameHide">Hide</string>
     <string name="nameNobu">nobu</string>
-    <string name="toStaffRole">STAFF ROLE</string>
+    <string name="questAssignAll">全員に割り当てる</string>
+    <string name="questBody">body</string>
+    <string name="questBodyDefault">- [ ] \n- [ ] \n- [ ] \n</string>
+    <string name="questCostPre">cost-pre</string>
+    <string name="questCostPre0">0 (min)</string>
+    <string name="questCostPre1">1</string>
+    <string name="questCostPre2">2</string>
+    <string name="questCostPre3">3</string>
+    <string name="questCostPre5">5</string>
+    <string name="questCostPreX">\? (max)</string>
+    <string name="questMilestoneId">milestoneId</string>
+    <string name="questPriority">priority</string>
+    <string name="questPriority1">1 (min)</string>
+    <string name="questPriority3">3</string>
+    <string name="questPriority5">5 (max)</string>
+    <string name="questResult">result (readonly)</string>
+    <string name="questSubmit">クエスト発行</string>
+    <string name="questTitle">title (required)</string>
     <string name="showStaffRoleResult">SHOW</string>
-    <string name="toHighAndLow">HIGH AND LOW</string>
-    <string name="staffRoleResult" >今日の順番は%1$sです\n３０分交代です。頑張ってください</string>
+    <string name="staffRoleResult">今日の順番は%1$sです\n３０分交代です。頑張ってください</string>
     <string name="staffRoleResultExplain">ボタンを押すと、ここに結果が表示されます</string>
+    <string name="toBlackJack">BLACK JACK</string>
+    <string name="toHighAndLow">HIGH AND LOW</string>
+    <string name="toStaffRole">STAFF ROLE</string>
+    <string name="textColon">: </string>
 </resources>
