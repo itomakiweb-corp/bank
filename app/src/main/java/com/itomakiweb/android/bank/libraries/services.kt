@@ -1,14 +1,14 @@
 package com.itomakiweb.android.bank.libraries
 
 import com.itomakiweb.android.bank.BuildConfig
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
-
+/**
+ * @see https://developer.github.com/v3/users/
+ */
 interface GithubApi {
     companion object {
         val instance = Retrofit.Builder()
@@ -32,7 +32,7 @@ interface GithubApi {
         @Query(value = "q") query: String, // ex: "test"
         @Query(value = "sort") sort: String, // ex: "stars"
         @Query(value = "order") order: String // ex: "desc"
-    ): GithubRepositories
+    ): GithubRepositoriesOutput
 }
 
 interface SlackApi {
@@ -53,43 +53,7 @@ interface SlackApi {
         "Authorization: Bearer ${BuildConfig.SLACK_TOKEN}",
         "Content-Type: application/json; charset=UTF-8"
     )
-    suspend fun createMessage(
-        @Body input: SlackPostMessageInput
-    ): SlackPostMessage
+    suspend fun createChatMessage(
+        @Body input: SlackChatMessageInput
+    ): SlackChatMessageOutput
 }
-
-
-@JsonClass(generateAdapter = true)
-data class GithubUser(
-    @Json(name = "node_id")
-    val nodeId: String,
-
-    val id: String,
-
-    val url: String,
-
-    val login: String,
-
-    val name: String,
-
-    @Json(name = "avatar_url")
-    val avatarUrl: String
-)
-
-@JsonClass(generateAdapter = true)
-data class GithubRepositories(
-    @Json(name = "total_count")
-    val totalCount: Int
-)
-
-@JsonClass(generateAdapter = true)
-data class SlackPostMessageInput(
-    val text: String,
-
-    val channel: String = BuildConfig.SLACK_CHANNEL
-)
-
-@JsonClass(generateAdapter = true)
-data class SlackPostMessage(
-    val ok: Boolean
-)

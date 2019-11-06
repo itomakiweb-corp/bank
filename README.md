@@ -67,14 +67,16 @@
 - install
     - https://git-scm.com/downloads
     - https://developer.android.com/studio?hl=ja
-- open Android Studio
+- open -a 'Android Studio'
     - Check out project from Version Control, Git
     - https://github.com/itomakiweb-corp/bank.git
-- set projectRoot/local.properties
-```
-GITHUB_TOKEN={YOUR_TOKEN_HERE}
-SLACK_TOKEN={YOUR_TOKEN_HERE}
-```
+- set ProjectRoot/local.properties (inside Gradle Scripts)
+
+    ```
+    GITHUB_TOKEN={YOUR_TOKEN_HERE}
+    SLACK_TOKEN={YOUR_TOKEN_HERE}
+    ```
+
 - Run 'app'
     - Open AVD Manager
     - Create Virtual Device
@@ -85,6 +87,11 @@ SLACK_TOKEN={YOUR_TOKEN_HERE}
     - https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v
         - 閲覧権限でも実行できてしまうので注意（環境変数は見られない）
     - https://script.google.com/home/executions
+- links
+  - https://android.benigumo.com/20190219/spacex-rest-api-retrofit-coroutine/
+  - https://square.github.io/retrofit/
+  - https://kotlinlang.org/docs/reference/coroutines/basics.html
+  - https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#structured-concurrency-lifecycle-and-coroutine-parent-child-hierarchy
   
 ## etc
 
@@ -92,16 +99,20 @@ SLACK_TOKEN={YOUR_TOKEN_HERE}
 - 2019-10-17時点で、MacのAndroid Studio 3.5.1で、以下warningが出る
     - 動作には問題ない模様なので、無視しても良い
     - ProjectRoot/.ideaディレクトリを削除すればローカルを正常化できるが、全体に反映する方法はない模様
-```
-Unsupported Modules Detected: Compilation is not supported for following modules: bank. Unfortunately you can't have non-Gradle Java modules and Android-Gradle modules in one project.
-```
+
+    ```
+    Unsupported Modules Detected: Compilation is not supported for following modules: bank. Unfortunately you can't have non-Gradle Java modules and Android-Gradle modules in one project.
+    ```
+
 - 2019-10-22時点で、MacのAndroid Studio 3.5.1で、emulator実行時に、以下warningが出る
     - 動作には問題ない模様なので、無視しても良い
     - 正常化する方法はわからない
-```
-Qt WebEngine ICU data not found at /Users/joshuaduong/qt-build-5.12.1/install-darwin-x86_64/resources. Trying parent directory...
-...
-```
+
+    ```
+    Qt WebEngine ICU data not found at /Users/joshuaduong/qt-build-5.12.1/install-darwin-x86_64/resources. Trying parent directory...
+    ...
+    ```
+
 - Screen備考に、画面遷移を記述するか？
     - 画像で、画面遷移を作成するか？
         - モブプログラミングのメンバで、どうするかを決定して作成していく
