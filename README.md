@@ -53,7 +53,7 @@
 |MainActivity|ゲーム一覧|-|
 |BlackJackActivity|ブラックジャック詳細|-|
 |HighAndLowActivity|ハイアンドロー詳細|-|
-|test|test|test|
+|QuestNewActivity|クエスト発行|-|
 
 ## Class
 
