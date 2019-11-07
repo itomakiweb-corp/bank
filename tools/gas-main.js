@@ -47,6 +47,7 @@ function postDoneAndTodoToSlack() {
     .replace('${configs.URL_MAIN}', configs.URL_MAIN)
     .replace('${doneUrl}', doneUrl)
     .replace('${todoUrl}', todoUrl)
+    .replace('${configs.URL_READY_QUEST}', configs.URL_READY_QUEST)
     .replace('${configs.URL_NEW_QUEST}', configs.URL_NEW_QUEST)
     .replace('${configs.URL_GAS}', configs.URL_GAS)
     .replace('${configs.URL_GAS_SOURCE}', configs.URL_GAS_SOURCE)
