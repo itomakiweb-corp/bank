@@ -76,6 +76,7 @@
     GITHUB_TOKEN={YOUR_TOKEN_HERE}
     SLACK_TOKEN={YOUR_TOKEN_HERE}
     ```
+    - 波括弧｛｝は不要です。
 
 - Run 'app'
     - Open AVD Manager
