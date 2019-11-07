@@ -6,9 +6,11 @@
     <string name="nameYu">yu</string>
     <string name="nameAda">ada</string>
     <string name="nameBe">be-</string>
-    <string name="nameHide">hide</string>
+    <string name="nameHide">Hide</string>
     <string name="nameNobu">nobu</string>
     <string name="toStaffRole">STAFF ROLE</string>
     <string name="showStaffRoleResult">SHOW</string>
     <string name="toHighAndLow">HIGH AND LOW</string>
+    <string name="staffRoleResult" >今日の順番は%1$sです\n３０分交代です。頑張ってください</string>
+    <string name="staffRoleResultExplain">ボタンを押すと、ここに結果が表示されます</string>
 </resources>
