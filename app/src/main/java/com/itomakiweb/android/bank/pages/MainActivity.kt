@@ -2,6 +2,7 @@ package com.itomakiweb.android.bank.pages
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         toQuestNew.setOnClickListener {
             val intent = Intent(this, QuestNewActivity::class.java)
             startActivity(intent)
+        }
+
+        layout.setOnClickListener {
+            testVisible.visibility = View.GONE
+            toBlackJack.visibility = View.VISIBLE
         }
     }
 }
