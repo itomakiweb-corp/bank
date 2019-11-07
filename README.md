@@ -50,10 +50,12 @@
 
 |Activity|説明|備考|
 |:---|:---|:---|
-|MainActivity|ゲーム一覧|-|
-|BlackJackActivity|ブラックジャック詳細|-|
-|HighAndLowActivity|ハイアンドロー詳細|-|
+|MainActivity|オープニング => ゲーム一覧|setOnClickListenerで変化|
+|BlackJackActivity|ブラックジャックトップ => 結果 => ルール => 設定|上から表示が出てくる/Activityはまず作らない|
+|HighAndLowActivity|ハイアンドロートップ => 結果 => ルール => 設定|上から表示が出てくる/Activityはまず作らない|
+|StaffRoleActivity|スタッフロール|-|
 |QuestNewActivity|クエスト発行|-|
+|SettingActivity|全体設定|-|
 
 ## Class
 
