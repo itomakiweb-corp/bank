@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.itomakiweb.android.bank">
+    <!-- add by manual, after add: must uninstall app on emulator -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!-- default -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pages.HighAndLowActivity"></activity>
+        <activity android:name=".pages.QuestNewActivity"></activity>
+        <activity android:name=".pages.HighAndLowActivity" />
         <activity android:name=".pages.StaffRoleActivity" />
         <activity android:name=".pages.BlackJackActivity" />
         <activity android:name=".pages.MainActivity">
@@ -21,9 +24,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <!-- add by manual, after add: must uninstall app on emulator -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

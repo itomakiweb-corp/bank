@@ -22,6 +22,15 @@ interface GithubApi {
             .create(GithubApi::class.java)
     }
 
+    @POST("graphql")
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.GITHUB_TOKEN}",
+        "Content-Type: application/json; charset=UTF-8"
+    )
+    suspend fun createIssue(
+        @Body input: GithubGraphqlInput
+    ): GithubCreateIssueOutput
+
     @GET("users/{login}")
     suspend fun fetchUser(
         @Path("login") login: String

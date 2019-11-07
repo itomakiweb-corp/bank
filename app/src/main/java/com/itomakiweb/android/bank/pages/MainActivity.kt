@@ -26,5 +26,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, StaffRoleActivity::class.java)
             startActivity(intent)
         }
+
+        toQuestNew.setOnClickListener {
+            val intent = Intent(this, QuestNewActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

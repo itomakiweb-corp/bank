@@ -30,6 +30,29 @@ android {
 
         buildConfigField 'String', 'GITHUB_API', '"https://api.github.com/"'
         buildConfigField 'String', 'GITHUB_TOKEN', "\"${GITHUB_TOKEN}\""
+        buildConfigField 'String', 'GITHUB_REPOSITORY_ID', '"MDEwOlJlcG9zaXRvcnkyMTQxODM2ODE="'
+        buildConfigField 'String[]', 'GITHUB_TODO_ASSIGNEE_IDS', '{' +
+            '"MDQ6VXNlcjQzMjU1ODgw",' + // adachi-swivel
+            '"MDQ6VXNlcjQzNDM1OTg1",' + // bac0907
+            '"MDQ6VXNlcjE2NTA1Mjcx",' + // itomakiweb
+            '"MDQ6VXNlcjQzMTE0NDQx",' + // kazucharo
+            '"MDQ6VXNlcjQ1MDA2Njgz",' + // tanukinoyu
+            '"MDQ6VXNlcjQ0MjUyMzIx",' + // undine411
+        '}'
+        buildConfigField 'String[]', 'GITHUB_TODO_PROJECT_IDS', '{' +
+            '"MDc6UHJvamVjdDMzNTEwODU=",' + // Quest
+        '}'
+        buildConfigField 'String', 'GITHUB_MILESTONE_ID', '"MDk6TWlsZXN0b25lNDgwNTI1OA=="'
+        buildConfigField 'String', 'GITHUB_PRIORITY1', '"MDU6TGFiZWwxNjE1ODU5Njg5"'
+        buildConfigField 'String', 'GITHUB_PRIORITY3', '"MDU6TGFiZWwxNjE1ODYwMTE1"'
+        buildConfigField 'String', 'GITHUB_PRIORITY5', '"MDU6TGFiZWwxNjE1ODYwNTc0"'
+        buildConfigField 'String', 'GITHUB_COST_PRE0', '"MDU6TGFiZWwxNjE1ODYzMDQ3"'
+        buildConfigField 'String', 'GITHUB_COST_PRE1', '"MDU6TGFiZWwxNjE1ODYzNDE5"'
+        buildConfigField 'String', 'GITHUB_COST_PRE2', '"MDU6TGFiZWwxNjE1ODYzODc5"'
+        buildConfigField 'String', 'GITHUB_COST_PRE3', '"MDU6TGFiZWwxNjE1ODY0MDA4"'
+        buildConfigField 'String', 'GITHUB_COST_PRE5', '"MDU6TGFiZWwxNjE1ODY0MTc2"'
+        buildConfigField 'String', 'GITHUB_COST_PREX', '"MDU6TGFiZWwxNjE1ODYyMTE4"'
+
         buildConfigField 'String', 'SLACK_API', '"https://slack.com/api/"'
         buildConfigField 'String', 'SLACK_TOKEN', "\"${SLACK_TOKEN}\""
         buildConfigField 'String', 'SLACK_CHANNEL', '"GEED5096Z"' // dev-study
