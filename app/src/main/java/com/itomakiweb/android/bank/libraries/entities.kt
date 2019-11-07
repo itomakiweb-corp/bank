@@ -51,6 +51,13 @@ data class GithubUpdateIssueInput(
 
 @JsonClass(generateAdapter = true)
 data class GithubCreateIssueOutput(
+    val data: GithubCreateIssue,
+    // TODO どうすべきか検討
+    val errors: Any?
+)
+
+@JsonClass(generateAdapter = true)
+data class GithubCreateIssue(
     val createIssue: GithubIssueParent
 )
 

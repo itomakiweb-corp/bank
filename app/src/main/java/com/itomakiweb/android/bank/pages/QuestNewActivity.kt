@@ -78,12 +78,15 @@ class QuestNewActivity : AppCompatActivity() {
                 Log.i("api", "${payload}")
 
                 val issueOutput = GithubApi.instance.createIssue(payload)
+                val resultText = "${issueOutput}"
+                result.setText(resultText)
 
-                Log.i("api", "${issueOutput}")
+                Log.i("api", resultText)
             } catch (e: Exception) {
-                val result = e.message
+                val resultText = e.message
+                result.setText(resultText)
 
-                Log.w("api", result, e)
+                Log.w("api", resultText, e)
             }
         }
     }

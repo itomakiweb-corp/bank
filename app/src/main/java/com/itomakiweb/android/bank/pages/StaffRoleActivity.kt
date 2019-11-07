@@ -41,15 +41,15 @@ class StaffRoleActivity : ScopedAppActivity() {
                 staffList.add("Nobu")
             }
 
-            val result = getString(
+            val resultText = getString(
                 R.string.staffRoleResult,
                 staffList.shuffled().toString()
             )
-            staffRoleResult.text = result
+            staffRoleResult.text = resultText
 
             // local.propertiesに何も設定していない場合、文字列でnullとなる
             if (BuildConfig.SLACK_TOKEN != "null") {
-                createSlackChatMessage(result)
+                createSlackChatMessage(resultText)
             }
         }
     }
@@ -67,10 +67,10 @@ class StaffRoleActivity : ScopedAppActivity() {
 
                 Log.i("api", "${message}")
             } catch (e: Exception) {
-                val result = e.message
-                staffRoleResult.text = result
+                val resultText = e.message
+                staffRoleResult.text = resultText
 
-                Log.w("api", result, e)
+                Log.w("api", resultText, e)
             }
         }
     }
