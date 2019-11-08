@@ -9,7 +9,6 @@ import com.itomakiweb.android.bank.libraries.SlackApi
 import com.itomakiweb.android.bank.libraries.SlackChatMessageInput
 import kotlinx.android.synthetic.main.activity_staff_role.*
 import kotlinx.coroutines.runBlocking
-import retrofit2.HttpException
 
 class StaffRoleActivity : ScopedAppActivity() {
 

@@ -7,10 +7,12 @@
     tools:context=".pages.QuestNewActivity">
 
     <LinearLayout
-        android:layout_width="324dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,27 +50,30 @@
 
         <RadioGroup
             android:id="@+id/priority"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checkedButton="@id/priority3"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/priority1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:text="@string/questPriority1" />
 
             <RadioButton
                 android:id="@+id/priority3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:text="@string/questPriority3" />
 
             <RadioButton
                 android:id="@+id/priority5"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:text="@string/questPriority5" />
 
         </RadioGroup>
@@ -81,50 +86,51 @@
 
         <RadioGroup
             android:id="@+id/costPre"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checkedButton="@id/costPre3"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/costPre0"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/questCostPre0" />
 
             <RadioButton
                 android:id="@+id/costPre1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:text="@string/questCostPre1" />
 
             <RadioButton
                 android:id="@+id/costPre2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/questCostPre2" />
 
             <RadioButton
                 android:id="@+id/costPre3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/questCostPre3" />
 
             <RadioButton
                 android:id="@+id/costPre5"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/questCostPre5" />
 
             <RadioButton
                 android:id="@+id/costPreX"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/questCostPreX" />
 
         </RadioGroup>
@@ -146,7 +152,7 @@
         <EditText
             android:id="@+id/result"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="240dp"
             android:editable="false"
             android:ems="10"
             android:gravity="start|top"

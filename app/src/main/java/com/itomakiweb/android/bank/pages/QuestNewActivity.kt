@@ -1,6 +1,5 @@
 package com.itomakiweb.android.bank.pages
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.itomakiweb.android.bank.BuildConfig
@@ -8,10 +7,11 @@ import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.GithubApi
 import com.itomakiweb.android.bank.libraries.GithubCreateIssueInput
 import com.itomakiweb.android.bank.libraries.GithubGraphqlInput
+import com.itomakiweb.android.bank.libraries.ScopedAppActivity
 import kotlinx.android.synthetic.main.activity_quest_new.*
 import kotlinx.coroutines.runBlocking
 
-class QuestNewActivity : AppCompatActivity() {
+class QuestNewActivity : ScopedAppActivity() {
     val priorityMap = mapOf(
         R.id.priority1 to BuildConfig.GITHUB_PRIORITY1,
         R.id.priority3 to BuildConfig.GITHUB_PRIORITY3,

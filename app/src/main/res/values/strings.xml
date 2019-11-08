@@ -11,12 +11,12 @@
     <string name="questBody">body</string>
     <string name="questBodyDefault">- [ ] \n- [ ] \n- [ ] \n</string>
     <string name="questCostPre">cost-pre</string>
-    <string name="questCostPre0">0 (min)</string>
+    <string name="questCostPre0">0</string>
     <string name="questCostPre1">1</string>
     <string name="questCostPre2">2</string>
     <string name="questCostPre3">3</string>
     <string name="questCostPre5">5</string>
-    <string name="questCostPreX">\? (max)</string>
+    <string name="questCostPreX">\?</string>
     <string name="questMilestoneId">milestoneId</string>
     <string name="questPriority">priority</string>
     <string name="questPriority1">1 (min)</string>
