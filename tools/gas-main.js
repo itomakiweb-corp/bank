@@ -71,6 +71,88 @@ function postDoneAndTodoToSlack() {
 }
 
 /**
+ * postDoneAndTodoToSlackのオフライン版
+ * 第2、4土曜日にのみ実行
+ * GitHubに、先週のまとめと今週の予定を確認するクエストを登録する
+ * Slackに、先週のまとめと今週の予定を送信する
+ */
+function postDoneAndTodoToSlackForOffline() {
+  const configs = getConfigs()
+
+  const dueDate = new Date()
+  const isTargetDay = dueDate.getDay() === configs.TARGET_DAY // 曜日一致
+  const weekOfMonth = Math.ceil(dueDate.getDate() / 7)
+  const isTargetWeeks = configs.TARGET_WEEKS.indexOf(weekOfMonth) !== -1
+  const isTargetDate = isTargetDay && isTargetWeeks
+  if (!isTargetDate) {
+    const message = {
+      message: 'today is not target date',
+      isTargetDay: isTargetDay,
+      weekOfMonth: weekOfMonth,
+      isTargetWeeks: isTargetWeeks,
+      isTargetDate: isTargetDate,
+    }
+    log(message)
+
+    return
+  }
+
+  const dueDateFormat = getDate8(dueDate)
+  const title = '木曜日のまとめと土曜日の予定を確認して検討する（${dueDateFormat}）'
+    .replace('${dueDateFormat}', dueDateFormat)
+  log(title)
+
+  const doneMilestone = fetchMilestoneFromGithub(['CLOSED'], 'DESC')
+  const todoMilestone = fetchMilestoneFromGithub(['OPEN'], 'ASC')
+  log(doneMilestone)
+  log(todoMilestone)
+
+  const doneUrl = doneMilestone.url + '?closed=1'
+  const todoUrl = todoMilestone.url
+  const body = '\
+- [ ] 作業の流れ\n\
+  - ${configs.URL_MAIN}\n\
+- [ ] 木曜日のまとめ\n\
+  - ${doneUrl}\n\
+- [ ] 土曜日の予定\n\
+  - ${todoUrl}\n\
+  - Milestoneをきちんと設定する\n\
+  - 今週の作業が完了したら、Milestoneをクローズする\n\
+- [ ] 既に着手できるクエスト\n\
+  - ${configs.URL_READY_QUEST}\n\
+- [ ] クエスト追加\n\
+  - ${configs.URL_NEW_QUEST}\n\
+- [ ] 以下から自動送信\n\
+  - ${configs.URL_GAS}\n\
+  - ${configs.URL_GAS_SOURCE}\n\
+'
+    .replace('${configs.URL_MAIN}', configs.URL_MAIN)
+    .replace('${doneUrl}', doneUrl)
+    .replace('${todoUrl}', todoUrl)
+    .replace('${configs.URL_READY_QUEST}', configs.URL_READY_QUEST)
+    .replace('${configs.URL_NEW_QUEST}', configs.URL_NEW_QUEST)
+    .replace('${configs.URL_GAS}', configs.URL_GAS)
+    .replace('${configs.URL_GAS_SOURCE}', configs.URL_GAS_SOURCE)
+  log(body)
+
+  const input = {
+    repositoryId: configs.GITHUB_REPOSITORY_ID,
+    title: title,
+    body: body,
+    assigneeIds: configs.GITHUB_TODO_ASSIGNEE_IDS,
+    labelIds: configs.GITHUB_TODO_LABEL_IDS,
+    projectIds: configs.GITHUB_TODO_PROJECT_IDS,
+    milestoneId: todoMilestone.id,
+  }
+  const doneAndTodoQuest = postIssueToGithub(input)
+  log(doneAndTodoQuest)
+
+  const slackBody = body + '  - ' + doneAndTodoQuest.data.createIssue.issue.url
+  const doneAndTodoMessage = postMessageToSlack(slackBody)
+  log(doneAndTodoMessage)
+}
+
+/**
  * GitHubに、Milestoneを登録する
  * 2019-10-23時点で、GitHub API V4に存在しないので、V3で代替
  *
@@ -353,6 +435,9 @@ function log(messageItem) {
 function getConfigs() {
   const configs = {
     LOCALE_HOUR: +9, // Asia/Tokyo
+
+    TARGET_DAY: 6, // 曜日Sunday - Saturday : 0 - 6
+    TARGET_WEEKS: [2, 4],
 
     URL_MAIN: 'https://github.com/itomakiweb-corp/bank#flow',
     URL_READY_QUEST: 'https://github.com/itomakiweb-corp/bank/milestone/7',
