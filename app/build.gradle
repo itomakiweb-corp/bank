@@ -32,16 +32,16 @@ android {
         buildConfigField 'String', 'GITHUB_TOKEN', "\"${GITHUB_TOKEN}\""
         buildConfigField 'String', 'GITHUB_REPOSITORY_ID', '"MDEwOlJlcG9zaXRvcnkyMTQxODM2ODE="'
         buildConfigField 'String[]', 'GITHUB_TODO_ASSIGNEE_IDS', '{' +
-            '"MDQ6VXNlcjQzMjU1ODgw",' + // adachi-swivel
-            '"MDQ6VXNlcjQzNDM1OTg1",' + // bac0907
-            '"MDQ6VXNlcjE2NTA1Mjcx",' + // itomakiweb
-            '"MDQ6VXNlcjQzMTE0NDQx",' + // kazucharo
-            '"MDQ6VXNlcjQ1MDA2Njgz",' + // tanukinoyu
-            '"MDQ6VXNlcjQ0MjUyMzIx",' + // undine411
-        '}'
+                '"MDQ6VXNlcjQzMjU1ODgw",' + // adachi-swivel
+                '"MDQ6VXNlcjQzNDM1OTg1",' + // bac0907
+                '"MDQ6VXNlcjE2NTA1Mjcx",' + // itomakiweb
+                '"MDQ6VXNlcjQzMTE0NDQx",' + // kazucharo
+                '"MDQ6VXNlcjQ1MDA2Njgz",' + // tanukinoyu
+                '"MDQ6VXNlcjQ0MjUyMzIx",' + // undine411
+                '}'
         buildConfigField 'String[]', 'GITHUB_TODO_PROJECT_IDS', '{' +
-            '"MDc6UHJvamVjdDMzNTEwODU=",' + // Quest
-        '}'
+                '"MDc6UHJvamVjdDMzNTEwODU=",' + // Quest
+                '}'
         buildConfigField 'String', 'GITHUB_MILESTONE_ID', '"MDk6TWlsZXN0b25lNDgwNTI1OA=="'
         buildConfigField 'String', 'GITHUB_PRIORITY1', '"MDU6TGFiZWwxNjE1ODU5Njg5"'
         buildConfigField 'String', 'GITHUB_PRIORITY3', '"MDU6TGFiZWwxNjE1ODYwMTE1"'
@@ -81,6 +81,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

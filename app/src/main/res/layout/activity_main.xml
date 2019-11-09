@@ -64,4 +64,12 @@
 
     </TableLayout>
 
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.itomakiweb.android.bank.pages.TopFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="246dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
