@@ -33,12 +33,19 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val fragment = TopFragment()
+        val fragmentManager = this.supportFragmentManager
+        fragmentManager.beginTransaction()
+            .add(R.id.fragmentFrame, fragment)
+            .commit()
+
         layout.setOnClickListener {
-            testVisible.visibility = View.GONE
-            toBlackJack.visibility = View.VISIBLE
+            val fragment = MenuFragment()
+            val fragmentManager = this.supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.fragmentFrame, fragment)
+                .addToBackStack(null)
+                .commit()
         }
-
-
-
     }
 }
