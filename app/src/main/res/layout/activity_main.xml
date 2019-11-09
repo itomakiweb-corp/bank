@@ -7,7 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".pages.MainActivity">
 
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/titleText"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,20 +32,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/testVisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:visibility="visible" />
-
             <Button
                 android:id="@+id/toBlackJack"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="144dp"
                 android:layout_height="144dp"
                 android:text="@string/toBlackJack"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <Button
                 android:id="@+id/toHighAndLow"
@@ -64,22 +70,15 @@
 
     </TableLayout>
 
-    <fragment
-        android:id="@+id/fragment2"
-        android:name="com.itomakiweb.android.bank.pages.TopFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="27dp"
-        tools:layout_editor_absoluteY="246dp" />
-
-    <fragment
-        android:id="@+id/menuFragment"
-        android:name="com.itomakiweb.android.bank.MenuFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
+    <FrameLayout
+        android:id="@+id/fragmentFrame"
+        android:layout_width="411dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment2" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
