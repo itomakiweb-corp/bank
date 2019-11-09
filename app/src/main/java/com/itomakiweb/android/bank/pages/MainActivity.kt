@@ -37,5 +37,8 @@ class MainActivity : AppCompatActivity() {
             testVisible.visibility = View.GONE
             toBlackJack.visibility = View.VISIBLE
         }
+
+
+
     }
 }
