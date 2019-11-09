@@ -17,6 +17,7 @@
 1. [モブプログラミングの担当をランダムに決める](https://paiza.io/projects/SHMoTiDcBPG9eI86P-WS5A)（[ソースコード](https://github.com/itomakiweb-corp/bank/blob/master/tools/selectRandomUsers.kt)）
     - 30分交代でプルリクエスト作成まで完了させる（途中でも問題ない）
 1. web 対応するクエストを開き、自分をassignする
+    - クエストでやるべきことをチェックボックスで列挙する
 1. git checkout master
 1. git pull # origin master
 1. git branch -a
