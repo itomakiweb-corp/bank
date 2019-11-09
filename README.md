@@ -51,6 +51,8 @@
 |Activity|説明|備考|
 |:---|:---|:---|
 |MainActivity|オープニング => ゲーム一覧|setOnClickListenerで変化|
+|TopFragment|タイトル画面のフラグメント|-|
+|MenuFragment|メニュー画面のフラグメント|-|
 |BlackJackActivity|ブラックジャックトップ => 結果 => ルール => 設定|上から表示が出てくる/Activityはまず作らない|
 |HighAndLowActivity|ハイアンドロートップ => 結果 => ルール => 設定|上から表示が出てくる/Activityはまず作らない|
 |StaffRoleActivity|スタッフロール|-|
