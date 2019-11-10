@@ -16,6 +16,10 @@ class MainActivity : AppCompatActivity() {
 
         // TODO 連続でクリックすると、トップに戻るのに同じクリック数が必要になってしまう
         // 一度押したら、次はイベントに反応させない対応が要りそう
+        layout.setOnClickListener {
+            setFragment(MenuFragment())
+        }
+
         mainTitle.setOnClickListener {
             setFragment(MenuFragment())
         }

@@ -7,18 +7,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListAdapter
 import com.itomakiweb.android.bank.BuildConfig
 
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.GithubApi
 import com.itomakiweb.android.bank.libraries.GithubGraphqlInput
+import com.itomakiweb.android.bank.libraries.ScopedFragment
 import kotlinx.android.synthetic.main.fragment_top.*
 import kotlinx.coroutines.runBlocking
 
 /**
  * A simple [Fragment] subclass.
  */
-class TopFragment : Fragment() {
+class TopFragment: ScopedFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +34,7 @@ class TopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        fetchGithubIssues()
+        // fetchGithubIssues()
 
     }
 
@@ -43,7 +45,7 @@ class TopFragment : Fragment() {
                 val payload = GithubGraphqlInput(
                     query = """query(${'$'}owner: String!, ${'$'}name: String!) {
     repository(owner: ${'$'}owner, name: ${'$'}name) {
-        issues(first: 100) {
+        issues(first: 10) {
             nodes {
                 id
                 url
@@ -62,12 +64,18 @@ class TopFragment : Fragment() {
 
                 val issuesOutput = GithubApi.instance.fetchIssues(payload)
                 val resultText = "${issuesOutput.data.repository.issues.nodes[0]}"
-                result.setText(resultText)
+                val tmp = mutableListOf<String>()
+                for (issue in issuesOutput.data.repository.issues.nodes) {
+                    tmp.add(issue.url)
+                }
+                githubIssues.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, tmp)
+                githubIssues.setOnItemClickListener { adapterView, view, i, l ->
+                    adapterView.getItemAtPosition(i)
+                }
 
                 Log.i("api", resultText)
             } catch (e: Exception) {
                 val resultText = e.message
-                result.setText(resultText)
 
                 Log.w("api", resultText, e)
             }

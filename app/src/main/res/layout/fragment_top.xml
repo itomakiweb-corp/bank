@@ -11,17 +11,14 @@
     <TextView
         android:id="@+id/topNotice"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="144dp"
         android:gravity="center"
         android:text="@string/topNotice"
         android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/result"
+    <ListView
+        android:id="@+id/githubIssues"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
