@@ -30,6 +30,8 @@ android {
 
         buildConfigField 'String', 'GITHUB_API', '"https://api.github.com/"'
         buildConfigField 'String', 'GITHUB_TOKEN', "\"${GITHUB_TOKEN}\""
+        buildConfigField 'String', 'GITHUB_OWNER', '"itomakiweb-corp"'
+        buildConfigField 'String', 'GITHUB_REPOSITORY', '"bank"'
         buildConfigField 'String', 'GITHUB_REPOSITORY_ID', '"MDEwOlJlcG9zaXRvcnkyMTQxODM2ODE="'
         buildConfigField 'String[]', 'GITHUB_TODO_ASSIGNEE_IDS', '{' +
                 '"MDQ6VXNlcjQzMjU1ODgw",' + // adachi-swivel
