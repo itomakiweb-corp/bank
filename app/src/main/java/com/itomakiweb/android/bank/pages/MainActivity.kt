@@ -1,12 +1,14 @@
 package com.itomakiweb.android.bank.pages
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private var isClicked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,8 +16,8 @@ class MainActivity : AppCompatActivity() {
 
         setTopFragment()
 
-        // TODO 連続でクリックすると、トップに戻るのに同じクリック数が必要になってしまう
-        // 一度押したら、次はイベントに反応させない対応が要りそう
+        isClicked = false
+
         layout.setOnClickListener {
             setMenuFragment()
         }
@@ -37,10 +39,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setMenuFragment() {
+        if (isClicked) return
+
         val fragment = MenuFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFragment, fragment)
             .addToBackStack(null)
             .commit()
+
+        isClicked = true
     }
 }
