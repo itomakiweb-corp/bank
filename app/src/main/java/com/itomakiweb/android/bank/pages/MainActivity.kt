@@ -8,15 +8,12 @@ import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private var isClicked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setTopFragment()
-
-        isClicked = false
 
         layout.setOnClickListener {
             setMenuFragment()
@@ -39,14 +36,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setMenuFragment() {
-        if (isClicked) return
+        // 設定した後は、イベントに反応させない
+        if (supportFragmentManager.backStackEntryCount > 0) return
 
         val fragment = MenuFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFragment, fragment)
             .addToBackStack(null)
             .commit()
-
-        isClicked = true
     }
 }
