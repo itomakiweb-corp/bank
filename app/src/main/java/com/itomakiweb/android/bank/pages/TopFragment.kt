@@ -40,6 +40,8 @@ class TopFragment: ScopedFragment() {
 
         timer = Timer().schedule(1800, 4000) {
             topNotice.run {
+                // 画面遷移後に、nullとなるので、チェック
+                // TODO 他に良いやり方がないか再確認　また全体的にアニメーション設定再確認
                 if (this == null) return@run
 
                 postDelayed({
@@ -55,9 +57,14 @@ class TopFragment: ScopedFragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        // アニメーションキャンセル
         timer.cancel()
+
+        // アプリ再起動時に、一覧が重なって表示されることがあるので、リストクリア
+        questThisWeek.adapter = null
     }
 
     fun fetchGithubIssues() {
