@@ -25,6 +25,7 @@ import kotlin.concurrent.schedule
  * A simple [Fragment] subclass.
  */
 class TopFragment: ScopedFragment() {
+    private lateinit var timer: TimerTask
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +38,10 @@ class TopFragment: ScopedFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Timer().schedule(1800, 4000) {
+        timer = Timer().schedule(1800, 4000) {
             topNotice.run {
+                if (this == null) return@run
+
                 postDelayed({
                     animate().alpha(0f).duration = 800
                 }, 1200)
@@ -50,6 +53,11 @@ class TopFragment: ScopedFragment() {
 
         fetchGithubIssues()
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer.cancel()
     }
 
     fun fetchGithubIssues() {
