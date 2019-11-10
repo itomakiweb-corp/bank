@@ -20,7 +20,10 @@
         android:id="@+id/questThisWeekTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/questThisWeek" />
+        android:layout_marginBottom="4dp"
+        android:text="@string/questThisWeek"
+        android:textColor="#666666"
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/questThisWeek"
