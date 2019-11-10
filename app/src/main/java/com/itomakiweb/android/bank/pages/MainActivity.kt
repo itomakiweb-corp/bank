@@ -12,24 +12,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setFragment(TopFragment())
+        setTopFragment()
 
         // TODO 連続でクリックすると、トップに戻るのに同じクリック数が必要になってしまう
         // 一度押したら、次はイベントに反応させない対応が要りそう
         layout.setOnClickListener {
-            setFragment(MenuFragment())
+            setMenuFragment()
         }
 
         mainTitle.setOnClickListener {
-            setFragment(MenuFragment())
+            setMenuFragment()
         }
 
         mainFragment.setOnClickListener {
-            setFragment(MenuFragment())
+            setMenuFragment()
         }
     }
 
-    fun setFragment(fragment: Fragment) {
+    fun setTopFragment() {
+        val fragment = TopFragment()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.mainFragment, fragment)
+            .commit()
+    }
+
+    fun setMenuFragment() {
+        val fragment = MenuFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFragment, fragment)
             .addToBackStack(null)
