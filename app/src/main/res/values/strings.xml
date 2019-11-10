@@ -35,4 +35,5 @@
     <string name="toQuestNew">NEW QUEST</string>
     <string name="toStaffRole">STAFF ROLE</string>
     <string name="topNotice">画面をタッチしてね</string>
+    <string name="questThisWeek">今週のクエスト予定</string>
 </resources>

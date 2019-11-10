@@ -1,6 +1,8 @@
 package com.itomakiweb.android.bank.pages
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ListAdapter
 import com.itomakiweb.android.bank.BuildConfig
 
 import com.itomakiweb.android.bank.R
@@ -34,7 +35,7 @@ class TopFragment: ScopedFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // fetchGithubIssues()
+        fetchGithubIssues()
 
     }
 
@@ -45,11 +46,20 @@ class TopFragment: ScopedFragment() {
                 val payload = GithubGraphqlInput(
                     query = """query(${'$'}owner: String!, ${'$'}name: String!) {
     repository(owner: ${'$'}owner, name: ${'$'}name) {
-        issues(first: 10) {
+        milestones(first: 1, states: [OPEN], orderBy: { field: DUE_DATE, direction: ASC }) {
             nodes {
                 id
                 url
+                number
                 title
+                issues(first: 100, states: [OPEN], orderBy: { field: UPDATED_AT, direction: DESC }) {
+                    nodes {
+                        id
+                        url
+                        number
+                        title
+                    }
+                }
             }
         }
     }
@@ -62,15 +72,15 @@ class TopFragment: ScopedFragment() {
                 )
                 Log.i("api", "${payload}")
 
-                val issuesOutput = GithubApi.instance.fetchIssues(payload)
-                val resultText = "${issuesOutput.data.repository.issues.nodes[0]}"
-                val tmp = mutableListOf<String>()
-                for (issue in issuesOutput.data.repository.issues.nodes) {
-                    tmp.add(issue.url)
-                }
-                githubIssues.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, tmp)
-                githubIssues.setOnItemClickListener { adapterView, view, i, l ->
-                    adapterView.getItemAtPosition(i)
+                val output = GithubApi.instance.query(payload)
+                val resultText = "${output}"
+                val questThisWeekItems = output.data.repository.milestones.nodes[0].issues.nodes
+                questThisWeek.adapter = ArrayAdapter(activity, android.R.layout.simple_list_item_1, questThisWeekItems)
+                questThisWeek.setOnItemClickListener { adapterView, view, i, l ->
+                    val questItem = questThisWeekItems[i]
+                    val uri = Uri.parse(questItem.url)
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    startActivity(intent)
                 }
 
                 Log.i("api", resultText)

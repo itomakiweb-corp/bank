@@ -29,7 +29,7 @@ interface GithubApi {
         "Authorization: Bearer ${BuildConfig.GITHUB_TOKEN}",
         "Content-Type: application/json; charset=UTF-8"
     )
-    suspend fun fetchIssues(
+    suspend fun query(
         @Body input: GithubGraphqlInput
     ): GithubGraphqlOutput
 

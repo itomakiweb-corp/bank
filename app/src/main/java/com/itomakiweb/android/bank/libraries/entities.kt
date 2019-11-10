@@ -28,6 +28,24 @@ data class GithubQuery(
 
 @JsonClass(generateAdapter = true)
 data class GithubRepository(
+    val milestones: GithubMilestoneConnection,
+
+    val issues: GithubIssueConnection?
+)
+
+@JsonClass(generateAdapter = true)
+data class GithubMilestoneConnection(
+    val nodes: List<GithubMilestone>
+)
+
+@JsonClass(generateAdapter = true)
+data class GithubMilestone(
+    val id: String,
+
+    val url: String,
+
+    val title: String,
+
     val issues: GithubIssueConnection
 )
 
@@ -99,7 +117,12 @@ data class GithubIssue(
     val url: String,
 
     val title: String
-)
+) {
+    // TODO 簡易実装版なので、削除するかも
+    override fun toString(): String {
+        return title
+    }
+}
 
 @JsonClass(generateAdapter = true)
 data class GithubUser(
