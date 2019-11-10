@@ -22,4 +22,28 @@ class MenuFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_menu, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        toBlackJack.setOnClickListener {
+            val intent = Intent(activity, BlackJackActivity::class.java)
+            startActivity(intent)
+        }
+
+        toHighAndLow.setOnClickListener {
+            val intent = Intent(activity, HighAndLowActivity::class.java)
+            startActivity(intent)
+        }
+
+        toStaffRole.setOnClickListener {
+            val intent = Intent(activity, StaffRoleActivity::class.java)
+            startActivity(intent)
+        }
+
+        toQuestNew.setOnClickListener {
+            val intent = Intent(activity, QuestNewActivity::class.java)
+            startActivity(intent)
+        }
+    }
 }
