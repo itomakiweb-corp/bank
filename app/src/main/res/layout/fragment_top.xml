@@ -16,8 +16,14 @@
         android:text="@string/topNotice"
         android:textSize="24sp" />
 
+    <TextView
+        android:id="@+id/questThisWeekTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/questThisWeek" />
+
     <ListView
-        android:id="@+id/githubIssues"
+        android:id="@+id/questThisWeek"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
