@@ -1,5 +1,6 @@
 package com.itomakiweb.android.bank.libraries
 
+import java.io.Serializable
 import com.itomakiweb.android.bank.BuildConfig
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -9,6 +10,30 @@ data class GithubGraphqlInput(
     val query: String,
 
     val variables: Any
+)
+
+@JsonClass(generateAdapter = true)
+data class GithubGraphqlOutput(
+    val data: GithubQuery,
+
+    // TODO どうすべきか検討
+    val errors: Any?
+    // TOOD error val errors: Map<String?, String?>?
+): Serializable
+
+@JsonClass(generateAdapter = true)
+data class GithubQuery(
+    val repository: GithubRepository
+)
+
+@JsonClass(generateAdapter = true)
+data class GithubRepository(
+    val issues: GithubIssueConnection
+)
+
+@JsonClass(generateAdapter = true)
+data class GithubIssueConnection(
+    val nodes: List<GithubIssue>
 )
 
 @JsonClass(generateAdapter = true)
@@ -52,6 +77,7 @@ data class GithubUpdateIssueInput(
 @JsonClass(generateAdapter = true)
 data class GithubCreateIssueOutput(
     val data: GithubCreateIssue,
+
     // TODO どうすべきか検討
     val errors: Any?
 )

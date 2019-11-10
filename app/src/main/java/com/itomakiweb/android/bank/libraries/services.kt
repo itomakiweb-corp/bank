@@ -7,7 +7,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
 /**
- * @see https://developer.github.com/v3/users/
+ * @see https://developer.github.com/v4/explorer/
+ * @see https://developer.github.com/v4/
+ * @see https://developer.github.com/v3/
  */
 interface GithubApi {
     companion object {
@@ -21,6 +23,15 @@ interface GithubApi {
             .build()
             .create(GithubApi::class.java)
     }
+
+    @POST("graphql")
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.GITHUB_TOKEN}",
+        "Content-Type: application/json; charset=UTF-8"
+    )
+    suspend fun fetchIssues(
+        @Body input: GithubGraphqlInput
+    ): GithubGraphqlOutput
 
     @POST("graphql")
     @Headers(

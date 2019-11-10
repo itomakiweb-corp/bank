@@ -2,6 +2,7 @@ package com.itomakiweb.android.bank.pages
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -11,28 +12,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragment = TopFragment()
-        val fragmentManager = this.supportFragmentManager
-        fragmentManager.beginTransaction()
-            .add(R.id.fragmentFrame, fragment)
-            .commit()
+        setFragment(TopFragment())
 
         // TODO 連続でクリックすると、トップに戻るのに同じクリック数が必要になってしまう
         // 一度押したら、次はイベントに反応させない対応が要りそう
-        titleText.setOnClickListener {
-            setMenuFragment()
+        layout.setOnClickListener {
+            setFragment(MenuFragment())
         }
 
-        fragmentFrame.setOnClickListener {
-            setMenuFragment()
+        mainTitle.setOnClickListener {
+            setFragment(MenuFragment())
+        }
+
+        mainFragment.setOnClickListener {
+            setFragment(MenuFragment())
         }
     }
 
-    fun setMenuFragment() {
-        val fragment = MenuFragment()
-        val fragmentManager = this.supportFragmentManager
-        fragmentManager.beginTransaction()
-            .replace(R.id.fragmentFrame, fragment)
+    fun setFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainFragment, fragment)
             .addToBackStack(null)
             .commit()
     }
