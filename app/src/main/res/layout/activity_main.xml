@@ -21,20 +21,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/titleText"
+            android:id="@+id/mainTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/titleText"
+            android:text="@string/mainTitle"
             android:textSize="36sp"
             android:textStyle="bold" />
 
         <FrameLayout
-            android:id="@+id/fragmentFrame"
+            android:id="@+id/mainFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
