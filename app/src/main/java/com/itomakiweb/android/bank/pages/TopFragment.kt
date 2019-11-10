@@ -18,6 +18,8 @@ import com.itomakiweb.android.bank.libraries.GithubGraphqlInput
 import com.itomakiweb.android.bank.libraries.ScopedFragment
 import kotlinx.android.synthetic.main.fragment_top.*
 import kotlinx.coroutines.runBlocking
+import java.util.*
+import kotlin.concurrent.schedule
 
 /**
  * A simple [Fragment] subclass.
@@ -34,6 +36,17 @@ class TopFragment: ScopedFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Timer().schedule(1800, 4000) {
+            topNotice.run {
+                postDelayed({
+                    animate().alpha(0f).duration = 800
+                }, 1200)
+                postDelayed({
+                    animate().alpha(1f).duration = 1600
+                }, 2400)
+            }
+        }
 
         fetchGithubIssues()
 
