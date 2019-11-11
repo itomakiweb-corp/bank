@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -13,7 +14,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setTopFragment()
+        // 画面が再利用されていない場合のみ、生成
+        if (savedInstanceState == null) {
+            setTopFragment()
+        }
 
         layout.setOnClickListener {
             setMenuFragment()
@@ -31,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     fun setTopFragment() {
         val fragment = TopFragment()
         supportFragmentManager.beginTransaction()
-            .add(R.id.mainFragment, fragment)
+            .replace(R.id.mainFragment, fragment)
             .commit()
     }
 
