@@ -6,6 +6,8 @@ import kotlinx.android.synthetic.main.activity_staff_role.*
 
 class StaffRoleActivity : AppCompatActivity() {
 
+    val URL = BuildConfig.SLACK_WEBHOOK
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_staff_role)
