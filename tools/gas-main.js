@@ -153,6 +153,15 @@ function postDoneAndTodoToSlackForOffline() {
 }
 
 /**
+ * スラックにハングアウトのアドレスを投稿する
+ */
+function postHangoutLinkToSlack() {
+  const slackBody = '本日のハングアウト\n' + 'https://hangouts.google.com/group/Air5DyWJnCXGQcsR7'
+  const message = postMessageToSlack(slackBody)
+  log(message)
+}
+
+/**
  * GitHubに、Milestoneを登録する
  * 2019-10-23時点で、GitHub API V4に存在しないので、V3で代替
  *
