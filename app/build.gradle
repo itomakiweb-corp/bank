@@ -13,6 +13,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        def properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def SLACK_WEBHOOK = properties.getProperty('SLACK_WEBHOOK')
+
+        buildConfigField 'String', 'SLACK_WEBHOOK', "\"${SLACK_WEBHOOK}\""
     }
     buildTypes {
         release {

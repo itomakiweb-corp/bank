@@ -2,7 +2,13 @@ package com.itomakiweb.android.bank
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_staff_role.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class StaffRoleActivity : AppCompatActivity() {
 
@@ -36,8 +42,31 @@ class StaffRoleActivity : AppCompatActivity() {
                 staffList.add("Nobu")
             }
 
-            staffRoleResult.text = staffList.shuffled().toString()
+            val resultText = staffList.shuffled().toString()
+            val staffRoleText = "今回の順番は${resultText}です！"
+
+            if(postResultToSlack.isChecked) {
+                postResultToSlack.setChecked(false)
+
+                postMessageToSlack(URL, staffRoleText)
+            } else {
+                staffRoleResult.text = staffRoleText
+            }
         }
 
+    }
+
+    fun postMessageToSlack(url: String, message: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val http = HttpPost()
+                val httpPost = async(Dispatchers.Default) { http.post(url, message) }.await()
+                Log.i("res", httpPost)
+
+                staffRoleResult.text = "投稿に成功しました！${message}"
+            } catch (e: Exception) {
+                staffRoleResult.text = e.toString()
+            }
+        }
     }
 }
