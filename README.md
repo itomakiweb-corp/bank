@@ -51,14 +51,24 @@
 
 |Activity|説明|備考|
 |:---|:---|:---|
-|MainActivity|オープニング => ゲーム一覧|setOnClickListenerで変化|
-|TopFragment|タイトル画面のフラグメント|-|
-|MenuFragment|メニュー画面のフラグメント|-|
-|BlackJackActivity|ブラックジャックトップ => 結果 => ルール => 設定|上から表示が出てくる/Activityはまず作らない|
-|HighAndLowActivity|ハイアンドロートップ => 結果 => ルール => 設定|上から表示が出てくる/Activityはまず作らない|
+|MainActivity|オープニング|setOnClickListenerでフラグメント変化|
+|　MainTopFragment|タイトル|デフォルトの表示|
+|　MainMenuFragment|メニュー|クリック後の表示|
+|BlackJackActivity|ブラックジャック|上から表示が出てくる|
+|　BlackJackTopFragment|トップ|デフォルトの表示|
+|　BlackJackGameFragment|ゲーム|クリック後の表示|
+|　BlackJackResultFragment|結果|クリック後の表示|
+|　BlackJackRuleFragment|ルール|クリック後の表示|
+|　BlackJackPreferencesFragment|設定|クリック後の表示|
+|HighAndLowActivity|ハイアンドロー|上から表示が出てくる|
+|　HighAndLowTopFragment|トップ|デフォルトの表示|
+|　HighAndLowGameFragment|ゲーム|クリック後の表示|
+|　HighAndLowResultFragment|結果|クリック後の表示|
+|　HighAndLowRuleFragment|ルール|クリック後の表示|
+|　HighAndLowPreferencesFragment|設定|クリック後の表示|
 |StaffRoleActivity|スタッフロール|-|
 |QuestNewActivity|クエスト発行|-|
-|SettingActivity|全体設定|-|
+|PreferencesActivity|全体設定|-|
 
 ## Class
 
