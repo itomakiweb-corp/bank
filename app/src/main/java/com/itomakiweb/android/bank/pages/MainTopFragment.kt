@@ -16,7 +16,7 @@ import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.GithubApi
 import com.itomakiweb.android.bank.libraries.GithubGraphqlInput
 import com.itomakiweb.android.bank.libraries.ScopedFragment
-import kotlinx.android.synthetic.main.fragment_top.*
+import kotlinx.android.synthetic.main.fragment_main_top.*
 import kotlinx.coroutines.runBlocking
 import java.util.*
 import kotlin.concurrent.schedule
@@ -24,7 +24,7 @@ import kotlin.concurrent.schedule
 /**
  * A simple [Fragment] subclass.
  */
-class TopFragment: ScopedFragment() {
+class MainTopFragment: ScopedFragment() {
     private lateinit var timer: TimerTask
 
     override fun onCreateView(
@@ -32,7 +32,7 @@ class TopFragment: ScopedFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_top, container, false)
+        return inflater.inflate(R.layout.fragment_main_top, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

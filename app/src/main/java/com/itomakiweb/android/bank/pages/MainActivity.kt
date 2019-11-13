@@ -1,10 +1,7 @@
 package com.itomakiweb.android.bank.pages
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setTopFragment() {
-        val fragment = TopFragment()
+        val fragment = MainTopFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFragment, fragment)
             .commit()
@@ -43,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         // 設定した後は、イベントに反応させない
         if (supportFragmentManager.backStackEntryCount > 0) return
 
-        val fragment = MenuFragment()
+        val fragment = MainMenuFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFragment, fragment)
             .addToBackStack(null)
