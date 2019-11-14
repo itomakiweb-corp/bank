@@ -50,6 +50,10 @@ const $milestoneId = $newQuest.querySelector('input[name="milestoneId"]')
 const $submit = $newQuest.querySelector('button[name="submit"]')
 const $result = $newQuest.querySelector('textarea[name="result"]')
 $title.focus()
+const defaultToken = localStorage.getItem('TOKEN')
+$token.value = defaultToken
+
+
 const defaultBody = $body.value
 
 $newQuest.addEventListener('submit', e => {
@@ -62,6 +66,7 @@ $newQuest.addEventListener('submit', e => {
   const $priority = $newQuest.querySelector('input[name="priority"]:checked')
   const $costPre = $newQuest.querySelector('input[name="cost-pre"]:checked')
   $result.value = ''
+  localStorage.setItem('TOKEN', $token.value)
 
   // 二度押し防止（投稿を正常に行うため、1ミリ秒遅延させる）
   // NOTE 今はsetTimeoutは不要な可能性もあり（要確認）
