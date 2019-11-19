@@ -29,10 +29,18 @@
             android:textSize="36sp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/back" />
+
         <FrameLayout
             android:id="@+id/highAndLowFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" >
+
+        </FrameLayout>
 
     </LinearLayout>
 
