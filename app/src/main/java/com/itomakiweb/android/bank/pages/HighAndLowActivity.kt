@@ -17,6 +17,10 @@ class HighAndLowActivity : AppCompatActivity() {
         highAndLowFragment.setOnClickListener {
             setMenuFragment()
         }
+
+        back.setOnClickListener {
+            supportFragmentManager.popBackStack()
+        }
     }
 
     fun setTopFragment() {
