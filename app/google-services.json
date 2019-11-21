@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "679322186359",
+    "firebase_url": "https://itomakiweb-tmp.firebaseio.com",
+    "project_id": "itomakiweb-tmp",
+    "storage_bucket": "itomakiweb-tmp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679322186359:android:d64aea7af7a67675878c72",
+        "android_client_info": {
+          "package_name": "com.itomakiweb.android.bank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679322186359-6n7p21cdd6autcd4oc4mavq7aie6sqph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWfVSCKJGnN9B-8dFajikn-ngzndUFYno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679322186359-6n7p21cdd6autcd4oc4mavq7aie6sqph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -106,4 +106,10 @@ dependencies {
     // implementation "com.squareup.moshi:moshi-kotlin:${moshiVersion}"
     // for convert snake_case to lowerCamelCase, require apply plugin: 'kotlin-kapt'
     kapt "com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}"
+
+    // for firebase
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
 }
+
+// for firebase
+apply plugin: 'com.google.gms.google-services'
