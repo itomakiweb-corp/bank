@@ -61,7 +61,6 @@ class StaffRoleActivity : AppCompatActivity() {
             try {
                 val http = HttpPost()
                 val httpPost = async(Dispatchers.Default) { http.post(url, message) }.await()
-                Log.i("res", httpPost)
 
                 staffRoleResult.text = "投稿に成功しました！${message}"
             } catch (e: Exception) {
