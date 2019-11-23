@@ -1,7 +1,9 @@
 package com.itomakiweb.android.bank.pages
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -27,6 +29,26 @@ class MainActivity : AppCompatActivity() {
         mainFragment.setOnClickListener {
             setMenuFragment()
         }
+
+        // Access a Cloud Firestore instance from your Activity
+        val db = FirebaseFirestore.getInstance()
+        // Create a new user with a first and last name
+        val user = hashMapOf(
+            "message" to "test messsage",
+            "username" to "ikki",
+            "age" to 34
+        )
+
+        // Add a new document with a generated ID
+        db.collection("users")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d("test", "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w("test", "Error adding document", e)
+            }
+
     }
 
     fun setTopFragment() {

@@ -109,6 +109,7 @@ dependencies {
 
     // for firebase
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.google.firebase:firebase-firestore:21.1.1'
 }
 
 // for firebase
