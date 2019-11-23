@@ -37,9 +37,9 @@ function postDoneAndTodoToSlack() {
   - Milestoneをきちんと設定する\n\
   - 今週の作業が完了したら、Milestoneをクローズする\n\
 - [ ] 既に着手できるクエスト\n\
-  - ${configs.URL_READY_QUEST}\n\
+  - ${configs.URL_QUEST_READY}\n\
 - [ ] クエスト追加\n\
-  - ${configs.URL_NEW_QUEST}\n\
+  - ${configs.URL_QUEST_NEW}\n\
 - [ ] 作業の流れ\n\
   - ${configs.URL_MAIN}\n\
 - [ ] 以下から自動送信\n\
@@ -50,8 +50,8 @@ function postDoneAndTodoToSlack() {
     .replace('${configs.URL_QUEST_LIST}', configs.URL_QUEST_LIST)
     .replace('${doneUrl}', doneUrl)
     .replace('${todoUrl}', todoUrl)
-    .replace('${configs.URL_READY_QUEST}', configs.URL_READY_QUEST)
-    .replace('${configs.URL_NEW_QUEST}', configs.URL_NEW_QUEST)
+    .replace('${configs.URL_QUEST_READY}', configs.URL_QUEST_READY)
+    .replace('${configs.URL_QUEST_NEW}', configs.URL_QUEST_NEW)
     .replace('${configs.URL_GAS}', configs.URL_GAS)
     .replace('${configs.URL_GAS_SOURCE}', configs.URL_GAS_SOURCE)
   log(body)
@@ -121,9 +121,9 @@ function postDoneAndTodoToSlackForOffline() {
   - ${todoUrl}\n\
   - Milestoneをきちんと設定する\n\
 - [ ] 既に着手できるクエスト\n\
-  - ${configs.URL_READY_QUEST}\n\
+  - ${configs.URL_QUEST_READY}\n\
 - [ ] クエスト追加\n\
-  - ${configs.URL_NEW_QUEST}\n\
+  - ${configs.URL_QUEST_NEW}\n\
 - [ ] 作業の流れ\n\
   - ${configs.URL_MAIN}\n\
 - [ ] 以下から自動送信\n\
@@ -134,8 +134,8 @@ function postDoneAndTodoToSlackForOffline() {
     .replace('${configs.URL_QUEST_LIST}', configs.URL_QUEST_LIST)
     .replace('${doneUrl}', doneUrl)
     .replace('${todoUrl}', todoUrl)
-    .replace('${configs.URL_READY_QUEST}', configs.URL_READY_QUEST)
-    .replace('${configs.URL_NEW_QUEST}', configs.URL_NEW_QUEST)
+    .replace('${configs.URL_QUEST_READY}', configs.URL_QUEST_READY)
+    .replace('${configs.URL_QUEST_NEW}', configs.URL_QUEST_NEW)
     .replace('${configs.URL_GAS}', configs.URL_GAS)
     .replace('${configs.URL_GAS_SOURCE}', configs.URL_GAS_SOURCE)
   log(body)
@@ -455,8 +455,8 @@ function getConfigs() {
 
     URL_MAIN: 'https://github.com/itomakiweb-corp/bank#flow',
     URL_QUEST_LIST: 'https://github.com/itomakiweb-corp/bank/projects/1',
-    URL_READY_QUEST: 'https://github.com/itomakiweb-corp/bank/milestone/7',
-    URL_NEW_QUEST: 'https://itomakiweb.com/bank/newQuest',
+    URL_QUEST_READY: 'https://github.com/itomakiweb-corp/bank/milestone/7',
+    URL_QUEST_NEW: 'https://itomakiweb.com/bank/newQuest',
     URL_GAS: 'https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v',
     URL_GAS_SOURCE: 'https://github.com/itomakiweb-corp/bank/blob/master/tools/gas-main.js',
 
