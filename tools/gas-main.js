@@ -28,8 +28,8 @@ function postDoneAndTodoToSlack() {
   const doneUrl = doneMilestone.url + '?closed=1'
   const todoUrl = todoMilestone.url
   const body = '\
-- [ ] 作業の流れ\n\
-  - ${configs.URL_MAIN}\n\
+- [ ] クエスト一覧\n\
+  - ${configs.URL_QUEST_LIST}\n\
 - [ ] 先週やった内容\n\
   - ${doneUrl}\n\
 - [ ] 今週やる予定\n\
@@ -40,11 +40,14 @@ function postDoneAndTodoToSlack() {
   - ${configs.URL_READY_QUEST}\n\
 - [ ] クエスト追加\n\
   - ${configs.URL_NEW_QUEST}\n\
+- [ ] 作業の流れ\n\
+  - ${configs.URL_MAIN}\n\
 - [ ] 以下から自動送信\n\
   - ${configs.URL_GAS}\n\
   - ${configs.URL_GAS_SOURCE}\n\
 '
     .replace('${configs.URL_MAIN}', configs.URL_MAIN)
+    .replace('${configs.URL_QUEST_LIST}', configs.URL_QUEST_LIST)
     .replace('${doneUrl}', doneUrl)
     .replace('${todoUrl}', todoUrl)
     .replace('${configs.URL_READY_QUEST}', configs.URL_READY_QUEST)
@@ -110,23 +113,25 @@ function postDoneAndTodoToSlackForOffline() {
   const doneUrl = doneMilestone.url + '?closed=1'
   const todoUrl = todoMilestone.url
   const body = '\
-- [ ] 作業の流れ\n\
-  - ${configs.URL_MAIN}\n\
+- [ ] クエスト一覧\n\
+  - ${configs.URL_QUEST_LIST}\n\
 - [ ] 木曜日のまとめ\n\
   - ${doneUrl}\n\
 - [ ] 土曜日の予定\n\
   - ${todoUrl}\n\
   - Milestoneをきちんと設定する\n\
-  - 今週の作業が完了したら、Milestoneをクローズする\n\
 - [ ] 既に着手できるクエスト\n\
   - ${configs.URL_READY_QUEST}\n\
 - [ ] クエスト追加\n\
   - ${configs.URL_NEW_QUEST}\n\
+- [ ] 作業の流れ\n\
+  - ${configs.URL_MAIN}\n\
 - [ ] 以下から自動送信\n\
   - ${configs.URL_GAS}\n\
   - ${configs.URL_GAS_SOURCE}\n\
 '
     .replace('${configs.URL_MAIN}', configs.URL_MAIN)
+    .replace('${configs.URL_QUEST_LIST}', configs.URL_QUEST_LIST)
     .replace('${doneUrl}', doneUrl)
     .replace('${todoUrl}', todoUrl)
     .replace('${configs.URL_READY_QUEST}', configs.URL_READY_QUEST)
@@ -449,6 +454,7 @@ function getConfigs() {
     TARGET_WEEKS: [2, 4],
 
     URL_MAIN: 'https://github.com/itomakiweb-corp/bank#flow',
+    URL_QUEST_LIST: 'https://github.com/itomakiweb-corp/bank/projects/1',
     URL_READY_QUEST: 'https://github.com/itomakiweb-corp/bank/milestone/7',
     URL_NEW_QUEST: 'https://itomakiweb.com/bank/newQuest',
     URL_GAS: 'https://drive.google.com/open?id=15wOLmTL8HGkWKhiFjLSvUCQJPrq2jeAo-4JRuRN_R96NJSUI2UMGIB_v',
