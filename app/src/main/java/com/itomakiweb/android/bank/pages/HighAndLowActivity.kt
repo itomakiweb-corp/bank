@@ -19,7 +19,12 @@ class HighAndLowActivity : AppCompatActivity() {
         }
 
         back.setOnClickListener {
-            supportFragmentManager.popBackStack()
+
+            if (supportFragmentManager.backStackEntryCount  > 0) {
+                supportFragmentManager.popBackStack()
+            } else {
+                finish()
+            }
         }
     }
 
