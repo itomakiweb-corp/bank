@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         // Create a new user with a first and last name
         val user = hashMapOf(
-            "first" to "Ada",
-            "last" to "Lovelace",
-            "born" to 1815
+            "message" to "test messsage",
+            "username" to "ikki",
+            "age" to 34
         )
 
         // Add a new document with a generated ID
