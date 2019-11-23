@@ -49,6 +49,17 @@ class MainActivity : AppCompatActivity() {
                 Log.w("test", "Error adding document", e)
             }
 
+        db.collection("users")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("get", "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("get", "Error getting documents.", exception)
+            }
+
     }
 
     fun setTopFragment() {
