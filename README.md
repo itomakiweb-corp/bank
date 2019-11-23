@@ -18,6 +18,7 @@
     - 30分交代でプルリクエスト作成まで完了させる（途中でも問題ない）
 1. web 対応するクエストを開き、自分をassignする
     - クエストでやるべきことをチェックボックスで列挙する
+1. cd ${HOME}/StudioProjects/bank
 1. git checkout master
 1. git pull # origin master
 1. git branch -a # ブランチ一覧
