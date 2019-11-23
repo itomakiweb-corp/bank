@@ -2,6 +2,7 @@ package com.itomakiweb.android.bank.pages
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.itomakiweb.android.bank.BuildConfig
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.GithubApi
@@ -80,6 +81,7 @@ class QuestNewActivity : ScopedAppActivity() {
                 val issueOutput = GithubApi.instance.createIssue(payload)
                 val resultText = "${issueOutput}"
                 result.setText(resultText)
+                Toast.makeText(applicationContext, "クエストを作成しました", Toast.LENGTH_LONG).show()
 
                 Log.i("api", resultText)
             } catch (e: Exception) {
