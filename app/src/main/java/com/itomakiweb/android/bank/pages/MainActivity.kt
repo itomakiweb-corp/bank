@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_main.*
+import android.app.AlertDialog
+import android.content.DialogInterface
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w("get", "Error getting documents.", exception)
             }
-
     }
 
     fun setTopFragment() {
@@ -78,5 +79,27 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.mainFragment, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onBackPressed() {
+
+        val dialogBuilder =  AlertDialog.Builder(this)
+
+        dialogBuilder.setMessage("このアプリを終了しますか ?")
+
+            .setCancelable(false)
+
+            .setNegativeButton("いいえ", DialogInterface.OnClickListener {
+                    dialog, id -> dialog.cancel()
+            })
+
+            .setPositiveButton("はい", DialogInterface.OnClickListener {
+                    dialog, id -> finish()
+            })
+
+        val alert = dialogBuilder.create()
+
+        alert.show()
+
     }
 }
