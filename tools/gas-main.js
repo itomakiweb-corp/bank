@@ -28,21 +28,21 @@ function postDoneAndTodoToSlack() {
   const doneUrl = doneMilestone.url + '?closed=1'
   const todoUrl = todoMilestone.url
   const body = '\
-- [ ] クエスト一覧\n\
-  - ${configs.URL_QUEST_LIST}\n\
 - [ ] 先週やった内容\n\
   - ${doneUrl}\n\
 - [ ] 今週やる予定\n\
   - ${todoUrl}\n\
   - Milestoneをきちんと設定する\n\
   - 今週の作業が完了したら、Milestoneをクローズする\n\
-- [ ] 既に着手できるクエスト\n\
+- 既に着手できるクエスト\n\
   - ${configs.URL_QUEST_READY}\n\
-- [ ] クエスト追加\n\
+- クエスト一覧\n\
+  - ${configs.URL_QUEST_LIST}\n\
+- クエスト追加\n\
   - ${configs.URL_QUEST_NEW}\n\
-- [ ] 作業の流れ\n\
+- 作業の流れ\n\
   - ${configs.URL_MAIN}\n\
-- [ ] 以下から自動送信\n\
+- 以下から自動送信\n\
   - ${configs.URL_GAS}\n\
   - ${configs.URL_GAS_SOURCE}\n\
 '
