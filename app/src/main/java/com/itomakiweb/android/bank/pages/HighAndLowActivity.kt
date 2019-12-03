@@ -1,7 +1,7 @@
 package com.itomakiweb.android.bank.pages
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_high_and_low.*
 
@@ -45,6 +45,5 @@ class HighAndLowActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
-
 
 }
