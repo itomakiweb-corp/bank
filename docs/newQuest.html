@@ -33,7 +33,7 @@
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODY0MTc2" required="required" />cost-pre: 5</label></li>
   <li><label><input type="radio" name="cost-pre" value="MDU6TGFiZWwxNjE1ODYyMTE4" required="required" />cost-pre: ?</label></li>
   <li><label><input class="input" type="text" name="milestoneId" value="MDk6TWlsZXN0b25lNDgwNTI1OA==" size="72" placeholder="milestoneId" /></label></li>
-  <li><label><button class="input" type="submit" name="submit" value="SUBMIT" />クエスト発行</button></label></li>
+  <li><label><button class="input" type="submit" name="submit" value="SUBMIT" />クエスト発行</button></label><a href="" id="questlink"></a></li>
   <li><label><textarea class="input" name="result" cols="72" rows="12" placeholder="result (readonly)" readonly="readonly"></textarea></label></li>
 </ul>
 </form>
@@ -129,10 +129,13 @@ $newQuest.addEventListener('submit', e => {
     .then(data => {
       $result.value = JSON.stringify(data, null, 2)
       // エラーがない場合、一部入力を初期化
-      if (!data.errors) {
+      if (!data.errors && data.data) {
         $title.value = ''
         $body.value = defaultBody
         $title.focus()
+        const $questlink = $newQuest.querySelector('#questlink')
+        $questlink.href = data.data.createIssue.issue.url
+        $questlink.text = data.data.createIssue.issue.title
       }
     })
     .catch(e => {
