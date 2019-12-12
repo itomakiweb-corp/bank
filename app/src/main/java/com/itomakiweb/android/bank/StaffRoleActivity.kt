@@ -2,7 +2,6 @@ package com.itomakiweb.android.bank
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import kotlinx.android.synthetic.main.activity_staff_role.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -57,6 +56,14 @@ class StaffRoleActivity : AppCompatActivity() {
     }
 
     fun postMessageToSlack(url: String, message: String) {
+        /**
+         * 初のhttp通信という事で、とりあえずasyncで試しました。
+         * runBlockingを使用する方法にも今後触れて行こうと思います。
+         * setTextはUIに関わる処理なので同じrunBlocking内に記述しても良いのでしょうか？
+         * coroutineを扱うのは難易度が高いですね、、。
+         *
+         * @see https://qiita.com/jonghyo/items/bf3e4e06022eebe8e3eb
+         */
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val http = HttpPost()
@@ -64,6 +71,7 @@ class StaffRoleActivity : AppCompatActivity() {
 
                 staffRoleResult.text = "投稿に成功しました！${message}"
             } catch (e: Exception) {
+                //この書き方でいいのか怪しいです。
                 staffRoleResult.text = e.toString()
             }
         }
