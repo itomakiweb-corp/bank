@@ -26,6 +26,10 @@ class HighAndLowActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+        toHighAndLowRule.setOnClickListener {
+            setRuleFragment()
+        }
     }
 
     fun setTopFragment() {
@@ -40,6 +44,17 @@ class HighAndLowActivity : AppCompatActivity() {
         if (supportFragmentManager.backStackEntryCount > 0) return
 
         val fragment = HighAndLowGameFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.highAndLowFragment, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    fun setRuleFragment(){
+        // 設定した後は、イベントに反応させない
+        if (supportFragmentManager.backStackEntryCount > 0) return
+
+        val fragment = HighAndLowRuleFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.highAndLowFragment, fragment)
             .addToBackStack(null)
