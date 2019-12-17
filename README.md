@@ -33,6 +33,7 @@
 1. git commit -av
 1. git push origin new-branch -u -n
 1. web [pull request](https://github.com/itomakiweb-corp/bank/pulls), reviewersを指定する
+    - reviewersは、次のモブプログラミングの担当者を指定する
 1. web reviewersのレビュー/マージ/new-branch削除を待つ
 1. 終わったクエストに、cost-realを設定する
 1. 最初に戻る
