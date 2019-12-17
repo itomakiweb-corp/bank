@@ -59,13 +59,13 @@
 |MainActivity|オープニング|setOnClickListenerでフラグメント変化|
 |　MainTopFragment|タイトル|デフォルトの表示|
 |　MainMenuFragment|メニュー|クリック後の表示|
-|BlackJackActivity|ブラックジャック|上から表示が出てくる|
+|BlackJackActivity|ブラックジャック|上から表示が出てくる [#79](https://github.com/itomakiweb-corp/bank/issues/79)|
 |　BlackJackTopFragment|トップ|デフォルトの表示|
 |　BlackJackGameFragment|ゲーム|クリック後の表示|
 |　BlackJackResultFragment|結果|クリック後の表示|
 |　BlackJackRuleFragment|ルール|クリック後の表示|
 |　BlackJackPreferencesFragment|設定|クリック後の表示|
-|HighAndLowActivity|ハイアンドロー|上から表示が出てくる|
+|HighAndLowActivity|ハイアンドロー|上から表示が出てくる [#182](https://github.com/itomakiweb-corp/bank/issues/182)|
 |　HighAndLowTopFragment|トップ|デフォルトの表示|
 |　HighAndLowGameFragment|ゲーム|クリック後の表示|
 |　HighAndLowResultFragment|結果|クリック後の表示|
