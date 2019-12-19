@@ -12,18 +12,19 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/toBlackJack"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="144dp"
-            android:layout_height="144dp"
-            android:text="@string/toBlackJack" />
-
-        <Button
             android:id="@+id/toHighAndLow"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="144dp"
             android:layout_height="144dp"
             android:text="@string/toHighAndLow" />
+
+        <Button
+            android:id="@+id/toBlackJack"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:text="@string/toBlackJack"
+            android:visibility="visible" />
 
     </TableRow>
 
@@ -37,14 +38,16 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="144dp"
             android:layout_height="144dp"
-            android:text="@string/toStaffRole" />
+            android:text="@string/toStaffRole"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/toQuestNew"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="144dp"
             android:layout_height="144dp"
-            android:text="@string/toQuestNew" />
+            android:text="@string/toQuestNew"
+            android:visibility="invisible" />
     </TableRow>
 
 </TableLayout>

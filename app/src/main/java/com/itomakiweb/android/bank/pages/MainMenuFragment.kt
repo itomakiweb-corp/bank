@@ -26,17 +26,17 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toBlackJack.setOnClickListener {
+        /**toBlackJack.setOnClickListener {
             val intent = Intent(activity, BlackJackActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
         toHighAndLow.setOnClickListener {
             val intent = Intent(activity, HighAndLowActivity::class.java)
             startActivity(intent)
         }
 
-        toStaffRole.setOnClickListener {
+        /**toStaffRole.setOnClickListener {
             val intent = Intent(activity, StaffRoleActivity::class.java)
             startActivity(intent)
         }
@@ -44,6 +44,6 @@ class MainMenuFragment : Fragment() {
         toQuestNew.setOnClickListener {
             val intent = Intent(activity, QuestNewActivity::class.java)
             startActivity(intent)
-        }
+        }*/
     }
 }
