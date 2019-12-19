@@ -88,7 +88,6 @@ class MainActivity : AppCompatActivity() {
         dialogBuilder.setMessage("このアプリを終了しますか ?")
 
             .setCancelable(false)
-
             .setNegativeButton("いいえ", DialogInterface.OnClickListener {
                     dialog, id -> dialog.cancel()
             })

@@ -53,10 +53,10 @@ class MainTopFragment: ScopedFragment() {
             }
         }
 
-        fetchGithubIssues()
+        //fetchGithubIssues()
 
     }
-
+/*
     override fun onDestroyView() {
         super.onDestroyView()
 
@@ -66,6 +66,7 @@ class MainTopFragment: ScopedFragment() {
         // アプリ再起動時に、一覧が重なって表示されることがあるので、リストクリア
         questThisWeek.adapter = null
     }
+
 
     fun fetchGithubIssues() {
         // TODO いずれ、処理の共通化を検討
@@ -119,4 +120,5 @@ class MainTopFragment: ScopedFragment() {
             }
         }
     }
+    */
 }
