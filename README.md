@@ -57,9 +57,10 @@
 
 |Activity|説明|備考|
 |:---|:---|:---|
-|MainActivity|ロゴ画面|[#30](https://github.com/itomakiweb-corp/bank/issues/30)|
+|MainActivity|全般|[#30](https://github.com/itomakiweb-corp/bank/issues/30)|
+|　MainLogoFragment|ロゴ画面|[#271](https://github.com/itomakiweb-corp/bank/issues/271)|
 |　MainTopFragment|タイトル|[#263](https://github.com/itomakiweb-corp/bank/issues/263)|
-|　MainLogInFragment|ログイン|[#87](https://github.com/itomakiweb-corp/bank/issues/87)|
+|　MainSignInFragment|ログイン|[#87](https://github.com/itomakiweb-corp/bank/issues/87)|
 |　MainMenuFragment|メニュー|[#264](https://github.com/itomakiweb-corp/bank/issues/264)|
 |HighAndLowActivity|ハイアンドロー|上から表示が出てくる [#182](https://github.com/itomakiweb-corp/bank/issues/182) [#214](https://github.com/itomakiweb-corp/bank/issues/214)|
 |　HighAndLowTopFragment|トップ|[#265](https://github.com/itomakiweb-corp/bank/issues/265)|
