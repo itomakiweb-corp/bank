@@ -27,9 +27,11 @@ class HighAndLowActivity : AppCompatActivity() {
             }
         }
 
+        /*
         toHighAndLowRule.setOnClickListener {
             setRuleFragment()
         }
+         */
     }
 
     fun setTopFragment() {

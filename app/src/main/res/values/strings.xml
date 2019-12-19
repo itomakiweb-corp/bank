@@ -42,4 +42,8 @@
     <string name="back">戻る</string>
     <string name="resultFragmentTitle">RESULT</string>
     <string name="help">ルール表示</string>
+    <string name="newGame">ゲームをはじめる</string>
+    <string name="highAndLowRule01">ディーラーカードが7より上か下かを予想する。</string>
+    <string name="highAndLowRule02">上だと予想するなら「High」を押し、</string>
+    <string name="highAndLowRule03">下だと予想するなら「Low」を押す。</string>
 </resources>
