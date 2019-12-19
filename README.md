@@ -57,21 +57,22 @@
 
 |Activity|説明|備考|
 |:---|:---|:---|
-|MainActivity|オープニング|setOnClickListenerでフラグメント変化|
-|　MainTopFragment|タイトル|デフォルトの表示|
-|　MainMenuFragment|メニュー|クリック後の表示|
+|MainActivity|ロゴ画面|[#30](https://github.com/itomakiweb-corp/bank/issues/30)|
+|　MainTopFragment|タイトル|[#263](https://github.com/itomakiweb-corp/bank/issues/263)|
+|　MainLogInFragment|ログイン|[#87](https://github.com/itomakiweb-corp/bank/issues/87)|
+|　MainMenuFragment|メニュー|[#264](https://github.com/itomakiweb-corp/bank/issues/264)|
 |HighAndLowActivity|ハイアンドロー|上から表示が出てくる [#182](https://github.com/itomakiweb-corp/bank/issues/182) [#214](https://github.com/itomakiweb-corp/bank/issues/214)|
-|　HighAndLowTopFragment|トップ|デフォルトの表示|
-|　HighAndLowGameFragment|ゲーム|クリック後の表示|
-|　HighAndLowResultFragment|結果|クリック後の表示|
-|　HighAndLowRuleFragment|ルール|クリック後の表示|
-|　HighAndLowPreferencesFragment|設定|クリック後の表示|
+|　HighAndLowTopFragment|トップ|[#265](https://github.com/itomakiweb-corp/bank/issues/265)|
+|　HighAndLowGameFragment|ゲーム|[#266](https://github.com/itomakiweb-corp/bank/issues/266)|
+|　HighAndLowResultFragment|結果|[#250](https://github.com/itomakiweb-corp/bank/issues/250)|
+|　HighAndLowRuleFragment|ルール|[#262](https://github.com/itomakiweb-corp/bank/issues/262)|
+|　HighAndLowPreferencesFragment|設定|[#](https://github.com/itomakiweb-corp/bank/issues/)|
 |// BlackJackActivity|ブラックジャック|上から表示が出てくる [#79](https://github.com/itomakiweb-corp/bank/issues/79) [#213](https://github.com/itomakiweb-corp/bank/issues/213)|
-|　BlackJackTopFragment|トップ|デフォルトの表示|
-|　BlackJackGameFragment|ゲーム|クリック後の表示|
-|　BlackJackResultFragment|結果|クリック後の表示|
-|　BlackJackRuleFragment|ルール|クリック後の表示|
-|　BlackJackPreferencesFragment|設定|クリック後の表示|
+|　BlackJackTopFragment|トップ|[#](https://github.com/itomakiweb-corp/bank/issues/)|
+|　BlackJackGameFragment|ゲーム|[#](https://github.com/itomakiweb-corp/bank/issues/)|
+|　BlackJackResultFragment|結果|[#](https://github.com/itomakiweb-corp/bank/issues/)|
+|　BlackJackRuleFragment|ルール|[#](https://github.com/itomakiweb-corp/bank/issues/)|
+|　BlackJackPreferencesFragment|設定|[#](https://github.com/itomakiweb-corp/bank/issues/)|
 |// StaffRoleActivity|スタッフロール|-|
 |// QuestNewActivity|クエスト発行|-|
 |// PreferencesActivity|全体設定|-|
