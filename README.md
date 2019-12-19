@@ -66,14 +66,16 @@
 |　HighAndLowTopFragment|トップ|[#265](https://github.com/itomakiweb-corp/bank/issues/265)|
 |　HighAndLowGameFragment|ゲーム|[#266](https://github.com/itomakiweb-corp/bank/issues/266)|
 |　HighAndLowResultFragment|結果|[#250](https://github.com/itomakiweb-corp/bank/issues/250)|
-|　HighAndLowRuleFragment|ルール|[#262](https://github.com/itomakiweb-corp/bank/issues/262)|
-|　HighAndLowPreferencesFragment|設定|[#](https://github.com/itomakiweb-corp/bank/issues/)|
+|　// HighAndLowRuleFragment|ルール|[#262](https://github.com/itomakiweb-corp/bank/issues/262)|
+|　// HighAndLowPreferencesFragment|設定|[#](https://github.com/itomakiweb-corp/bank/issues/)|
 |// BlackJackActivity|ブラックジャック|上から表示が出てくる [#79](https://github.com/itomakiweb-corp/bank/issues/79) [#213](https://github.com/itomakiweb-corp/bank/issues/213)|
 |　BlackJackTopFragment|トップ|[#](https://github.com/itomakiweb-corp/bank/issues/)|
 |　BlackJackGameFragment|ゲーム|[#](https://github.com/itomakiweb-corp/bank/issues/)|
 |　BlackJackResultFragment|結果|[#](https://github.com/itomakiweb-corp/bank/issues/)|
-|　BlackJackRuleFragment|ルール|[#](https://github.com/itomakiweb-corp/bank/issues/)|
-|　BlackJackPreferencesFragment|設定|[#](https://github.com/itomakiweb-corp/bank/issues/)|
+|　// BlackJackRuleFragment|ルール|[#](https://github.com/itomakiweb-corp/bank/issues/)|
+|　// BlackJackPreferencesFragment|設定|[#](https://github.com/itomakiweb-corp/bank/issues/)|
+|// StatsActivity|全体の保持金額画面|-|
+|// RuleActivity|全体のルールブック|-|
 |// StaffRoleActivity|スタッフロール|-|
 |// QuestNewActivity|クエスト発行|-|
 |// PreferencesActivity|全体設定|-|
