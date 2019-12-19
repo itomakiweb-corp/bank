@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BANK</string>
-    <string name="mainTitle">BANK</string>
+    <string name="mainTitle"></string>
     <string name="nameIkki">ikki</string>
     <string name="nameKazucharo">kazucharo</string>
     <string name="nameYu">yu</string>
