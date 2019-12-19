@@ -57,7 +57,7 @@
 
 |Activity|説明|備考|
 |:---|:---|:---|
-|MainActivity|全般|[#30](https://github.com/itomakiweb-corp/bank/issues/30)|
+|MainActivity|全般|[#30](https://github.com/itomakiweb-corp/bank/issues/30) [#260](https://github.com/itomakiweb-corp/bank/issues/260) [#259](https://github.com/itomakiweb-corp/bank/issues/259)|
 |　MainLogoFragment|ロゴ画面|[#271](https://github.com/itomakiweb-corp/bank/issues/271)|
 |　MainTopFragment|タイトル|[#263](https://github.com/itomakiweb-corp/bank/issues/263)|
 |　MainSignInFragment|ログイン|[#87](https://github.com/itomakiweb-corp/bank/issues/87)|
