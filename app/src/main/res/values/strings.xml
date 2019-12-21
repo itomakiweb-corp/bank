@@ -50,4 +50,8 @@
     <string name="isLow">LOW</string>
     <string name="cardHistoryTest">♥7,♠K</string>
     <string name="selectHighOrLow">SELECT HIGH OR LOW</string>
+    <string name="isBack">BACK</string>
+    <string name="isNext">NEXT</string>
+    <string name="resultWin">YOU WIN\nMONEY + 1000</string>
+    <string name="resultMoney">TOTAL MONEY : 81000\nNEXT BET %1$d</string>
 </resources>
