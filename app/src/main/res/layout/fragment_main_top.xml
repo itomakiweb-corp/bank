@@ -11,7 +11,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/deckOfCards"
         android:layout_width="280dp"
         android:layout_height="280dp"
         android:src="@drawable/bank_it_logo" />
