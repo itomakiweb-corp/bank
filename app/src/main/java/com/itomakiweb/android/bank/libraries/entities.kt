@@ -4,6 +4,7 @@ import java.io.Serializable
 import com.itomakiweb.android.bank.BuildConfig
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlin.random.Random
 
 @JsonClass(generateAdapter = true)
 data class GithubGraphqlInput(
@@ -159,3 +160,242 @@ data class SlackChatMessageInput(
 data class SlackChatMessageOutput(
     val ok: Boolean
 )
+
+
+fun startHighAndLow() {
+    val deckOfCards = DeckOfCards()
+    val you = You()
+    val highAndLow = HighAndLow(deckOfCards, you)
+    highAndLow.start()
+}
+
+class HighAndLow(val deckOfCards: DeckOfCards, val you: You) {
+    companion object {
+        val MIDDLE_RANK = 7
+        val INIT_MONEY = 10000
+        val BASE_MONEY = 1000
+        val CLEAR_MONEY = 20000
+        val MAX_BET = 10
+    }
+
+    val usedCards = mutableListOf<Card>()
+    var betCount = 0
+    var gameCount = 0
+    var winCount = 0
+    var winStreakCount = 0
+    var maxWinStreakCount = 0
+
+    fun start() {
+        begin()
+        while (true) {
+            // card size
+            if (deckOfCards.size() < 1) {
+                reset(false)
+                continue
+            }
+
+            // money
+            println()
+            val betMoney = (++betCount % MAX_BET) * BASE_MONEY
+            println("${you.name} money is ${you.money}")
+
+            // game clear
+            if (you.money > CLEAR_MONEY) {
+                println("Game Clear")
+                break
+            }
+
+            // game over
+            if (you.money < BASE_MONEY) {
+                println("Game Over")
+                break
+            }
+
+            // call
+            val yourCall = you.call(betMoney)
+            println("Bet ${betMoney}")
+            println("${you.name} call ${yourCall}")
+
+            // drop out
+            if (yourCall == HighAndLowCall.DROP_OUT) {
+                reset(true)
+                continue
+            }
+
+            // game
+            gameCount++
+            val card = deckOfCards.draw()
+            val result = getResult(card)
+            usedCards.add(card)
+            println("Card is ${card}")
+            if (yourCall == result) {
+                println("${you.name} Win")
+                you.addMoney(betMoney)
+                winCount++
+                winStreakCount++
+                if (winStreakCount > maxWinStreakCount) {
+                    maxWinStreakCount = winStreakCount
+                }
+            } else {
+                println("${you.name} Lose")
+                you.betMoney(betMoney)
+                winStreakCount = 0
+            }
+        }
+        showRecord()
+        showCards(deckOfCards.cards)
+    }
+
+    fun begin() {
+        println("High And Low start")
+        deckOfCards.removeCards(Rank.SEVEN)
+        deckOfCards.shuffle()
+    }
+
+    fun reset(isResetWinStreakCount: Boolean = false) {
+        deckOfCards.addCards(usedCards)
+        usedCards.removeAll { true }
+        deckOfCards.shuffle()
+        betCount = 0
+        if (isResetWinStreakCount) winStreakCount = 0
+    }
+
+    fun getResult(card: Card): HighAndLowCall {
+        if (card.rank.number > MIDDLE_RANK) return HighAndLowCall.HIGH
+        else return HighAndLowCall.LOW
+    }
+
+    fun showRecord() {
+        println()
+        println("gameCount: ${gameCount}")
+        println("winCount: ${winCount}")
+        println("winRate: ${100 * winCount / gameCount}%")
+        println("winStreakCount: ${winStreakCount}")
+        println("maxWinStreakCount: ${maxWinStreakCount}")
+    }
+
+    fun showCards(cards: List<Card>) {
+        println()
+        println("Remaining: ${cards.size} card")
+        cards.chunked(10).forEach { println(it.joinToString(",")) }
+        // cards.chunked(10).forEach { println(it) }
+        // for (cardChunks in cards.chunked(10)) println(cardChunks)
+        // for (cardChunks in cards.chunked(Rank.values().size)) println(cardChunks)
+        // println(cards)
+        /*
+        for (card in cards) {
+            println(card)
+        }
+        */
+    }
+}
+
+class You(): Player("You", HighAndLow.INIT_MONEY) {
+    override fun call(betMoney: Int): HighAndLowCall {
+        if (money < betMoney) return HighAndLowCall.DROP_OUT
+
+        val randomInt = Random.nextInt(0, 30) // 0..29
+        when {
+            randomInt < 3 -> return HighAndLowCall.DROP_OUT
+            randomInt < 20 -> return HighAndLowCall.HIGH
+            else -> return HighAndLowCall.LOW
+        }
+    }
+}
+
+abstract class Player(val name: String, var money: Int) {
+    val cards = mutableListOf<Card>()
+
+    fun betMoney(money: Int) {
+        this.money -= money
+    }
+
+    fun addMoney(money: Int) {
+        this.money += money
+    }
+
+    fun memoryCard(card: Card) {
+        cards.add(card)
+    }
+
+    abstract fun call(betMoney: Int): HighAndLowCall
+}
+
+enum class HighAndLowCall {
+    HIGH,
+    LOW,
+    DROP_OUT
+}
+
+class DeckOfCards {
+    val cards = mutableListOf<Card>()
+
+    init {
+        for (suit in Suit.values()) {
+            for (rank in Rank.values()) {
+                cards.add(Card(suit, rank))
+            }
+        }
+    }
+
+    fun shuffle() {
+        cards.shuffle()
+        /*
+        cards[0] = Card(Mark.SPADE, 11)
+        cards[1] = Card(Mark.SPADE, 13)
+        cards[2] = Card(Mark.SPADE, 1)
+        cards[0] = Card(Mark.SPADE, 1)
+        cards[1] = Card(Mark.SPADE, 1)
+        cards[2] = Card(Mark.SPADE, 1)
+        cards[3] = Card(Mark.SPADE, 1)
+        */
+    }
+
+    fun removeCards(targetRank: Rank) {
+        cards.removeAll { it.rank == targetRank }
+    }
+
+    fun draw(): Card {
+        return cards.removeAt(0)
+    }
+
+    fun size(): Int {
+        return cards.size
+    }
+
+    fun addCards(addCards: List<Card>) {
+        cards.addAll(addCards)
+    }
+}
+
+data class Card(
+    val suit: Suit,
+    val rank: Rank
+) {
+    override fun toString(): String {
+        return "(${suit.symbol}%2s)".format(rank.symbol)
+    }
+}
+
+enum class Suit(val symbol: String) {
+    SPADE("♠"),
+    HEART("♡"),
+    DIAMOND("◇"),
+    CLUB("♣")
+}
+
+enum class Rank(val symbol: String, val number: Int) {
+    ACE("A", 1),
+    TWO("2", 2),
+    THREE("3", 3),
+    FOUR("4", 4),
+    FIVE("5", 5),
+    SIX("6", 6),
+    SEVEN("7", 7),
+    EIGHT("8", 8),
+    NINE("9", 9),
+    TEN("10", 10),
+    JACK("J", 11),
+    QUEEN("Q", 12),
+    KING("K", 13)
+}
