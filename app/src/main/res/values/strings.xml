@@ -46,4 +46,12 @@
     <string name="highAndLowRule01">ディーラーカードが7より上か下かを予想する。</string>
     <string name="highAndLowRule02">上だと予想するなら「High」を押し、</string>
     <string name="highAndLowRule03">下だと予想するなら「Low」を押す。</string>
+    <string name="isHigh">HIGH</string>
+    <string name="isLow">LOW</string>
+    <string name="cardHistoryTest">♥7,♠K</string>
+    <string name="selectHighOrLow">SELECT HIGH OR LOW</string>
+    <string name="isBack">BACK</string>
+    <string name="isNext">NEXT</string>
+    <string name="resultWin">YOU WIN\nMONEY + 1000</string>
+    <string name="resultMoney">TOTAL MONEY : 81000\nNEXT BET %1$d</string>
 </resources>
