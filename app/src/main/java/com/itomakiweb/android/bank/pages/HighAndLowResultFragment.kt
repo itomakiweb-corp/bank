@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.itomakiweb.android.bank.R
+import kotlinx.android.synthetic.main.fragment_high_and_low_game.*
 import kotlinx.android.synthetic.main.fragment_high_and_low_result.*
 
 /**
@@ -19,6 +20,7 @@ class HighAndLowResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        container
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_high_and_low_result, container, false)
     }
@@ -26,6 +28,8 @@ class HighAndLowResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (parentFragment as HighAndLowGameFragment).changeCards()
+        
         //ハイアンドローの実装が済んでいないので仮の値を入れています
         val betMoney = 1000
         val nextBetMoney = betMoney + 1000
@@ -45,6 +49,5 @@ class HighAndLowResultFragment : Fragment() {
             startActivity(intent)
         }
     }
-
 
 }

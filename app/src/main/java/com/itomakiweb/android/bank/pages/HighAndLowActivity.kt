@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.activity_high_and_low.*
+import kotlinx.android.synthetic.main.fragment_high_and_low_game.*
 
 class HighAndLowActivity : AppCompatActivity() {
 
@@ -26,6 +27,7 @@ class HighAndLowActivity : AppCompatActivity() {
                 finish()
             }
         }
+
 
         /*
         toHighAndLowRule.setOnClickListener {
@@ -62,5 +64,7 @@ class HighAndLowActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
+
+
 
 }
