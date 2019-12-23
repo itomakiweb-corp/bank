@@ -64,8 +64,9 @@
 |　MainMenuFragment|メニュー|[#264](https://github.com/itomakiweb-corp/bank/issues/264)|
 |HighAndLowActivity|ハイアンドロー|上から表示が出てくる [#182](https://github.com/itomakiweb-corp/bank/issues/182) [#214](https://github.com/itomakiweb-corp/bank/issues/214)|
 |　HighAndLowTopFragment|トップ|[#265](https://github.com/itomakiweb-corp/bank/issues/265)|
-|　HighAndLowGameFragment|ゲーム|[#266](https://github.com/itomakiweb-corp/bank/issues/266)|
-|　HighAndLowResultFragment|結果|[#250](https://github.com/itomakiweb-corp/bank/issues/250)|
+|　HighAndLowGameFragment|ゲーム|-|
+|　　HighAndLowPlayFragment|ゲーム（選択部分）|[#266](https://github.com/itomakiweb-corp/bank/issues/266)|
+|　　HighAndLowResultFragment|ゲーム（結果部分）|[#250](https://github.com/itomakiweb-corp/bank/issues/250)|
 |　// HighAndLowRuleFragment|ルール|[#262](https://github.com/itomakiweb-corp/bank/issues/262)|
 |　// HighAndLowPreferencesFragment|設定|[#](https://github.com/itomakiweb-corp/bank/issues/)|
 |// BlackJackActivity|ブラックジャック|上から表示が出てくる [#79](https://github.com/itomakiweb-corp/bank/issues/79) [#213](https://github.com/itomakiweb-corp/bank/issues/213)|
