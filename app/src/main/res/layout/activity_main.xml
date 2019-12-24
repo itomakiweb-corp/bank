@@ -20,6 +20,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Button
+            android:id="@+id/buttonAnonymousSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/signIn" />
+
         <TextView
             android:id="@+id/mainTitle"
             android:layout_width="match_parent"
