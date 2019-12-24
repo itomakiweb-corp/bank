@@ -1,5 +1,7 @@
 package com.itomakiweb.android.bank.pages
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.itomakiweb.android.bank.R
@@ -22,7 +24,22 @@ class HighAndLowActivity : AppCompatActivity() {
         back.setOnClickListener {
 
             if (supportFragmentManager.backStackEntryCount > 0) {
-                supportFragmentManager.popBackStack()
+                val dialogBuilder = AlertDialog.Builder(this)
+
+                dialogBuilder.setMessage("現在のゲームを終了してメニューに戻りますか ?")
+
+                    .setCancelable(false)
+                    .setNegativeButton("いいえ", DialogInterface.OnClickListener { dialog, id ->
+                        dialog.cancel()
+                    })
+
+                    .setPositiveButton("はい", DialogInterface.OnClickListener { dialog, id ->
+                        finish()
+                    })
+
+                val alert = dialogBuilder.create()
+
+                alert.show()
             } else {
                 finish()
             }
@@ -65,6 +82,29 @@ class HighAndLowActivity : AppCompatActivity() {
             .commit()
     }
 
+    override fun onBackPressed() {
 
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            val dialogBuilder = AlertDialog.Builder(this)
+
+            dialogBuilder.setMessage("現在のゲームを終了してメニューに戻りますか ?")
+
+                .setCancelable(false)
+                .setNegativeButton("いいえ", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+
+                .setPositiveButton("はい", DialogInterface.OnClickListener { dialog, id ->
+                    finish()
+                })
+
+            val alert = dialogBuilder.create()
+
+            alert.show()
+        } else {
+            finish()
+        }
+
+    }
 
 }
