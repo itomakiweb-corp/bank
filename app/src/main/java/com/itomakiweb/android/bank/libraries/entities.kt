@@ -333,7 +333,8 @@ class DeckOfCards {
     init {
         for (suit in Suit.values()) {
             for (rank in Rank.values()) {
-                cards.add(Card(suit, rank))
+                val drawable = "card_%s_%02d".format(suit.resId, rank.number)
+                cards.add(Card(suit, rank, drawable))
             }
         }
     }
@@ -370,18 +371,19 @@ class DeckOfCards {
 
 data class Card(
     val suit: Suit,
-    val rank: Rank
+    val rank: Rank,
+    val drawable: String
 ) {
     override fun toString(): String {
         return "(${suit.symbol}%2s)".format(rank.symbol)
     }
 }
 
-enum class Suit(val symbol: String) {
-    SPADE("♠"),
-    HEART("♡"),
-    DIAMOND("◇"),
-    CLUB("♣")
+enum class Suit(val symbol: String, val resId: String) {
+    SPADE("♠", "spade"),
+    HEART("♡", "heart"),
+    DIAMOND("◇", "diamond"),
+    CLUB("♣", "club")
 }
 
 enum class Rank(val symbol: String, val number: Int) {
