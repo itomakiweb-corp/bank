@@ -6,13 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.common.reflect.Reflection.getPackageName
 import com.itomakiweb.android.bank.R
+import com.itomakiweb.android.bank.libraries.DeckOfCards
+import com.itomakiweb.android.bank.libraries.Rank
 import kotlinx.android.synthetic.main.fragment_high_and_low_game.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class HighAndLowGameFragment : Fragment() {
+
+    val deck = DeckOfCards()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,11 +28,17 @@ class HighAndLowGameFragment : Fragment() {
     }
 
     fun changeCards(){
-        drawCard.setImageResource(R.drawable.card_club_01)
+        val pickCard = deck.draw()
+        val resId = resources.getIdentifier(pickCard.drawable,"drawable","com.itomakiweb.android.bank")
+        drawCard.setImageResource(resId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        deck.removeCards(Rank.SEVEN)
+
+        deck.shuffle()
     }
 
 
