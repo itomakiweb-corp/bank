@@ -53,20 +53,6 @@ class MainActivity : AppCompatActivity() {
         mainFragment.setOnClickListener {
             setMenuFragment()
         }
-
-        // Access a Cloud Firestore instance from your Activity
-        val db = FirebaseFirestore.getInstance()
-
-        db.collection("users")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    // Log.d("get", "${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("get", "Error getting documents.", exception)
-            }
     }
 
     fun setTopFragment() {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.common.reflect.Reflection.getPackageName
+import com.google.firebase.auth.FirebaseAuth
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.DeckOfCards
 import com.itomakiweb.android.bank.libraries.Rank
@@ -35,6 +36,7 @@ class HighAndLowGameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         deck.removeCards(Rank.SEVEN)
 
