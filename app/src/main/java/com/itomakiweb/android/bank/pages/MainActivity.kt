@@ -108,10 +108,11 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInAnonymously:success")
-                    val user = auth.currentUser
+                    val user = auth.currentUser!!
                     // Log.d(TAG, user.toString())
-                    createUser(user!!)
+                    createUser(user)
                     // updateUI(user)
+                    createHighAndLow(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInAnonymously:failure", task.exception)
@@ -153,6 +154,32 @@ class MainActivity : AppCompatActivity() {
                 Log.w("test", "Error adding document", e)
             }
 
+    }
+
+    private fun createHighAndLow(user: FirebaseUser) {
+        // Access a Cloud Firestore instance from your Activity
+        val db = FirebaseFirestore.getInstance()
+        // Create a new user with a first and last name
+        val highAndLow = hashMapOf(
+            "countSet" to 0,
+            "countSetMax" to 1200,
+            "countGameTotalSets" to 0,
+            "moneyBetRateSets" to 1000,
+            "createdAt" to FieldValue.serverTimestamp(),
+            "createdBy" to user.uid,
+            "updatedAt" to FieldValue.serverTimestamp(),
+            "updatedBy" to user.uid
+        )
+
+        // Add a new document with a generated ID
+        db.collection("highAndLow")
+            .add(highAndLow)
+            .addOnSuccessListener { documentReference ->
+                Log.d("test", "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w("test", "Error adding document", e)
+            }
     }
 
     private fun signOut() {
