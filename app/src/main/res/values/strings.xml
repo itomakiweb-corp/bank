@@ -56,4 +56,5 @@
     <string name="resultMoney">TOTAL MONEY : 81000\nNEXT BET %1$d</string>
     <string name="loading">now loading...</string>
     <string name="signIn">Log In</string>
+    <string name="signOut">Log Out</string>
 </resources>

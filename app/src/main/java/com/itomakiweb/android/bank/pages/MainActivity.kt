@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FieldValue
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -26,8 +27,14 @@ class MainActivity : AppCompatActivity() {
 
         // Firebase Auth
         auth = FirebaseAuth.getInstance()
+        /*
         buttonAnonymousSignIn.setOnClickListener {
             signInAnonymously()
+        }
+
+         */
+        buttonAnonymousSignOut.setOnClickListener {
+            signOut()
         }
 
         // 画面が再利用されていない場合のみ、生成
@@ -49,28 +56,12 @@ class MainActivity : AppCompatActivity() {
 
         // Access a Cloud Firestore instance from your Activity
         val db = FirebaseFirestore.getInstance()
-        // Create a new user with a first and last name
-        val user = hashMapOf(
-            "message" to "test messsage",
-            "username" to "ikki",
-            "age" to 34
-        )
-
-        // Add a new document with a generated ID
-        db.collection("users")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Log.d("test", "DocumentSnapshot added with ID: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Log.w("test", "Error adding document", e)
-            }
 
         db.collection("users")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    Log.d("get", "${document.id} => ${document.data}")
+                    // Log.d("get", "${document.id} => ${document.data}")
                 }
             }
             .addOnFailureListener { exception ->
@@ -101,6 +92,10 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
+        if (currentUser == null) {
+            Log.d(TAG, "signInAnonymously:begin")
+            signInAnonymously()
+        }
         // updateUI(currentUser)
     }
     // [END on_start_check_user]
@@ -114,6 +109,8 @@ class MainActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInAnonymously:success")
                     val user = auth.currentUser
+                    // Log.d(TAG, user.toString())
+                    createUser(user!!)
                     // updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -130,12 +127,40 @@ class MainActivity : AppCompatActivity() {
         // [END signin_anonymously]
     }
 
-    /*
-    private fun signOut() {
-        auth.signOut()
-        updateUI(null)
+    private fun createUser(user: FirebaseUser) {
+        // Access a Cloud Firestore instance from your Activity
+        val db = FirebaseFirestore.getInstance()
+        // Create a new user with a first and last name
+        val user = hashMapOf(
+            "uid" to user.uid,
+            "name" to "TODO",
+            "moneyTotalCurrent" to 80000,
+            "moneyOwnCurrent" to 0,
+            "moneyBorrowCurrent" to 80000,
+            "createdAt" to FieldValue.serverTimestamp(),
+            "createdBy" to user.uid,
+            "updatedAt" to FieldValue.serverTimestamp(),
+            "updatedBy" to user.uid
+        )
+
+        // Add a new document with a generated ID
+        db.collection("users")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d("test", "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w("test", "Error adding document", e)
+            }
+
     }
 
+    private fun signOut() {
+        auth.signOut()
+        // updateUI(null)
+    }
+
+    /*
     private fun linkAccount() {
         // Make sure form is valid
         if (!validateLinkForm()) {
