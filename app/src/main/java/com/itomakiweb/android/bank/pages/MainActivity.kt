@@ -157,6 +157,15 @@ class MainActivity : AppCompatActivity() {
             "updatedBy" to user.uid
         )
 
+        val highAndLowSubCollection = hashMapOf(
+            "numberSet" to 0,
+            "countGame" to 0,
+            "countGameMax" to 10,
+            "moneyBetRateGames" to 1000
+        )
+
+        highAndLow["sets"] = highAndLowSubCollection
+
         // Add a new document with a generated ID
         db.collection("highAndLow")
             .add(highAndLow)
