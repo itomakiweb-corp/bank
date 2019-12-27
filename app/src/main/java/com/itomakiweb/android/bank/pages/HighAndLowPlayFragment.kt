@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -51,11 +50,11 @@ class HighAndLowPlayFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        highAndLowGameCount()
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    fun highAndLowGameCount() {
         val currentUser = auth.currentUser!!
 
         // Access a Cloud Firestore instance from your Activity
@@ -65,10 +64,14 @@ class HighAndLowPlayFragment : Fragment() {
             .whereEqualTo("uid", currentUser.uid)
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
+                for(document in result) {
                     //TODO: ベット金額は仮に1000を入れているので修正が必要
-                    document.reference.update("moneyTotalCurrent", FieldValue.increment(-1000))
-                    document.reference.update("moneyOwnCurrent", FieldValue.increment(-1000))
+                    document.reference.update(
+                        mapOf(
+                            "moneyTotalCurrent" to FieldValue.increment(-1000),
+                            "moneyOwnCurrent" to FieldValue.increment(-1000)
+                        )
+                    )
                     Log.d("get", "${document.id} => ${document.data}")
                 }
             }
@@ -82,7 +85,14 @@ class HighAndLowPlayFragment : Fragment() {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     //TODO: sets.countGameとgames関連の修正が必要
-                    document.reference.update("countGameTotalSets", FieldValue.increment(1))
+                    var countGame = document["sets.countGame"] as Long + 1
+                    if(countGame == 11L) { countGame = 1 }
+                    document.reference.update(
+                        mapOf(
+                            "sets.countGame" to countGame,
+                            "countGameTotalSets" to FieldValue.increment(1)
+                        )
+                    )
                     Log.d("get", "${document.id} => ${document.data}")
                 }
             }
@@ -91,6 +101,5 @@ class HighAndLowPlayFragment : Fragment() {
             }
 
     }
-
 
 }
