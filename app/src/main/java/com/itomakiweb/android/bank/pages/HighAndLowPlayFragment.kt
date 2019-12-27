@@ -36,7 +36,7 @@ class HighAndLowPlayFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         highButton.setOnClickListener {
-            val fragment = HighAndLowResultFragment()
+            val fragment = HighAndLowResultFragment.newInstance(true)
             fragmentManager!!.beginTransaction()
                 .replace(R.id.highAndLowFragmentFrame, fragment)
                 .addToBackStack(null)
@@ -44,7 +44,7 @@ class HighAndLowPlayFragment : Fragment() {
         }
 
         lowButton.setOnClickListener {
-            val fragment = HighAndLowResultFragment()
+            val fragment = HighAndLowResultFragment.newInstance(false)
             fragmentManager!!.beginTransaction()
                 .replace(R.id.highAndLowFragmentFrame, fragment)
                 .addToBackStack(null)

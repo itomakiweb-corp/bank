@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.common.reflect.Reflection.getPackageName
 import com.google.firebase.auth.FirebaseAuth
 import com.itomakiweb.android.bank.R
+import com.itomakiweb.android.bank.libraries.Card
 import com.itomakiweb.android.bank.libraries.DeckOfCards
 import com.itomakiweb.android.bank.libraries.Rank
 import kotlinx.android.synthetic.main.fragment_high_and_low_game.*
@@ -28,10 +29,11 @@ class HighAndLowGameFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_high_and_low_game, container, false)
     }
 
-    fun changeCards(){
+    fun changeCards(): Card {
         val pickCard = deck.draw()
         val resId = resources.getIdentifier(pickCard.drawable,"drawable","com.itomakiweb.android.bank")
         drawCard.setImageResource(resId)
+        return pickCard
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
