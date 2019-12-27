@@ -57,40 +57,44 @@ class HighAndLowPlayFragment : Fragment() {
     fun highAndLowGameCount() {
         val currentUser = auth.currentUser!!
 
+        var betMoneyCurrent: Long = 0
+
         // Access a Cloud Firestore instance from your Activity
         val db = FirebaseFirestore.getInstance()
-
-        db.collection("users")
-            .whereEqualTo("uid", currentUser.uid)
-            .get()
-            .addOnSuccessListener { result ->
-                for(document in result) {
-                    //TODO: ベット金額は仮に1000を入れているので修正が必要
-                    document.reference.update(
-                        mapOf(
-                            "moneyTotalCurrent" to FieldValue.increment(-1000),
-                            "moneyOwnCurrent" to FieldValue.increment(-1000)
-                        )
-                    )
-                    Log.d("get", "${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("get", "Error getting documents.", exception)
-            }
 
         db.collection("highAndLow")
             .whereEqualTo("createdBy", currentUser.uid)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    //TODO: sets.countGameとgames関連の修正が必要
+                    //TODO: games関連の修正が必要
                     var countGame = document["sets.countGame"] as Long + 1
                     if(countGame == 11L) { countGame = 1 }
+                    val moneyBetRateSets = document["moneyBetRateSets"] as Long
+                    betMoneyCurrent = countGame * moneyBetRateSets
                     document.reference.update(
                         mapOf(
                             "sets.countGame" to countGame,
                             "countGameTotalSets" to FieldValue.increment(1)
+                        )
+                    )
+
+                    Log.d("get", "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("get", "Error getting documents.", exception)
+            }
+
+        db.collection("users")
+            .whereEqualTo("uid", currentUser.uid)
+            .get()
+            .addOnSuccessListener { result ->
+                for(document in result) {
+                    document.reference.update(
+                        mapOf(
+                            "moneyTotalCurrent" to FieldValue.increment(-betMoneyCurrent),
+                            "moneyOwnCurrent" to FieldValue.increment(-betMoneyCurrent)
                         )
                     )
                     Log.d("get", "${document.id} => ${document.data}")
@@ -99,6 +103,7 @@ class HighAndLowPlayFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.w("get", "Error getting documents.", exception)
             }
+
 
     }
 
