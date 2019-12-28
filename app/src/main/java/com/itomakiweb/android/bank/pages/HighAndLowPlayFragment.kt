@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.*
 
 import com.itomakiweb.android.bank.R
@@ -20,6 +21,8 @@ import kotlinx.android.synthetic.main.fragment_high_and_low_play.*
 class HighAndLowPlayFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var currentUser: FirebaseUser
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +37,10 @@ class HighAndLowPlayFragment : Fragment() {
 
         // Firebase Auth
         auth = FirebaseAuth.getInstance()
+        currentUser = auth.currentUser!!
+
+        // Access a Cloud Firestore instance from your Activity
+        db = FirebaseFirestore.getInstance()
 
         highButton.setOnClickListener {
             val fragment = HighAndLowResultFragment.newInstance(true)
@@ -60,12 +67,7 @@ class HighAndLowPlayFragment : Fragment() {
     }
 
     fun highAndLowGameCount() {
-        val currentUser = auth.currentUser!!
-
         var betMoneyCurrent: Long = 0
-
-        // Access a Cloud Firestore instance from your Activity
-        val db = FirebaseFirestore.getInstance()
 
         db.collection("highAndLow")
             .whereEqualTo("createdBy", currentUser.uid)
@@ -88,7 +90,8 @@ class HighAndLowPlayFragment : Fragment() {
                     .addOnSuccessListener { sets ->
                         // initial access
                         if (sets.size() < 1) {
-                            createSet(highAndLowRef)
+                            createSet(highAndLowRef, moneyBetRateSets)
+                            betMoney(moneyBetRateSets)
                             return@addOnSuccessListener
                         }
 
@@ -104,7 +107,8 @@ class HighAndLowPlayFragment : Fragment() {
                                     "dateTimeSetEnd" to FieldValue.serverTimestamp()
                                 )
                             )
-                            createSet(highAndLowRef)
+                            createSet(highAndLowRef, moneyBetRateSets)
+                            betMoney(moneyBetRateSets)
                             return@addOnSuccessListener
                         }
 
@@ -118,26 +122,7 @@ class HighAndLowPlayFragment : Fragment() {
                                 "countGame" to FieldValue.increment(1)
                             )
                         )
-
-
-                        db.collection("users")
-                            .document(currentUser.uid)
-                            .get()
-                            .addOnSuccessListener { user ->
-                                val moneyTotalCurrent = user["moneyTotalCurrent"] as Long
-                                user.reference.update(
-                                    mapOf(
-                                        "moneyTotalCurrent" to FieldValue.increment(-betMoneyCurrent),
-                                        "moneyOwnCurrent" to FieldValue.increment(-betMoneyCurrent)
-                                    )
-                                )
-                                Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
-                                (activity as HighAndLowActivity).setMoney(moneyTotalCurrent)
-
-                            }
-                            .addOnFailureListener { exception ->
-                                Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
-                            }
+                        betMoney(betMoneyCurrent)
                     }
             }
             .addOnFailureListener { exception ->
@@ -145,12 +130,12 @@ class HighAndLowPlayFragment : Fragment() {
             }
     }
 
-    fun createSet(highAndLow: DocumentReference) {
+    fun createSet(highAndLow: DocumentReference, moneyBetRate: Long) {
         val highAndLowSet = hashMapOf(
             "numberSet" to 1, // TODO
             "countGame" to 1,
             "countGameMax" to 10,
-            "moneyBetRateGames" to 1000,
+            "moneyBetRateGames" to moneyBetRate,
             "usedCards" to mutableListOf<Any>(),
             "games" to mutableListOf<Any>(
                 createHashMapGame()
@@ -183,6 +168,28 @@ class HighAndLowPlayFragment : Fragment() {
         )
 
         return game
+    }
+
+    fun betMoney(betMoneyCurrent: Long) {
+        db.collection("users")
+            .document(currentUser.uid)
+            .get()
+            .addOnSuccessListener { user ->
+                val moneyTotalCurrent = user["moneyTotalCurrent"] as Long
+                user.reference.update(
+                    mapOf(
+                        "moneyTotalCurrent" to FieldValue.increment(-betMoneyCurrent),
+                        "moneyOwnCurrent" to FieldValue.increment(-betMoneyCurrent)
+                    )
+                )
+                Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
+                (activity as HighAndLowActivity).setMoney(moneyTotalCurrent)
+
+            }
+            .addOnFailureListener { exception ->
+                Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
+            }
+
     }
 
 }
