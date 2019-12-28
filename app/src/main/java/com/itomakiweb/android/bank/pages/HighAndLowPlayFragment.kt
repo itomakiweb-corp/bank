@@ -8,11 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 import com.itomakiweb.android.bank.R
+import com.itomakiweb.android.bank.libraries.Ref
 import kotlinx.android.synthetic.main.fragment_high_and_low_play.*
+import org.w3c.dom.Document
 
 /**
  * A simple [Fragment] subclass.
@@ -65,25 +69,56 @@ class HighAndLowPlayFragment : Fragment() {
         db.collection("highAndLow")
             .whereEqualTo("createdBy", currentUser.uid)
             .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    //TODO: games関連の修正が必要
-                    var countGame = document["sets.countGame"] as Long + 1
-                    if(countGame == 11L) { countGame = 1 }
-                    val moneyBetRateSets = document["moneyBetRateSets"] as Long
-                    betMoneyCurrent = countGame * moneyBetRateSets
-                    document.reference.update(
-                        mapOf(
-                            "sets.countGame" to countGame,
-                            "countGameTotalSets" to FieldValue.increment(1)
-                        )
+            .addOnSuccessListener { highAndLows ->
+                val highAndLow = highAndLows.first().reference
+                //TODO: games関連の修正が必要
+                /*
+                if(countGame == 11L) { countGame = 1 }
+                val moneyBetRateSets = document["moneyBetRateSets"] as Long
+                betMoneyCurrent = countGame * moneyBetRateSets
+                 */
+                highAndLow.update(
+                    mapOf(
+                        // "sets.countGame" to countGame,
+                        "countGameTotalSets" to FieldValue.increment(1)
                     )
+                )
+                highAndLow.collection("sets")
+                    .orderBy("dateTimeSetBegin", Query.Direction.DESCENDING)
+                    .limit(1)
+                    .get()
+                    .addOnSuccessListener { sets ->
+                        // initial access
+                        if (sets.size() < 1) {
+                            createSet(highAndLow)
+                            return@addOnSuccessListener
+                        }
 
-                    Log.d("get", "${document.id} => ${document.data}")
-                }
+                        val set = sets.first()
+                        val setRef = set.reference
+                        var countGame = set["countGame"] as Long
+
+                        // set start
+                        if (countGame >= 10) {
+                            setRef.update(
+                                mapOf(
+                                    "dateTimeSetEnd" to FieldValue.serverTimestamp()
+                                )
+                            )
+                            createSet(highAndLow)
+                            return@addOnSuccessListener
+                        }
+
+                        // set continue
+                        setRef.update(
+                            mapOf(
+                                "countGame" to FieldValue.increment(1)
+                            )
+                        )
+                    }
             }
             .addOnFailureListener { exception ->
-                Log.w("get", "Error getting documents.", exception)
+                Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
             }
 
         db.collection("users")
@@ -97,14 +132,35 @@ class HighAndLowPlayFragment : Fragment() {
                             "moneyOwnCurrent" to FieldValue.increment(-betMoneyCurrent)
                         )
                     )
-                    Log.d("get", "${document.id} => ${document.data}")
+                    Log.d(Ref.TAG_FIRESTORE, "${document.id} => ${document.data}")
                 }
             }
             .addOnFailureListener { exception ->
-                Log.w("get", "Error getting documents.", exception)
+                Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
+            }
+    }
+
+    fun createSet(highAndLow: DocumentReference): DocumentReference? {
+        val highAndLowSet = hashMapOf(
+            "numberSet" to 1, // TODO
+            "countGame" to 1,
+            "countGameMax" to 10,
+            "moneyBetRateGames" to 1000,
+            "usedCards" to mutableListOf<Any>(),
+            "games" to mutableListOf<Any>(),
+            "dateTimeSetBegin" to FieldValue.serverTimestamp(),
+            "dateTimeSetEnd" to null,
+            "secondsSet" to null
+        )
+        var document: DocumentReference? = null
+        highAndLow.collection("sets")
+            .add(highAndLowSet)
+            .addOnSuccessListener { set ->
+                Log.d(Ref.TAG_FIRESTORE, "highAndLow/sets added with ID: ${set.id}")
+                document = set
             }
 
-
+        return document
     }
 
 }

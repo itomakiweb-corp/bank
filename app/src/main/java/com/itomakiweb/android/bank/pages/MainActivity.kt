@@ -17,6 +17,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
+import com.itomakiweb.android.bank.libraries.Card
+import com.itomakiweb.android.bank.libraries.Ref
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            Log.d(TAG, "signInAnonymously:begin")
+            Log.d(Ref.TAG_AUTH, "signInAnonymously:begin")
             signInAnonymously()
         }
         // updateUI(currentUser)
@@ -93,15 +95,15 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInAnonymously:success")
-                    val user = auth.currentUser!!
+                    Log.d(Ref.TAG_AUTH, "signInAnonymously:success")
+                    val currentUser = auth.currentUser!!
                     // Log.d(TAG, user.toString())
-                    createUser(user)
+                    createUser(currentUser)
                     // updateUI(user)
-                    createHighAndLow(user)
+                    createHighAndLow(currentUser)
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInAnonymously:failure", task.exception)
+                    Log.w(Ref.TAG_AUTH, "signInAnonymously:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
                     // updateUI(null)
@@ -114,35 +116,36 @@ class MainActivity : AppCompatActivity() {
         // [END signin_anonymously]
     }
 
-    private fun createUser(user: FirebaseUser) {
+    private fun createUser(currentUser: FirebaseUser) {
         // Access a Cloud Firestore instance from your Activity
         val db = FirebaseFirestore.getInstance()
         // Create a new user with a first and last name
         val user = hashMapOf(
-            "uid" to user.uid,
+            "uid" to currentUser.uid,
             "name" to "TODO",
             "moneyTotalCurrent" to 80000,
             "moneyOwnCurrent" to 0,
             "moneyBorrowCurrent" to 80000,
             "createdAt" to FieldValue.serverTimestamp(),
-            "createdBy" to user.uid,
+            "createdBy" to currentUser.uid,
             "updatedAt" to FieldValue.serverTimestamp(),
-            "updatedBy" to user.uid
+            "updatedBy" to currentUser.uid
         )
 
         // Add a new document with a generated ID
         db.collection("users")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Log.d("test", "DocumentSnapshot added with ID: ${documentReference.id}")
+            .document(currentUser.uid)
+            .set(user)
+            .addOnSuccessListener {
+                Log.d(Ref.TAG_FIRESTORE, "DocumentSnapshot added with ID: ${currentUser.uid}")
             }
             .addOnFailureListener { e ->
-                Log.w("test", "Error adding document", e)
+                Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
             }
 
     }
 
-    private fun createHighAndLow(user: FirebaseUser) {
+    private fun createHighAndLow(currentUser: FirebaseUser) {
         // Access a Cloud Firestore instance from your Activity
         val db = FirebaseFirestore.getInstance()
         // Create a new user with a first and last name
@@ -152,28 +155,19 @@ class MainActivity : AppCompatActivity() {
             "countGameTotalSets" to 0,
             "moneyBetRateSets" to 1000,
             "createdAt" to FieldValue.serverTimestamp(),
-            "createdBy" to user.uid,
+            "createdBy" to currentUser.uid,
             "updatedAt" to FieldValue.serverTimestamp(),
-            "updatedBy" to user.uid
+            "updatedBy" to currentUser.uid
         )
-
-        val highAndLowSubCollection = hashMapOf(
-            "numberSet" to 0,
-            "countGame" to 0,
-            "countGameMax" to 10,
-            "moneyBetRateGames" to 1000
-        )
-
-        highAndLow["sets"] = highAndLowSubCollection
 
         // Add a new document with a generated ID
         db.collection("highAndLow")
             .add(highAndLow)
             .addOnSuccessListener { documentReference ->
-                Log.d("test", "DocumentSnapshot added with ID: ${documentReference.id}")
+                Log.d(Ref.TAG_FIRESTORE, "highAndLow added with ID: ${documentReference.id}")
             }
             .addOnFailureListener { e ->
-                Log.w("test", "Error adding document", e)
+                Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
             }
     }
 
@@ -261,10 +255,6 @@ class MainActivity : AppCompatActivity() {
         // buttonLinkAccount.isEnabled = isSignedIn
     }
     */
-
-    companion object {
-        private const val TAG = "AnonymousAuth"
-    }
 
     @VisibleForTesting
     val progressDialog by lazy {
