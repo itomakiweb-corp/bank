@@ -66,35 +66,33 @@ class HighAndLowPlayFragment : Fragment() {
         db.collection("highAndLow")
             .whereEqualTo("createdBy", currentUser.uid)
             .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    //TODO: games関連の修正が必要
-                    /*
-                    var countGame = document["sets.countGame"] as Long + 1
-                    if(countGame == 11L) { countGame = 1 }
-                    val moneyBetRateSets = document["moneyBetRateSets"] as Long
-                    betMoneyCurrent = countGame * moneyBetRateSets
-                     */
-                    document.reference.update(
-                        mapOf(
-                            // "sets.countGame" to countGame,
-                            "countGameTotalSets" to FieldValue.increment(1)
-                        )
+            .addOnSuccessListener { highAndLows ->
+                val highAndLow = highAndLows.first().reference
+                //TODO: games関連の修正が必要
+                /*
+                var countGame = document["sets.countGame"] as Long + 1
+                if(countGame == 11L) { countGame = 1 }
+                val moneyBetRateSets = document["moneyBetRateSets"] as Long
+                betMoneyCurrent = countGame * moneyBetRateSets
+                 */
+                highAndLow.update(
+                    mapOf(
+                        // "sets.countGame" to countGame,
+                        "countGameTotalSets" to FieldValue.increment(1)
                     )
-                    document.reference.collection("sets")
-                        .orderBy("dateTimeSetBegin", Query.Direction.DESCENDING)
-                        .limit(1)
-                        .get()
-                        .addOnSuccessListener { sets ->
-                            val set = sets.first().reference
-                            set.update(
-                                mapOf(
-                                    "countGame" to FieldValue.increment(1)
-                                )
+                )
+                highAndLow.collection("sets")
+                    .orderBy("dateTimeSetBegin", Query.Direction.DESCENDING)
+                    .limit(1)
+                    .get()
+                    .addOnSuccessListener { sets ->
+                        val set = sets.first().reference
+                        set.update(
+                            mapOf(
+                                "countGame" to FieldValue.increment(1)
                             )
-                        }
-                    Log.d("get", "${document.id} => ${document.data}")
-                }
+                        )
+                    }
             }
             .addOnFailureListener { exception ->
                 Log.w("get", "Error getting documents.", exception)
