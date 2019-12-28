@@ -12,6 +12,10 @@ class Ref() {
         const val TAG_FIRESTORE = "Firestore"
 
         fun getBet(countGame: Long, moneyRate: Long): Long {
+            if (countGame >= 10) { // TODO confirm
+                return moneyRate
+            }
+            
             return (countGame + 1) * moneyRate
         }
     }
