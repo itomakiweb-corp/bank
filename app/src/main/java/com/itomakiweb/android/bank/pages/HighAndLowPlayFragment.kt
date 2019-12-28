@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -37,7 +36,7 @@ class HighAndLowPlayFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         highButton.setOnClickListener {
-            val fragment = HighAndLowResultFragment()
+            val fragment = HighAndLowResultFragment.newInstance(true)
             fragmentManager!!.beginTransaction()
                 .replace(R.id.highAndLowFragmentFrame, fragment)
                 .addToBackStack(null)
@@ -45,44 +44,41 @@ class HighAndLowPlayFragment : Fragment() {
         }
 
         lowButton.setOnClickListener {
-            val fragment = HighAndLowResultFragment()
+            val fragment = HighAndLowResultFragment.newInstance(false)
             fragmentManager!!.beginTransaction()
                 .replace(R.id.highAndLowFragmentFrame, fragment)
                 .addToBackStack(null)
                 .commit()
         }
+
+        highAndLowGameCount()
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    fun highAndLowGameCount() {
         val currentUser = auth.currentUser!!
+
+        var betMoneyCurrent: Long = 0
 
         // Access a Cloud Firestore instance from your Activity
         val db = FirebaseFirestore.getInstance()
-
-        db.collection("users")
-            .whereEqualTo("uid", currentUser.uid)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    //TODO: ベット金額は仮に1000を入れているので修正が必要
-                    document.reference.update("moneyTotalCurrent", FieldValue.increment(-1000))
-                    document.reference.update("moneyOwnCurrent", FieldValue.increment(-1000))
-                    Log.d("get", "${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("get", "Error getting documents.", exception)
-            }
 
         db.collection("highAndLow")
             .whereEqualTo("createdBy", currentUser.uid)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    //TODO: sets.countGameとgames関連の修正が必要
-                    document.reference.update("countGameTotalSets", FieldValue.increment(1))
+                    //TODO: games関連の修正が必要
+                    var countGame = document["sets.countGame"] as Long + 1
+                    if(countGame == 11L) { countGame = 1 }
+                    val moneyBetRateSets = document["moneyBetRateSets"] as Long
+                    betMoneyCurrent = countGame * moneyBetRateSets
+                    document.reference.update(
+                        mapOf(
+                            "sets.countGame" to countGame,
+                            "countGameTotalSets" to FieldValue.increment(1)
+                        )
+                    )
+
                     Log.d("get", "${document.id} => ${document.data}")
                 }
             }
@@ -90,7 +86,25 @@ class HighAndLowPlayFragment : Fragment() {
                 Log.w("get", "Error getting documents.", exception)
             }
 
-    }
+        db.collection("users")
+            .whereEqualTo("uid", currentUser.uid)
+            .get()
+            .addOnSuccessListener { result ->
+                for(document in result) {
+                    document.reference.update(
+                        mapOf(
+                            "moneyTotalCurrent" to FieldValue.increment(-betMoneyCurrent),
+                            "moneyOwnCurrent" to FieldValue.increment(-betMoneyCurrent)
+                        )
+                    )
+                    Log.d("get", "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("get", "Error getting documents.", exception)
+            }
 
+
+    }
 
 }
