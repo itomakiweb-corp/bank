@@ -133,7 +133,7 @@ class HighAndLowResultFragment : Fragment() {
                         )
                         val moneyBetRateNext = Ref.getBet(countGame, moneyBetRateGames)
 
-                        setMoney(moneyPrize, gameResult, moneyBetRateNext)
+                        setMoney(moneyPrize, gameResult, moneyBetRateNext, moneyPrize)
                     }
             }
             .addOnFailureListener { exception ->
@@ -141,7 +141,7 @@ class HighAndLowResultFragment : Fragment() {
             }
     }
 
-    fun setMoney(transactionMoney: Long, gameResult: Boolean, moneyBetRateNext: Long) {
+    fun setMoney(transactionMoney: Long, gameResult: Boolean, moneyBetRateNext: Long, moneyPrize: Long) {
         db.collection("users")
             .document(currentUser.uid)
             .get()
@@ -157,7 +157,7 @@ class HighAndLowResultFragment : Fragment() {
                 }
                 Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
 
-                setResultText(gameResult)
+                setResultText(gameResult, moneyPrize)
 
                 messageWindowText.text = getString(R.string.resultMoney, moneyTotalCurrent, moneyBetRateNext)
 
@@ -184,10 +184,10 @@ class HighAndLowResultFragment : Fragment() {
 
     }
 
-    fun setResultText(winOrLose: Boolean) {
+    fun setResultText(winOrLose: Boolean, moneyPrize: Long) {
         //TODO: 仮の実装、現状お金の動きは無いのでfirestoreを絡めての実装を記述する必要あり
         if(winOrLose) {
-            resultText.text = getString(R.string.resultWin)
+            resultText.text = getString(R.string.resultWin, moneyPrize)
             resultText.setTextColor(Color.RED)
         } else {
             resultText.text = getString(R.string.resultLose)

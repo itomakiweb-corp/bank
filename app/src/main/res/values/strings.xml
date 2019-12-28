@@ -52,8 +52,8 @@
     <string name="selectHighOrLow">SELECT HIGH OR LOW</string>
     <string name="isBack">BACK</string>
     <string name="isNext">NEXT</string>
-    <string name="resultWin">YOU WIN\nMONEY + 1000</string>
-    <string name="resultLose">YOU LOSE\nMONEY - 1000</string>
+    <string name="resultWin">YOU WIN\nMONEY + %1$d</string>
+    <string name="resultLose">YOU LOSE</string>
     <string name="resultMoney">TOTAL MONEY : %1$d\nNEXT BET %2$d</string>
     <string name="loading">now loading...</string>
     <string name="signIn">Log In</string>
