@@ -16,6 +16,7 @@ import com.google.firebase.firestore.Query
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.Ref
 import kotlinx.android.synthetic.main.fragment_high_and_low_play.*
+import org.w3c.dom.Document
 
 /**
  * A simple [Fragment] subclass.
@@ -72,7 +73,6 @@ class HighAndLowPlayFragment : Fragment() {
                 val highAndLow = highAndLows.first().reference
                 //TODO: games関連の修正が必要
                 /*
-                var countGame = document["sets.countGame"] as Long + 1
                 if(countGame == 11L) { countGame = 1 }
                 val moneyBetRateSets = document["moneyBetRateSets"] as Long
                 betMoneyCurrent = countGame * moneyBetRateSets
@@ -88,12 +88,29 @@ class HighAndLowPlayFragment : Fragment() {
                     .limit(1)
                     .get()
                     .addOnSuccessListener { sets ->
+                        // initial access
                         if (sets.size() < 1) {
                             createSet(highAndLow)
                             return@addOnSuccessListener
                         }
-                        val set = sets.first().reference
-                        set.update(
+
+                        val set = sets.first()
+                        val setRef = set.reference
+                        var countGame = set["countGame"] as Long
+
+                        // set start
+                        if (countGame >= 10) {
+                            setRef.update(
+                                mapOf(
+                                    "dateTimeSetEnd" to FieldValue.serverTimestamp()
+                                )
+                            )
+                            createSet(highAndLow)
+                            return@addOnSuccessListener
+                        }
+
+                        // set continue
+                        setRef.update(
                             mapOf(
                                 "countGame" to FieldValue.increment(1)
                             )
@@ -123,10 +140,10 @@ class HighAndLowPlayFragment : Fragment() {
             }
     }
 
-    fun createSet(highAndLow: DocumentReference) {
+    fun createSet(highAndLow: DocumentReference): DocumentReference? {
         val highAndLowSet = hashMapOf(
-            "numberSet" to 0,
-            "countGame" to 0,
+            "numberSet" to 1, // TODO
+            "countGame" to 1,
             "countGameMax" to 10,
             "moneyBetRateGames" to 1000,
             "usedCards" to mutableListOf<Any>(),
@@ -135,12 +152,15 @@ class HighAndLowPlayFragment : Fragment() {
             "dateTimeSetEnd" to null,
             "secondsSet" to null
         )
+        var document: DocumentReference? = null
         highAndLow.collection("sets")
             .add(highAndLowSet)
             .addOnSuccessListener { set ->
                 Log.d(Ref.TAG_FIRESTORE, "highAndLow/sets added with ID: ${set.id}")
+                document = set
             }
 
+        return document
     }
 
 }
