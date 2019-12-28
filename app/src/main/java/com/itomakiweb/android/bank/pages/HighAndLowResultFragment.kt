@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,6 +28,8 @@ val HIGH_OR_LOW = "HIGH_OR_LOW"
 class HighAndLowResultFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var currentUser: FirebaseUser
+    private lateinit var db: FirebaseFirestore
 
     companion object{
         fun newInstance(isHigh: Boolean): HighAndLowResultFragment {
@@ -60,6 +63,11 @@ class HighAndLowResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
+        currentUser = auth.currentUser!!
+        currentUser = auth.currentUser!!
+
+        // Access a Cloud Firestore instance from your Activity
+        db = FirebaseFirestore.getInstance()
 
         //TODO: 仮の値を入れています
         val betMoney = 1000
@@ -88,10 +96,6 @@ class HighAndLowResultFragment : Fragment() {
 
         val gameResult = getGameResult(isHigh)
 
-        val currentUser = auth.currentUser!!
-
-        val db = FirebaseFirestore.getInstance()
-
         db.collection("highAndLow")
             .whereEqualTo("createdBy", currentUser.uid)
             .get()
@@ -103,59 +107,38 @@ class HighAndLowResultFragment : Fragment() {
                 if(gameResult) {
                     transactionMoney = transactionMoney + moneyBetRateSets * 2
                 }
-                /*
-                highAndLowRef.update(
-                    mapOf(
-                        "countGameTotalSets" to FieldValue.increment(1)
-                    )
-                )
-                highAndLowRef.collection("sets")
-                    .orderBy("dateTimeSetBegin", Query.Direction.DESCENDING)
-                    .limit(1)
-                    .get()
-                    .addOnSuccessListener { sets ->
 
-                        val set = sets.first()
-                        val setRef = set.reference
-
-                        // set continue
-                        setRef.update(
-                            mapOf(
-                                "countGame" to FieldValue.increment(1)
-                            )
-                        )
-                    }*/
+                setMoney(transactionMoney, gameResult, moneyBetRateSets)
             }
             .addOnFailureListener { exception ->
                 Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
             }
+    }
 
+    fun setMoney(transactionMoney: Long, gameResult: Boolean, moneyBetRateSets: Long) {
         db.collection("users")
-            .whereEqualTo("uid", currentUser.uid)
+            .document(currentUser.uid)
             .get()
-            .addOnSuccessListener { result ->
-                for(document in result) {
-                    moneyTotalCurrent = document["moneyTotalCurrent"] as Long
-                    if(gameResult) {
-                        moneyTotalCurrent += transactionMoney
-                        document.reference.update(
-                            mapOf(
-                                "moneyTotalCurrent" to FieldValue.increment(transactionMoney),
-                                "moneyOwnCurrent" to FieldValue.increment(transactionMoney)
-                            )
+            .addOnSuccessListener { user ->
+                val moneyTotalCurrent = user["moneyTotalCurrent"] as Long + transactionMoney
+                if (gameResult) {
+                    user.reference.update(
+                        mapOf(
+                            "moneyTotalCurrent" to FieldValue.increment(transactionMoney),
+                            "moneyOwnCurrent" to FieldValue.increment(transactionMoney)
                         )
-                    }
-                    Log.d(Ref.TAG_FIRESTORE, "${document.id} => ${document.data}")
+                    )
                 }
+                Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
+
+                setResultText(gameResult)
+
+                messageWindowText.text = getString(R.string.resultMoney, moneyTotalCurrent, moneyBetRateSets)
+
             }
             .addOnFailureListener { exception ->
                 Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
             }
-
-        setResultText(gameResult)
-
-        messageWindowText.text = getString(R.string.resultMoney, moneyTotalCurrent, moneyBetRateSets)
-
     }
 
 
