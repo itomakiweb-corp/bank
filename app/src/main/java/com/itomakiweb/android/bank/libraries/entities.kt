@@ -10,6 +10,10 @@ class Ref() {
     companion object {
         const val TAG_AUTH = "AnonymousAuth"
         const val TAG_FIRESTORE = "Firestore"
+
+        fun getBet(countGame: Long, moneyRate: Long): Long {
+            return (countGame + 1) * moneyRate
+        }
     }
 }
 

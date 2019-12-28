@@ -30,6 +30,7 @@ class HighAndLowResultFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
+    private lateinit var pickCard: Card
 
     companion object{
         fun newInstance(isHigh: Boolean): HighAndLowResultFragment {
@@ -73,7 +74,7 @@ class HighAndLowResultFragment : Fragment() {
         val betMoney = 1000
         //val nextBetMoney = betMoney + 1000
 
-        highAndLowGamePlay(isHigh)
+        highAndLowGamePlay(isHigh!!)
 
         nextButton.setOnClickListener {
             val fragment = HighAndLowPlayFragment()
@@ -89,7 +90,7 @@ class HighAndLowResultFragment : Fragment() {
         }
     }
 
-    fun highAndLowGamePlay(isHigh: Boolean?) {
+    fun highAndLowGamePlay(isHigh: Boolean) {
         var moneyTotalCurrent = 0L
         var moneyBetRateSets = 0L
         var transactionMoney = 0L
@@ -103,19 +104,44 @@ class HighAndLowResultFragment : Fragment() {
                 val highAndLow = highAndLows.first()
                 val highAndLowRef = highAndLow.reference
 
-                moneyBetRateSets = highAndLow["moneyBetRateSets"] as Long
-                if(gameResult) {
-                    transactionMoney = transactionMoney + moneyBetRateSets * 2
-                }
+                highAndLowRef.collection("sets")
+                    .orderBy("dateTimeSetBegin", Query.Direction.DESCENDING)
+                    .limit(1)
+                    .get()
+                    .addOnSuccessListener { sets ->
+                        val set = sets.first()
+                        val setRef = set.reference
+                        var countGame = set["countGame"] as Long
+                        val moneyBetRateGames = set["moneyBetRateGames"] as Long
+                        val games = set["games"] as MutableList<Any>
+                        val game = games.last() as HashMap<String, Any>
+                        val moneyBet = game["moneyBet"] as Long
+                        val moneyPrize = if (gameResult) moneyBet * 2 else 0
+                        game["moneyPrize"] = moneyPrize
+                        game["moneyResult"] = moneyPrize - moneyBet
+                        game["call"] = if (isHigh) "high" else "low"
+                        game["resultGame"] = if (gameResult) "win" else "lose"
+                        game["resultCardSuit"] = pickCard.suit
+                        game["resultCardRank"] = pickCard.rank
+                        game["dateTimeGameEnd"] = System.currentTimeMillis()
+                        // game["secondsGame"] = game["dateTimeGameStart"] as Long - game["dateTimeGameEnd"] as Long
+                        games[games.lastIndex] = game
+                        setRef.update(
+                            mapOf(
+                                "games" to games
+                            )
+                        )
+                        val moneyBetRateNext = Ref.getBet(countGame, moneyBetRateGames)
 
-                setMoney(transactionMoney, gameResult, moneyBetRateSets)
+                        setMoney(moneyPrize, gameResult, moneyBetRateNext)
+                    }
             }
             .addOnFailureListener { exception ->
                 Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
             }
     }
 
-    fun setMoney(transactionMoney: Long, gameResult: Boolean, moneyBetRateSets: Long) {
+    fun setMoney(transactionMoney: Long, gameResult: Boolean, moneyBetRateNext: Long) {
         db.collection("users")
             .document(currentUser.uid)
             .get()
@@ -133,7 +159,7 @@ class HighAndLowResultFragment : Fragment() {
 
                 setResultText(gameResult)
 
-                messageWindowText.text = getString(R.string.resultMoney, moneyTotalCurrent, moneyBetRateSets)
+                messageWindowText.text = getString(R.string.resultMoney, moneyTotalCurrent, moneyBetRateNext)
 
             }
             .addOnFailureListener { exception ->
@@ -147,7 +173,7 @@ class HighAndLowResultFragment : Fragment() {
         val deck = DeckOfCards()
         val you = You()
         val highAndLowClass = HighAndLow(deck, you)
-        val pickCard = (parentFragment as HighAndLowGameFragment).setDrawCardImage()
+        pickCard = (parentFragment as HighAndLowGameFragment).setDrawCardImage()
         val highOrLow = when(isHigh){
             true -> HighAndLowCall.HIGH
             else -> HighAndLowCall.LOW
