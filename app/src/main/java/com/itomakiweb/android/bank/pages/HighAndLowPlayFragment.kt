@@ -16,7 +16,6 @@ import com.google.firebase.firestore.Query
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.Ref
 import kotlinx.android.synthetic.main.fragment_high_and_low_play.*
-import org.w3c.dom.Document
 
 /**
  * A simple [Fragment] subclass.
@@ -70,27 +69,27 @@ class HighAndLowPlayFragment : Fragment() {
             .whereEqualTo("createdBy", currentUser.uid)
             .get()
             .addOnSuccessListener { highAndLows ->
-                val highAndLow = highAndLows.first().reference
+                val highAndLow = highAndLows.first()
+                val highAndLowRef = highAndLow.reference
                 //TODO: games関連の修正が必要
                 /*
                 if(countGame == 11L) { countGame = 1 }
                 val moneyBetRateSets = document["moneyBetRateSets"] as Long
                 betMoneyCurrent = countGame * moneyBetRateSets
                  */
-                highAndLow.update(
+                highAndLowRef.update(
                     mapOf(
-                        // "sets.countGame" to countGame,
                         "countGameTotalSets" to FieldValue.increment(1)
                     )
                 )
-                highAndLow.collection("sets")
+                highAndLowRef.collection("sets")
                     .orderBy("dateTimeSetBegin", Query.Direction.DESCENDING)
                     .limit(1)
                     .get()
                     .addOnSuccessListener { sets ->
                         // initial access
                         if (sets.size() < 1) {
-                            createSet(highAndLow)
+                            createSet(highAndLowRef)
                             return@addOnSuccessListener
                         }
 
@@ -105,7 +104,7 @@ class HighAndLowPlayFragment : Fragment() {
                                     "dateTimeSetEnd" to FieldValue.serverTimestamp()
                                 )
                             )
-                            createSet(highAndLow)
+                            createSet(highAndLowRef)
                             return@addOnSuccessListener
                         }
 
@@ -140,27 +139,44 @@ class HighAndLowPlayFragment : Fragment() {
             }
     }
 
-    fun createSet(highAndLow: DocumentReference): DocumentReference? {
+    fun createSet(highAndLow: DocumentReference) {
         val highAndLowSet = hashMapOf(
             "numberSet" to 1, // TODO
             "countGame" to 1,
             "countGameMax" to 10,
             "moneyBetRateGames" to 1000,
             "usedCards" to mutableListOf<Any>(),
-            "games" to mutableListOf<Any>(),
+            "games" to mutableListOf<Any>(
+                createHashMapGame()
+            ),
             "dateTimeSetBegin" to FieldValue.serverTimestamp(),
-            "dateTimeSetEnd" to null,
-            "secondsSet" to null
+            "dateTimeSetEnd" to FieldValue.serverTimestamp(),
+            "secondsSet" to 0
         )
-        var document: DocumentReference? = null
         highAndLow.collection("sets")
             .add(highAndLowSet)
             .addOnSuccessListener { set ->
                 Log.d(Ref.TAG_FIRESTORE, "highAndLow/sets added with ID: ${set.id}")
-                document = set
             }
+    }
 
-        return document
+    fun createHashMapGame(): HashMap<String, Any> {
+        val game = hashMapOf(
+            "numberGame" to 1, // TODO
+            "moneyBet" to 0, // TODO
+            "moneyPrize" to 0,
+            "moneyResult" to 0,
+            "call" to "begin",
+            "resultGame" to "begin",
+            "resultCardSuit" to "begin",
+            "resultCardRank" to 0,
+            // java.lang.IllegalArgumentException: Invalid data. FieldValue.serverTimestamp() is not currently supported inside arrays
+            "dateTimeGameBegin" to System.currentTimeMillis(), // FieldValue.serverTimestamp(),
+            "dateTimeGameEnd" to System.currentTimeMillis(), // FieldValue.serverTimestamp(),
+            "secondsGame" to 0
+        )
+
+        return game
     }
 
 }
