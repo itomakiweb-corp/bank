@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 import com.itomakiweb.android.bank.R
 import kotlinx.android.synthetic.main.fragment_high_and_low_play.*
@@ -80,7 +81,18 @@ class HighAndLowPlayFragment : Fragment() {
                             "countGameTotalSets" to FieldValue.increment(1)
                         )
                     )
-
+                    document.reference.collection("sets")
+                        .orderBy("dateTimeSetBegin", Query.Direction.DESCENDING)
+                        .limit(1)
+                        .get()
+                        .addOnSuccessListener { sets ->
+                            val set = sets.first().reference
+                            set.update(
+                                mapOf(
+                                    "countGame" to FieldValue.increment(1)
+                                )
+                            )
+                        }
                     Log.d("get", "${document.id} => ${document.data}")
                 }
             }
