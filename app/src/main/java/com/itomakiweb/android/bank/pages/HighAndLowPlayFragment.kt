@@ -124,6 +124,7 @@ class HighAndLowPlayFragment : Fragment() {
                             .document(currentUser.uid)
                             .get()
                             .addOnSuccessListener { user ->
+                                val moneyTotalCurrent = user["moneyTotalCurrent"] as Long
                                 user.reference.update(
                                     mapOf(
                                         "moneyTotalCurrent" to FieldValue.increment(-betMoneyCurrent),
@@ -131,6 +132,8 @@ class HighAndLowPlayFragment : Fragment() {
                                     )
                                 )
                                 Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
+                                (activity as HighAndLowActivity).setMoney(moneyTotalCurrent)
+
                             }
                             .addOnFailureListener { exception ->
                                 Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
