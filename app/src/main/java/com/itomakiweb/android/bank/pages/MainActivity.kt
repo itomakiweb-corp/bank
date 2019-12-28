@@ -17,6 +17,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
+import com.itomakiweb.android.bank.libraries.Card
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -158,20 +159,28 @@ class MainActivity : AppCompatActivity() {
             "updatedBy" to currentUser.uid
         )
 
-        val highAndLowSubCollection = hashMapOf(
+        val highAndLowSet = hashMapOf(
             "numberSet" to 0,
             "countGame" to 0,
             "countGameMax" to 10,
-            "moneyBetRateGames" to 1000
+            "moneyBetRateGames" to 1000,
+            "usedCards" to mutableListOf<Any>(),
+            "games" to mutableListOf<Any>(),
+            "dateTimeSetBegin" to FieldValue.serverTimestamp(),
+            "dateTimeSetEnd" to null,
+            "secondsSet" to null
         )
-
-        highAndLow["sets"] = highAndLowSubCollection
 
         // Add a new document with a generated ID
         db.collection("highAndLow")
             .add(highAndLow)
             .addOnSuccessListener { documentReference ->
-                Log.d("test", "DocumentSnapshot added with ID: ${documentReference.id}")
+                Log.d(TAG_FIRESTORE, "highAndLow added with ID: ${documentReference.id}")
+                documentReference.collection("sets")
+                    .add(highAndLowSet)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(TAG_FIRESTORE, "highAndLow/sets added with ID: ${documentReference.id}")
+                    }
             }
             .addOnFailureListener { e ->
                 Log.w("test", "Error adding document", e)
@@ -264,7 +273,8 @@ class MainActivity : AppCompatActivity() {
     */
 
     companion object {
-        private const val TAG = "AnonymousAuth"
+        const val TAG = "AnonymousAuth"
+        const val TAG_FIRESTORE = "Firestore"
     }
 
     @VisibleForTesting

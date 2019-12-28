@@ -68,13 +68,15 @@ class HighAndLowPlayFragment : Fragment() {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     //TODO: games関連の修正が必要
+                    /*
                     var countGame = document["sets.countGame"] as Long + 1
                     if(countGame == 11L) { countGame = 1 }
                     val moneyBetRateSets = document["moneyBetRateSets"] as Long
                     betMoneyCurrent = countGame * moneyBetRateSets
+                     */
                     document.reference.update(
                         mapOf(
-                            "sets.countGame" to countGame,
+                            // "sets.countGame" to countGame,
                             "countGameTotalSets" to FieldValue.increment(1)
                         )
                     )
