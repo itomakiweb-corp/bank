@@ -183,7 +183,7 @@ class HighAndLowPlayFragment : Fragment() {
                     )
                 )
                 Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
-                (activity as HighAndLowActivity).setMoney(moneyTotalCurrent)
+                (activity as HighAndLowActivity).setMoney(moneyTotalCurrent, betMoneyCurrent)
 
             }
             .addOnFailureListener { exception ->
