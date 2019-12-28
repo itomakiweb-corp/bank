@@ -106,9 +106,11 @@ class HighAndLowActivity : AppCompatActivity() {
 
     }
 
-    fun setMoney(moneyTotalCurrent: Long, moneyBet: Long) {
+    fun setMoney(moneyTotalCurrent: Long, moneyBet: Long? = null) {
         moneyTotalCurrentArea.text = moneyTotalCurrent.toString()
-        moneyBetArea.text = moneyBet.toString()
+        if (moneyBet != null) {
+            moneyBetArea.text = moneyBet.toString()
+        }
     }
 
 }

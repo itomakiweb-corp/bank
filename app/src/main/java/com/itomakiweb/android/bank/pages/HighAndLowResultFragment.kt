@@ -158,6 +158,7 @@ class HighAndLowResultFragment : Fragment() {
                 Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
 
                 setResultText(gameResult, moneyPrize)
+                (activity as HighAndLowActivity).setMoney(moneyTotalCurrent)
 
                 messageWindowText.text = getString(R.string.resultMoney, moneyTotalCurrent, moneyBetRateNext)
 
