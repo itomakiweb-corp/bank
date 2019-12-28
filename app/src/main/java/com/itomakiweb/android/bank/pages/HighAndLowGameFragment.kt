@@ -29,12 +29,17 @@ class HighAndLowGameFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_high_and_low_game, container, false)
     }
 
-    fun changeCards(): Card {
+    fun setDrawCardImage(): Card {
         val pickCard = deck.draw()
         val resId = resources.getIdentifier(pickCard.drawable,"drawable","com.itomakiweb.android.bank")
         drawCard.setImageResource(resId)
         return pickCard
     }
+
+    fun unsetDrawCardImage() {
+        drawCard.setImageResource(R.drawable.card_blank)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

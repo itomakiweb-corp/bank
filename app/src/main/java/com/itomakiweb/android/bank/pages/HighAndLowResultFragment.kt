@@ -83,7 +83,7 @@ class HighAndLowResultFragment : Fragment() {
         val deck = DeckOfCards()
         val you = You()
         val highAndLowClass = HighAndLow(deck, you)
-        val pickCard = (parentFragment as HighAndLowGameFragment).changeCards()
+        val pickCard = (parentFragment as HighAndLowGameFragment).setDrawCardImage()
         val highOrLow = when(isHigh){
             true -> HighAndLowCall.HIGH
             else -> HighAndLowCall.LOW
