@@ -70,12 +70,6 @@ class HighAndLowResultFragment : Fragment() {
         // Access a Cloud Firestore instance from your Activity
         db = FirebaseFirestore.getInstance()
 
-        //TODO: 仮の値を入れています
-        val betMoney = 1000
-        //val nextBetMoney = betMoney + 1000
-
-        highAndLowGamePlay(isHigh!!)
-
         nextButton.setOnClickListener {
             val fragment = HighAndLowPlayFragment()
             fragmentManager!!.beginTransaction()
@@ -88,6 +82,12 @@ class HighAndLowResultFragment : Fragment() {
             val intent = Intent(activity, MainActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        highAndLowGamePlay(isHigh!!)
     }
 
     fun highAndLowGamePlay(isHigh: Boolean) {

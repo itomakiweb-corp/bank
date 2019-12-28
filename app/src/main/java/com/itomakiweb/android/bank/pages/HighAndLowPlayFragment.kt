@@ -57,13 +57,13 @@ class HighAndLowPlayFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
-        highAndLowGameCount()
     }
 
     override fun onStart() {
         super.onStart()
         (parentFragment as HighAndLowGameFragment).unsetDrawCardImage()
+
+        highAndLowGameCount()
     }
 
     fun highAndLowGameCount() {
@@ -183,7 +183,7 @@ class HighAndLowPlayFragment : Fragment() {
                     )
                 )
                 Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
-                (activity as HighAndLowActivity).setMoney(moneyTotalCurrent, betMoneyCurrent)
+                (activity as HighAndLowActivity).setMoney(moneyTotalCurrent - betMoneyCurrent, betMoneyCurrent)
 
             }
             .addOnFailureListener { exception ->
