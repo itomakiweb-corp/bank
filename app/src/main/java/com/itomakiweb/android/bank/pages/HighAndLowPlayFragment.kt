@@ -8,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.Ref
@@ -76,12 +73,9 @@ class HighAndLowPlayFragment : Fragment() {
             .addOnSuccessListener { highAndLows ->
                 val highAndLow = highAndLows.first()
                 val highAndLowRef = highAndLow.reference
+                val moneyBetRateSets = highAndLow["moneyBetRateSets"] as Long
+
                 //TODO: games関連の修正が必要
-                /*
-                if(countGame == 11L) { countGame = 1 }
-                val moneyBetRateSets = document["moneyBetRateSets"] as Long
-                betMoneyCurrent = countGame * moneyBetRateSets
-                 */
                 highAndLowRef.update(
                     mapOf(
                         "countGameTotalSets" to FieldValue.increment(1)
@@ -101,6 +95,7 @@ class HighAndLowPlayFragment : Fragment() {
                         val set = sets.first()
                         val setRef = set.reference
                         var countGame = set["countGame"] as Long
+                        val moneyBetRateGames = set["moneyBetRateGames"] as Long
 
                         // set start
                         if (countGame >= 10) {
@@ -114,30 +109,36 @@ class HighAndLowPlayFragment : Fragment() {
                         }
 
                         // set continue
+                        betMoneyCurrent = (countGame + 1) * moneyBetRateGames
                         setRef.update(
                             mapOf(
+                                "games" to FieldValue.arrayUnion(
+                                    createHashMapGame(betMoneyCurrent)
+                                ),
                                 "countGame" to FieldValue.increment(1)
                             )
                         )
-                    }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
-            }
 
-        db.collection("users")
-            .whereEqualTo("uid", currentUser.uid)
-            .get()
-            .addOnSuccessListener { result ->
-                for(document in result) {
-                    document.reference.update(
-                        mapOf(
-                            "moneyTotalCurrent" to FieldValue.increment(-betMoneyCurrent),
-                            "moneyOwnCurrent" to FieldValue.increment(-betMoneyCurrent)
-                        )
-                    )
-                    Log.d(Ref.TAG_FIRESTORE, "${document.id} => ${document.data}")
-                }
+
+                        db.collection("users")
+                            .document(currentUser.uid)
+                            .get()
+                            .addOnSuccessListener { user ->
+                                val moneyTotalCurrent = user["moneyTotalCurrent"] as Long
+                                user.reference.update(
+                                    mapOf(
+                                        "moneyTotalCurrent" to FieldValue.increment(-betMoneyCurrent),
+                                        "moneyOwnCurrent" to FieldValue.increment(-betMoneyCurrent)
+                                    )
+                                )
+                                Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
+                                (activity as HighAndLowActivity).setMoney(moneyTotalCurrent)
+
+                            }
+                            .addOnFailureListener { exception ->
+                                Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
+                            }
+                    }
             }
             .addOnFailureListener { exception ->
                 Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
@@ -165,10 +166,10 @@ class HighAndLowPlayFragment : Fragment() {
             }
     }
 
-    fun createHashMapGame(): HashMap<String, Any> {
+    fun createHashMapGame(betMoneyCurrent: Long = 1000): HashMap<String, Any> {
         val game = hashMapOf(
             "numberGame" to 1, // TODO
-            "moneyBet" to 0, // TODO
+            "moneyBet" to betMoneyCurrent,
             "moneyPrize" to 0,
             "moneyResult" to 0,
             "call" to "begin",

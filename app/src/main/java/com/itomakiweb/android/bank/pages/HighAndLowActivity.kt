@@ -107,4 +107,8 @@ class HighAndLowActivity : AppCompatActivity() {
 
     }
 
+    fun setMoney(moneyTotalCurrent: Long) {
+        highAndLowTitle.text = moneyTotalCurrent.toString()
+    }
+
 }
