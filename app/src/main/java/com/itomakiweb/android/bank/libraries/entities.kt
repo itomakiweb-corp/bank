@@ -6,6 +6,13 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlin.random.Random
 
+class Ref() {
+    companion object {
+        const val TAG_AUTH = "AnonymousAuth"
+        const val TAG_FIRESTORE = "Firestore"
+    }
+}
+
 @JsonClass(generateAdapter = true)
 data class GithubGraphqlInput(
     val query: String,

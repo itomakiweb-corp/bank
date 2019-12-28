@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.itomakiweb.android.bank.libraries.Card
+import com.itomakiweb.android.bank.libraries.Ref
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            Log.d(TAG, "signInAnonymously:begin")
+            Log.d(Ref.TAG_AUTH, "signInAnonymously:begin")
             signInAnonymously()
         }
         // updateUI(currentUser)
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInAnonymously:success")
+                    Log.d(Ref.TAG_AUTH, "signInAnonymously:success")
                     val currentUser = auth.currentUser!!
                     // Log.d(TAG, user.toString())
                     createUser(currentUser)
@@ -102,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                     createHighAndLow(currentUser)
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInAnonymously:failure", task.exception)
+                    Log.w(Ref.TAG_AUTH, "signInAnonymously:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
                     // updateUI(null)
@@ -136,10 +137,10 @@ class MainActivity : AppCompatActivity() {
             .document(currentUser.uid)
             .set(user)
             .addOnSuccessListener {
-                Log.d("test", "DocumentSnapshot added with ID: ${currentUser.uid}")
+                Log.d(Ref.TAG_FIRESTORE, "DocumentSnapshot added with ID: ${currentUser.uid}")
             }
             .addOnFailureListener { e ->
-                Log.w("test", "Error adding document", e)
+                Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
             }
 
     }
@@ -159,31 +160,14 @@ class MainActivity : AppCompatActivity() {
             "updatedBy" to currentUser.uid
         )
 
-        val highAndLowSet = hashMapOf(
-            "numberSet" to 0,
-            "countGame" to 0,
-            "countGameMax" to 10,
-            "moneyBetRateGames" to 1000,
-            "usedCards" to mutableListOf<Any>(),
-            "games" to mutableListOf<Any>(),
-            "dateTimeSetBegin" to FieldValue.serverTimestamp(),
-            "dateTimeSetEnd" to null,
-            "secondsSet" to null
-        )
-
         // Add a new document with a generated ID
         db.collection("highAndLow")
             .add(highAndLow)
             .addOnSuccessListener { documentReference ->
-                Log.d(TAG_FIRESTORE, "highAndLow added with ID: ${documentReference.id}")
-                documentReference.collection("sets")
-                    .add(highAndLowSet)
-                    .addOnSuccessListener { documentReference ->
-                        Log.d(TAG_FIRESTORE, "highAndLow/sets added with ID: ${documentReference.id}")
-                    }
+                Log.d(Ref.TAG_FIRESTORE, "highAndLow added with ID: ${documentReference.id}")
             }
             .addOnFailureListener { e ->
-                Log.w("test", "Error adding document", e)
+                Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
             }
     }
 
@@ -271,11 +255,6 @@ class MainActivity : AppCompatActivity() {
         // buttonLinkAccount.isEnabled = isSignedIn
     }
     */
-
-    companion object {
-        const val TAG = "AnonymousAuth"
-        const val TAG_FIRESTORE = "Firestore"
-    }
 
     @VisibleForTesting
     val progressDialog by lazy {

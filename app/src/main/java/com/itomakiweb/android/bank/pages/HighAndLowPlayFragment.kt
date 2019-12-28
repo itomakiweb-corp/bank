@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
 import com.itomakiweb.android.bank.R
+import com.itomakiweb.android.bank.libraries.Ref
 import kotlinx.android.synthetic.main.fragment_high_and_low_play.*
 
 /**
@@ -86,6 +88,10 @@ class HighAndLowPlayFragment : Fragment() {
                     .limit(1)
                     .get()
                     .addOnSuccessListener { sets ->
+                        if (sets.size() < 1) {
+                            createSet(highAndLow)
+                            return@addOnSuccessListener
+                        }
                         val set = sets.first().reference
                         set.update(
                             mapOf(
@@ -95,7 +101,7 @@ class HighAndLowPlayFragment : Fragment() {
                     }
             }
             .addOnFailureListener { exception ->
-                Log.w("get", "Error getting documents.", exception)
+                Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
             }
 
         db.collection("users")
@@ -109,13 +115,31 @@ class HighAndLowPlayFragment : Fragment() {
                             "moneyOwnCurrent" to FieldValue.increment(-betMoneyCurrent)
                         )
                     )
-                    Log.d("get", "${document.id} => ${document.data}")
+                    Log.d(Ref.TAG_FIRESTORE, "${document.id} => ${document.data}")
                 }
             }
             .addOnFailureListener { exception ->
-                Log.w("get", "Error getting documents.", exception)
+                Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
             }
+    }
 
+    fun createSet(highAndLow: DocumentReference) {
+        val highAndLowSet = hashMapOf(
+            "numberSet" to 0,
+            "countGame" to 0,
+            "countGameMax" to 10,
+            "moneyBetRateGames" to 1000,
+            "usedCards" to mutableListOf<Any>(),
+            "games" to mutableListOf<Any>(),
+            "dateTimeSetBegin" to FieldValue.serverTimestamp(),
+            "dateTimeSetEnd" to null,
+            "secondsSet" to null
+        )
+        highAndLow.collection("sets")
+            .add(highAndLowSet)
+            .addOnSuccessListener { set ->
+                Log.d(Ref.TAG_FIRESTORE, "highAndLow/sets added with ID: ${set.id}")
+            }
 
     }
 
