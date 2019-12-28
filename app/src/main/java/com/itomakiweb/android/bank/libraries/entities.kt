@@ -15,7 +15,7 @@ class Ref() {
             if (countGame >= 10) { // TODO confirm
                 return moneyRate
             }
-            
+
             return (countGame + 1) * moneyRate
         }
     }
