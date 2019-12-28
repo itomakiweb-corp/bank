@@ -54,6 +54,11 @@ class HighAndLowPlayFragment : Fragment() {
         highAndLowGameCount()
     }
 
+    override fun onStart() {
+        super.onStart()
+        (parentFragment as HighAndLowGameFragment).unsetDrawCardImage()
+    }
+
     fun highAndLowGameCount() {
         val currentUser = auth.currentUser!!
 
