@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.common.reflect.Reflection.getPackageName
-import com.google.firebase.auth.FirebaseAuth
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.Card
 import com.itomakiweb.android.bank.libraries.DeckOfCards
@@ -37,7 +35,7 @@ class HighAndLowGameFragment : Fragment() {
     }
 
     fun unsetDrawCardImage() {
-        drawCard.setImageResource(R.drawable.card_blank)
+        drawCard.setImageResource(R.drawable.card_blank_00)
     }
 
 

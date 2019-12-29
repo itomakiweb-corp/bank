@@ -418,7 +418,7 @@ enum class Suit(val symbol: String, val resId: String) {
     DIAMOND("◇", "diamond"),
     CLUB("♣", "club"),
     // exception
-    BEGIN("-", "blank")
+    BEGIN("-", "back")
 }
 
 enum class Rank(val symbol: String, val number: Int) {
