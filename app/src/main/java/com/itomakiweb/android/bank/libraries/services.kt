@@ -29,13 +29,10 @@ class Cloud {
     init {
         // firebase auth
         auth = FirebaseAuth.getInstance()
-        currentUser = auth.currentUser!!
+        // currentUser = auth.currentUser!!
 
         // firestore
         db = FirebaseFirestore.getInstance()
-    }
-
-    fun isNeedVersionUp() {
     }
 
     fun fetchMaster(onSuccess: (DocumentSnapshot) -> Unit) {
