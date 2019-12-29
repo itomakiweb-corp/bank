@@ -17,7 +17,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
-import com.itomakiweb.android.bank.libraries.Card
+import com.itomakiweb.android.bank.BuildConfig
+import com.itomakiweb.android.bank.libraries.Cloud
 import com.itomakiweb.android.bank.libraries.Ref
 
 class MainActivity : AppCompatActivity() {
@@ -29,31 +30,49 @@ class MainActivity : AppCompatActivity() {
 
         // Firebase Auth
         auth = FirebaseAuth.getInstance()
-        /*
-        buttonAnonymousSignIn.setOnClickListener {
-            signInAnonymously()
-        }
 
-         */
-        buttonAnonymousSignOut.setOnClickListener {
-            signOut()
-        }
+        // force update
+        needUpdateIf(savedInstanceState)
+    }
 
-        // 画面が再利用されていない場合のみ、生成
-        if (savedInstanceState == null) {
-            setTopFragment()
-        }
+    /**
+     * if app version code is lower than required version code,
+     * then show need update and disable event
+     */
+    fun needUpdateIf(savedInstanceState: Bundle?) {
+        Cloud.instance.fetchMaster {
+            val requiredVersionCode = it["requiredVersionCode"] as Long
+            if (BuildConfig.VERSION_CODE < requiredVersionCode) {
+                buttonAnonymousSignOut.setText(R.string.needUpdate)
+                return@fetchMaster
+            }
 
-        layout.setOnClickListener {
-            setMenuFragment()
-        }
+            /*
+            buttonAnonymousSignIn.setOnClickListener {
+                signInAnonymously()
+            }
 
-        mainTitle.setOnClickListener {
-            setMenuFragment()
-        }
+             */
+            buttonAnonymousSignOut.setOnClickListener {
+                signOut()
+            }
 
-        mainFragment.setOnClickListener {
-            setMenuFragment()
+            // 画面が再利用されていない場合のみ、生成
+            if (savedInstanceState == null) {
+                setTopFragment()
+            }
+
+            layout.setOnClickListener {
+                setMenuFragment()
+            }
+
+            mainTitle.setOnClickListener {
+                setMenuFragment()
+            }
+
+            mainFragment.setOnClickListener {
+                setMenuFragment()
+            }
         }
     }
 

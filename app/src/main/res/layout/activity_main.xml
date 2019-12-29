@@ -31,7 +31,8 @@
             android:id="@+id/buttonAnonymousSignOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/signOut" />
+            android:text="@string/signOut"
+            android:textAllCaps="false" />
 
         <TextView
             android:id="@+id/mainTitle"

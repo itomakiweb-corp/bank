@@ -1,10 +1,56 @@
 package com.itomakiweb.android.bank.libraries
 
+import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 import com.itomakiweb.android.bank.BuildConfig
 import com.squareup.moshi.Moshi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
+
+/**
+ * @see https://firebase.google.com/docs/firestore/?authuser=0
+ * @see https://console.firebase.google.com/u/0/project/itomakiweb-tmp/database/firestore/data~2F000~2F000
+ */
+class Cloud {
+    companion object {
+        val instance = Cloud()
+        val masterCollectionPath = "master"
+        val masterDocumentPath = "android"
+    }
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var currentUser: FirebaseUser
+    private lateinit var db: FirebaseFirestore
+
+    init {
+        // firebase auth
+        auth = FirebaseAuth.getInstance()
+        currentUser = auth.currentUser!!
+
+        // firestore
+        db = FirebaseFirestore.getInstance()
+    }
+
+    fun isNeedVersionUp() {
+    }
+
+    fun fetchMaster(onSuccess: (DocumentSnapshot) -> Unit) {
+        db.collection(masterCollectionPath)
+            .document(masterDocumentPath)
+            .get()
+            .addOnSuccessListener { master ->
+                onSuccess(master)
+                Log.d(Ref.TAG_FIRESTORE, "Success fetch master. ${master.id} => ${master.data}")
+            }
+            .addOnFailureListener { exception ->
+                Log.w(Ref.TAG_FIRESTORE, "Failure fetch master.", exception)
+            }
+    }
+}
 
 /**
  * @see https://developer.github.com/v4/explorer/
