@@ -58,4 +58,5 @@
     <string name="loading">now loading...</string>
     <string name="signIn">Log In</string>
     <string name="signOut">Log Out</string>
+    <string name="needUpdate">Please update app version.</string>
 </resources>
