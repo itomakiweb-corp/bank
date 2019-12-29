@@ -7,12 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.*
 
 import com.itomakiweb.android.bank.R
-import com.itomakiweb.android.bank.libraries.Ref
+import com.itomakiweb.android.bank.libraries.*
 import kotlinx.android.synthetic.main.fragment_high_and_low_play.*
 
 /**
@@ -23,6 +26,7 @@ class HighAndLowPlayFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,6 +103,7 @@ class HighAndLowPlayFragment : Fragment() {
                         val setRef = set.reference
                         var countGame = set["countGame"] as Long
                         val moneyBetRateGames = set["moneyBetRateGames"] as Long
+                        val games = set["games"] as List<HashMap<String, Any>>
 
                         // set start
                         if (countGame >= 10) {
@@ -114,6 +119,16 @@ class HighAndLowPlayFragment : Fragment() {
 
                         // set continue
                         betMoneyCurrent = (countGame + 1) * moneyBetRateGames
+                        for (game in games) {
+                            val usedCard = Card(
+                                Suit.valueOf(game["resultCardSuit"] as String),
+                                Rank.valueOf(game["resultCardRank"] as String)
+                            )
+                            val usedCardView = ImageView(context)
+                            usedCardView.setImageResource(R.drawable.card_club_02)
+                            usedCardView.layoutParams = LinearLayout.LayoutParams(100, 100)
+                            usedCardsArea.addView(usedCardView)
+                        }
                         setRef.update(
                             mapOf(
                                 "games" to FieldValue.arrayUnion(
@@ -157,10 +172,10 @@ class HighAndLowPlayFragment : Fragment() {
             "moneyBet" to betMoneyCurrent,
             "moneyPrize" to 0,
             "moneyResult" to 0,
-            "call" to "begin",
-            "resultGame" to "begin",
-            "resultCardSuit" to "begin",
-            "resultCardRank" to 0,
+            "call" to HighAndLowCall.BEGIN,
+            "resultGame" to ResultGame.BEGIN,
+            "resultCardSuit" to Suit.BEGIN,
+            "resultCardRank" to Rank.BEGIN,
             // java.lang.IllegalArgumentException: Invalid data. FieldValue.serverTimestamp() is not currently supported inside arrays
             "dateTimeGameBegin" to System.currentTimeMillis(), // FieldValue.serverTimestamp(),
             "dateTimeGameEnd" to System.currentTimeMillis(), // FieldValue.serverTimestamp(),

@@ -31,8 +31,8 @@ class HighAndLowGameFragment : Fragment() {
 
     fun setDrawCardImage(): Card {
         val pickCard = deck.draw()
-        val resId = resources.getIdentifier(pickCard.drawable,"drawable","com.itomakiweb.android.bank")
-        drawCard.setImageResource(resId)
+        drawCard.setImageResource(pickCard.getResourceId(resources))
+
         return pickCard
     }
 
