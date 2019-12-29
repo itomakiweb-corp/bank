@@ -119,8 +119,8 @@ class HighAndLowResultFragment : Fragment() {
                         val moneyPrize = if (gameResult) moneyBet * 2 else 0
                         game["moneyPrize"] = moneyPrize
                         game["moneyResult"] = moneyPrize - moneyBet
-                        game["call"] = if (isHigh) "high" else "low"
-                        game["resultGame"] = if (gameResult) "win" else "lose"
+                        game["call"] = if (isHigh) HighAndLowCall.HIGH else HighAndLowCall.LOW
+                        game["resultGame"] = if (gameResult) ResultGame.WIN else ResultGame.LOSE
                         game["resultCardSuit"] = pickCard.suit
                         game["resultCardRank"] = pickCard.rank
                         game["dateTimeGameEnd"] = System.currentTimeMillis()

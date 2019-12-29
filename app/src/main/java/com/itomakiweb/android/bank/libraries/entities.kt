@@ -1,5 +1,7 @@
 package com.itomakiweb.android.bank.libraries
 
+import android.content.res.Resources
+import android.widget.LinearLayout
 import java.io.Serializable
 import com.itomakiweb.android.bank.BuildConfig
 import com.squareup.moshi.Json
@@ -10,6 +12,9 @@ class Ref() {
     companion object {
         const val TAG_AUTH = "AnonymousAuth"
         const val TAG_FIRESTORE = "Firestore"
+
+        const val match = LinearLayout.LayoutParams.MATCH_PARENT
+        const val wrap = LinearLayout.LayoutParams.WRAP_CONTENT
 
         fun getBet(countGame: Long, moneyRate: Long): Long {
             if (countGame >= 10) { // TODO confirm
@@ -336,10 +341,19 @@ abstract class Player(val name: String, var money: Int) {
     abstract fun call(betMoney: Int): HighAndLowCall
 }
 
+enum class ResultGame {
+    WIN,
+    LOSE,
+    // exception
+    BEGIN
+}
+
 enum class HighAndLowCall {
     HIGH,
     LOW,
-    DROP_OUT
+    DROP_OUT,
+    // exception
+    BEGIN
 }
 
 class DeckOfCards {
@@ -348,8 +362,7 @@ class DeckOfCards {
     init {
         for (suit in Suit.values()) {
             for (rank in Rank.values()) {
-                val drawable = "card_%s_%02d".format(suit.resId, rank.number)
-                cards.add(Card(suit, rank, drawable))
+                cards.add(Card(suit, rank))
             }
         }
     }
@@ -386,11 +399,16 @@ class DeckOfCards {
 
 data class Card(
     val suit: Suit,
-    val rank: Rank,
-    val drawable: String
+    val rank: Rank
 ) {
     override fun toString(): String {
         return "(${suit.symbol}%2s)".format(rank.symbol)
+    }
+
+    fun getResourceId(resources: Resources): Int {
+        val drawableName = "card_%s_%02d".format(suit.resId, rank.number)
+
+        return resources.getIdentifier(drawableName,"drawable","com.itomakiweb.android.bank")
     }
 }
 
@@ -398,7 +416,9 @@ enum class Suit(val symbol: String, val resId: String) {
     SPADE("♠", "spade"),
     HEART("♡", "heart"),
     DIAMOND("◇", "diamond"),
-    CLUB("♣", "club")
+    CLUB("♣", "club"),
+    // exception
+    BEGIN("-", "back")
 }
 
 enum class Rank(val symbol: String, val number: Int) {
@@ -414,5 +434,7 @@ enum class Rank(val symbol: String, val number: Int) {
     TEN("10", 10),
     JACK("J", 11),
     QUEEN("Q", 12),
-    KING("K", 13)
+    KING("K", 13),
+    // exception
+    BEGIN("-", 0)
 }

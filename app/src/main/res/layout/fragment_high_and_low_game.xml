@@ -24,14 +24,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/card_back" />
+                android:src="@drawable/card_back_00" />
 
             <ImageView
                 android:id="@+id/drawCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/card_blank"
+                android:src="@drawable/card_blank_00"
                 app:layout_constraintEnd_toEndOf="parent" />
         </LinearLayout>
 
