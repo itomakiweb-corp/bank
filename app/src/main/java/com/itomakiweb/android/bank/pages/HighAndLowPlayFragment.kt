@@ -125,7 +125,7 @@ class HighAndLowPlayFragment : Fragment() {
                                 Rank.valueOf(game["resultCardRank"] as String)
                             )
                             val usedCardView = ImageView(context)
-                            usedCardView.setImageResource(usedCard.getResourceId(resources))
+                            usedCardView.setImageResource(usedCard.getResourceId(context!!))
                             usedCardView.layoutParams = LinearLayout.LayoutParams(100, 100)
                             usedCardsArea.addView(usedCardView)
                         }

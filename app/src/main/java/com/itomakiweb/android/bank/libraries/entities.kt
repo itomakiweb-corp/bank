@@ -1,5 +1,6 @@
 package com.itomakiweb.android.bank.libraries
 
+import android.content.Context
 import android.content.res.Resources
 import android.widget.LinearLayout
 import java.io.Serializable
@@ -405,10 +406,10 @@ data class Card(
         return "(${suit.symbol}%2s)".format(rank.symbol)
     }
 
-    fun getResourceId(resources: Resources): Int {
+    fun getResourceId(context: Context): Int {
         val drawableName = "card_%s_%02d".format(suit.resId, rank.number)
 
-        return resources.getIdentifier(drawableName,"drawable","com.itomakiweb.android.bank")
+        return context.resources.getIdentifier(drawableName, "drawable", context.packageName)
     }
 }
 
