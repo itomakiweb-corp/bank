@@ -5,9 +5,10 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.itomakiweb.android.bank.R
+import com.itomakiweb.android.bank.libraries.ScopedAppActivity
 import kotlinx.android.synthetic.main.activity_high_and_low.*
 
-class HighAndLowActivity : AppCompatActivity() {
+class HighAndLowActivity : ScopedAppActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

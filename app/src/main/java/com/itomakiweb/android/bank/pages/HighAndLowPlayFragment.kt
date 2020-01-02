@@ -67,6 +67,8 @@ class HighAndLowPlayFragment : Fragment() {
         super.onStart()
         (parentFragment as HighAndLowGameFragment).unsetDrawCardImage()
 
+        (activity as ScopedAppActivity).showProgressDialog()
+
         highAndLowGameCount()
     }
 

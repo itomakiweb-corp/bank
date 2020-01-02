@@ -1,9 +1,14 @@
 package com.itomakiweb.android.bank.libraries
 
-import android.app.ProgressDialog
 import android.content.Context
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import com.itomakiweb.android.bank.R
@@ -19,19 +24,44 @@ abstract class ScopedAppActivity: AppCompatActivity(), CoroutineScope by MainSco
     // for progress bar
     @VisibleForTesting
     val progressDialog by lazy {
-        ProgressDialog(this)
+        val progressBar = ProgressBar(this)
+        val layout = findViewById<ViewGroup>(R.id.layout)
+        val progressBarLayoutParams = RelativeLayout.LayoutParams(100, 100)
+        // progressBarLayoutParams.gravity = Gravity.CENTER
+        progressBarLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT)
+        progressBar.layoutParams = progressBarLayoutParams
+
+        layout.addView(progressBar)
+
+        progressBar
+        // ProgressDialog(this)
     }
 
     fun showProgressDialog() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
+        progressDialog.visibility = View.VISIBLE
+
+        /*
         progressDialog.setMessage(getString(R.string.loading))
         progressDialog.isIndeterminate = true
         progressDialog.show()
+         */
     }
 
     fun hideProgressDialog() {
+        progressDialog.visibility = View.GONE
+
+        window.clearFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        /*
+
         if (progressDialog.isShowing) {
             progressDialog.dismiss()
         }
+         */
     }
 
     fun hideKeyboard(view: View) {
