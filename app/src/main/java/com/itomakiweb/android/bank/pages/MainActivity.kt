@@ -1,27 +1,22 @@
 package com.itomakiweb.android.bank.pages
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import android.app.ProgressDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.annotation.VisibleForTesting
-import com.google.firebase.firestore.FirebaseFirestore
-import com.itomakiweb.android.bank.R
-import kotlinx.android.synthetic.main.activity_main.*
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.itomakiweb.android.bank.BuildConfig
+import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.Cloud
 import com.itomakiweb.android.bank.libraries.Ref
+import com.itomakiweb.android.bank.libraries.ScopedAppActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ScopedAppActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 setMenuFragment()
             }
 
-            mainFragment.setOnClickListener {
+            mainFragmentArea.setOnClickListener {
                 setMenuFragment()
             }
         }
@@ -79,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     fun setTopFragment() {
         val fragment = MainTopFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.mainFragment, fragment)
+            .replace(R.id.mainFragmentArea, fragment)
             .commit()
     }
 
@@ -89,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
         val fragment = MainMenuFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.mainFragment, fragment)
+            .replace(R.id.mainFragmentArea, fragment)
             .addToBackStack(null)
             .commit()
     }
@@ -97,18 +92,22 @@ class MainActivity : AppCompatActivity() {
     // [START on_start_check_user]
     public override fun onStart() {
         super.onStart()
+
+        showProgressBar()
+
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser == null) {
             Log.d(Ref.TAG_AUTH, "signInAnonymously:begin")
             signInAnonymously()
+        } else {
+            hideProgressBar()
         }
         // updateUI(currentUser)
     }
     // [END on_start_check_user]
 
     private fun signInAnonymously() {
-        showProgressDialog()
         // [START signin_anonymously]
         auth.signInAnonymously()
             .addOnCompleteListener(this) { task ->
@@ -126,10 +125,10 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
                     // updateUI(null)
+                    hideProgressBar()
                 }
 
                 // [START_EXCLUDE]
-                hideProgressDialog()
                 // [END_EXCLUDE]
             }
         // [END signin_anonymously]
@@ -157,9 +156,11 @@ class MainActivity : AppCompatActivity() {
             .set(user)
             .addOnSuccessListener {
                 Log.d(Ref.TAG_FIRESTORE, "DocumentSnapshot added with ID: ${currentUser.uid}")
+                hideProgressBar()
             }
             .addOnFailureListener { e ->
                 Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
+                hideProgressBar()
             }
 
     }
@@ -184,9 +185,11 @@ class MainActivity : AppCompatActivity() {
             .add(highAndLow)
             .addOnSuccessListener { documentReference ->
                 Log.d(Ref.TAG_FIRESTORE, "highAndLow added with ID: ${documentReference.id}")
+                hideProgressBar()
             }
             .addOnFailureListener { e ->
                 Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
+                hideProgressBar()
             }
     }
 
@@ -274,33 +277,6 @@ class MainActivity : AppCompatActivity() {
         // buttonLinkAccount.isEnabled = isSignedIn
     }
     */
-
-    @VisibleForTesting
-    val progressDialog by lazy {
-        ProgressDialog(this)
-    }
-
-    fun showProgressDialog() {
-        progressDialog.setMessage(getString(R.string.loading))
-        progressDialog.isIndeterminate = true
-        progressDialog.show()
-    }
-
-    fun hideProgressDialog() {
-        if (progressDialog.isShowing) {
-            progressDialog.dismiss()
-        }
-    }
-
-    fun hideKeyboard(view: View) {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    public override fun onStop() {
-        super.onStop()
-        hideProgressDialog()
-    }
 
     override fun onBackPressed() {
 

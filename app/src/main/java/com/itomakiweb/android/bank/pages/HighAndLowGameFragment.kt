@@ -29,7 +29,7 @@ class HighAndLowGameFragment : Fragment() {
 
     fun setDrawCardImage(): Card {
         val pickCard = deck.draw()
-        drawCard.setImageResource(pickCard.getResourceId(resources))
+        drawCard.setImageResource(pickCard.getResourceId(context!!))
 
         return pickCard
     }

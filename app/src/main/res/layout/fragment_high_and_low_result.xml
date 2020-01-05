@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".pages.HighAndLowResultFragment">
 
     <LinearLayout
+        android:id="@+id/insideLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
@@ -42,35 +44,36 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/userInputArea"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/nextButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@android:color/background_light"
-            android:text="@string/isNext"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:typeface="normal" />
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:text="@string/isNext"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
 
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@android:color/background_light"
-            android:text="@string/isBack"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:typeface="normal" />
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:text="@string/isBack"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
