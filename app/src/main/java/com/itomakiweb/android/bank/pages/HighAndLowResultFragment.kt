@@ -5,13 +5,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -87,6 +86,8 @@ class HighAndLowResultFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        (activity as ScopedAppActivity).showProgressBar()
+
         highAndLowGamePlay(isHigh!!)
     }
 
@@ -138,6 +139,7 @@ class HighAndLowResultFragment : Fragment() {
             }
             .addOnFailureListener { exception ->
                 Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
+                (activity as ScopedAppActivity).hideProgressBar()
             }
     }
 
@@ -162,9 +164,11 @@ class HighAndLowResultFragment : Fragment() {
 
                 messageWindowText.text = getString(R.string.resultMoney, moneyTotalCurrent, moneyBetRateNext)
 
+                (activity as ScopedAppActivity).hideProgressBar()
             }
             .addOnFailureListener { exception ->
                 Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
+                (activity as ScopedAppActivity).hideProgressBar()
             }
     }
 
