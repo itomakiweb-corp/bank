@@ -122,6 +122,7 @@ class HighAndLowResultFragment : Fragment() {
                         game["moneyResult"] = moneyPrize - moneyBet
                         game["call"] = if (isHigh) HighAndLowCall.HIGH else HighAndLowCall.LOW
                         game["resultGame"] = if (gameResult) ResultGame.WIN else ResultGame.LOSE
+                        Log.d("debuggg", pickCard.toString())
                         game["resultCardSuit"] = pickCard.suit
                         game["resultCardRank"] = pickCard.rank
                         game["dateTimeGameEnd"] = System.currentTimeMillis()

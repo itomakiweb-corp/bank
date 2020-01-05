@@ -2,6 +2,7 @@ package com.itomakiweb.android.bank.pages
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.Card
 import com.itomakiweb.android.bank.libraries.DeckOfCards
 import com.itomakiweb.android.bank.libraries.Rank
+import com.itomakiweb.android.bank.libraries.Ref
 import kotlinx.android.synthetic.main.fragment_high_and_low_game.*
 
 /**
@@ -28,8 +30,10 @@ class HighAndLowGameFragment : Fragment() {
     }
 
     fun setDrawCardImage(): Card {
+        Log.d(Ref.TAG_DEBUG, deck.toString())
         val pickCard = deck.draw()
         drawCard.setImageResource(pickCard.getResourceId(context!!))
+        Log.d(Ref.TAG_DEBUG, pickCard.toString())
 
         return pickCard
     }

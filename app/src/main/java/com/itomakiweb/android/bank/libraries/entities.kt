@@ -1,18 +1,18 @@
 package com.itomakiweb.android.bank.libraries
 
 import android.content.Context
-import android.content.res.Resources
 import android.widget.LinearLayout
-import java.io.Serializable
 import com.itomakiweb.android.bank.BuildConfig
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.io.Serializable
 import kotlin.random.Random
 
-class Ref() {
+class Ref {
     companion object {
         const val TAG_AUTH = "AnonymousAuth"
         const val TAG_FIRESTORE = "Firestore"
+        const val TAG_DEBUG = "DebugLog"
 
         const val match = LinearLayout.LayoutParams.MATCH_PARENT
         const val wrap = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -311,7 +311,7 @@ class HighAndLow(val deckOfCards: DeckOfCards, val you: You) {
     }
 }
 
-class You(): Player("You", HighAndLow.INIT_MONEY) {
+class You : Player("You", HighAndLow.INIT_MONEY) {
     override fun call(betMoney: Int): HighAndLowCall {
         if (money < betMoney) return HighAndLowCall.DROP_OUT
 
@@ -357,12 +357,16 @@ enum class HighAndLowCall {
     BEGIN
 }
 
-class DeckOfCards {
-    val cards = mutableListOf<Card>()
+data class DeckOfCards(val cards: MutableList<Card> = mutableListOf<Card>()) {
+
 
     init {
         for (suit in Suit.values()) {
+            if (suit == Suit.BEGIN) continue
+
             for (rank in Rank.values()) {
+                if (rank == Rank.BEGIN) continue
+
                 cards.add(Card(suit, rank))
             }
         }
