@@ -8,6 +8,7 @@
     tools:context=".pages.MainActivity">
 
     <LinearLayout
+        android:id="@+id/insideLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
@@ -46,7 +47,7 @@
         <FrameLayout
             android:id="@+id/mainFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

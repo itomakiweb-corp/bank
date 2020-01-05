@@ -1,16 +1,14 @@
 package com.itomakiweb.android.bank.libraries
 
 import android.content.Context
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
 import android.widget.ProgressBar
-import android.widget.RelativeLayout
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import com.itomakiweb.android.bank.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -24,14 +22,43 @@ abstract class ScopedAppActivity: AppCompatActivity(), CoroutineScope by MainSco
     // for progress bar
     @VisibleForTesting
     val progressDialog by lazy {
-        val progressBar = ProgressBar(this)
-        val layout = findViewById<ViewGroup>(R.id.layout)
-        val progressBarLayoutParams = RelativeLayout.LayoutParams(100, 100)
-        // progressBarLayoutParams.gravity = Gravity.CENTER
-        progressBarLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT)
-        progressBar.layoutParams = progressBarLayoutParams
+        val progressBar = ProgressBar(this).apply { id = View.generateViewId() }
+        val constraintLayout = findViewById<ConstraintLayout>(R.id.layout)
+        constraintLayout.addView(progressBar)
 
-        layout.addView(progressBar)
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(constraintLayout)
+        constraintSet.connect(
+            progressBar.id,
+            ConstraintSet.LEFT,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.LEFT
+        )
+        constraintSet.connect(
+            progressBar.id,
+            ConstraintSet.RIGHT,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.RIGHT
+        )
+        constraintSet.connect(
+            progressBar.id,
+            ConstraintSet.TOP,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.TOP
+        )
+        constraintSet.connect(
+            progressBar.id,
+            ConstraintSet.BOTTOM,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.BOTTOM
+        )
+
+        constraintSet.applyTo(constraintLayout)
+
+        //val progressBarLayoutParams = ConstraintLayout.LayoutParams(100, 100)
+        //progressBarLayoutParams.layoutDirection =
+
+        //layout.addView(progressBar, progressBarLayoutParams)
 
         progressBar
         // ProgressDialog(this)
@@ -51,7 +78,7 @@ abstract class ScopedAppActivity: AppCompatActivity(), CoroutineScope by MainSco
          */
     }
 
-    fun hideProgressDialog() {
+    fun hideProgressBar() {
         progressDialog.visibility = View.GONE
 
         window.clearFlags(
@@ -71,7 +98,7 @@ abstract class ScopedAppActivity: AppCompatActivity(), CoroutineScope by MainSco
 
     public override fun onStop() {
         super.onStop()
-        hideProgressDialog()
+        hideProgressBar()
     }
 
 
