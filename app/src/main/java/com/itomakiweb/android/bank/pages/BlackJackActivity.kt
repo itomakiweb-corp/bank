@@ -1,11 +1,9 @@
 package com.itomakiweb.android.bank.pages
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.ScopedAppActivity
 import kotlinx.android.synthetic.main.activity_black_jack.*
-import kotlinx.android.synthetic.main.fragment_main_menu.*
 
 class BlackJackActivity : ScopedAppActivity() {
 
@@ -23,7 +21,7 @@ class BlackJackActivity : ScopedAppActivity() {
 
         val fragment = BlackJackRuleFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.blackJackFragment, fragment)
+            .replace(R.id.blackJackFragmentArea, fragment)
             .addToBackStack(null)
             .commit()
     }

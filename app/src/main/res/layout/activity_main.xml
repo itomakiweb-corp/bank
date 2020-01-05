@@ -45,7 +45,7 @@
             android:textStyle="bold" />
 
         <FrameLayout
-            android:id="@+id/mainFragment"
+            android:id="@+id/mainFragmentArea"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

@@ -3,17 +3,18 @@ package com.itomakiweb.android.bank.pages
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.*
-
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.*
 import kotlinx.android.synthetic.main.fragment_high_and_low_play.*
@@ -67,7 +68,7 @@ class HighAndLowPlayFragment : Fragment() {
         super.onStart()
         (parentFragment as HighAndLowGameFragment).unsetDrawCardImage()
 
-        (activity as ScopedAppActivity).showProgressDialog()
+        (activity as ScopedAppActivity).showProgressBar()
 
         highAndLowGameCount()
     }
@@ -98,6 +99,7 @@ class HighAndLowPlayFragment : Fragment() {
                         if (sets.size() < 1) {
                             createSet(highAndLowRef, moneyBetRateSets)
                             betMoney(moneyBetRateSets)
+
                             return@addOnSuccessListener
                         }
 
@@ -116,6 +118,7 @@ class HighAndLowPlayFragment : Fragment() {
                             )
                             createSet(highAndLowRef, moneyBetRateSets)
                             betMoney(moneyBetRateSets)
+
                             return@addOnSuccessListener
                         }
 
@@ -144,6 +147,7 @@ class HighAndLowPlayFragment : Fragment() {
             }
             .addOnFailureListener { exception ->
                 Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
+                (activity as ScopedAppActivity).hideProgressBar()
             }
     }
 
@@ -201,10 +205,11 @@ class HighAndLowPlayFragment : Fragment() {
                 )
                 Log.d(Ref.TAG_FIRESTORE, "${user.id} => ${user.data}")
                 (activity as HighAndLowActivity).setMoney(moneyTotalCurrent - betMoneyCurrent, betMoneyCurrent)
-
+                (activity as ScopedAppActivity).hideProgressBar()
             }
             .addOnFailureListener { exception ->
                 Log.w(Ref.TAG_FIRESTORE, "Error getting documents.", exception)
+                (activity as ScopedAppActivity).hideProgressBar()
             }
 
     }

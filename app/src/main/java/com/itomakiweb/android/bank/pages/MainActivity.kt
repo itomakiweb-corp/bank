@@ -65,7 +65,7 @@ class MainActivity : ScopedAppActivity() {
                 setMenuFragment()
             }
 
-            mainFragment.setOnClickListener {
+            mainFragmentArea.setOnClickListener {
                 setMenuFragment()
             }
         }
@@ -74,7 +74,7 @@ class MainActivity : ScopedAppActivity() {
     fun setTopFragment() {
         val fragment = MainTopFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.mainFragment, fragment)
+            .replace(R.id.mainFragmentArea, fragment)
             .commit()
     }
 
@@ -84,7 +84,7 @@ class MainActivity : ScopedAppActivity() {
 
         val fragment = MainMenuFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.mainFragment, fragment)
+            .replace(R.id.mainFragmentArea, fragment)
             .addToBackStack(null)
             .commit()
     }
@@ -93,7 +93,7 @@ class MainActivity : ScopedAppActivity() {
     public override fun onStart() {
         super.onStart()
 
-        showProgressDialog()
+        showProgressBar()
 
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
@@ -125,6 +125,7 @@ class MainActivity : ScopedAppActivity() {
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
                     // updateUI(null)
+                    hideProgressBar()
                 }
 
                 // [START_EXCLUDE]

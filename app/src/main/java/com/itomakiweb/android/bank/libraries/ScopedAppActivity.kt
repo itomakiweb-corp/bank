@@ -21,7 +21,7 @@ abstract class ScopedAppActivity: AppCompatActivity(), CoroutineScope by MainSco
 
     // for progress bar
     @VisibleForTesting
-    val progressDialog by lazy {
+    val progressBar by lazy {
         val progressBar = ProgressBar(this).apply { id = View.generateViewId() }
         val constraintLayout = findViewById<ConstraintLayout>(R.id.layout)
         constraintLayout.addView(progressBar)
@@ -55,40 +55,22 @@ abstract class ScopedAppActivity: AppCompatActivity(), CoroutineScope by MainSco
 
         constraintSet.applyTo(constraintLayout)
 
-        //val progressBarLayoutParams = ConstraintLayout.LayoutParams(100, 100)
-        //progressBarLayoutParams.layoutDirection =
-
-        //layout.addView(progressBar, progressBarLayoutParams)
-
         progressBar
-        // ProgressDialog(this)
     }
 
-    fun showProgressDialog() {
+    fun showProgressBar() {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
-        progressDialog.visibility = View.VISIBLE
-
-        /*
-        progressDialog.setMessage(getString(R.string.loading))
-        progressDialog.isIndeterminate = true
-        progressDialog.show()
-         */
+        progressBar.visibility = View.VISIBLE
     }
 
     fun hideProgressBar() {
-        progressDialog.visibility = View.GONE
+        progressBar.visibility = View.GONE
 
         window.clearFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        /*
-
-        if (progressDialog.isShowing) {
-            progressDialog.dismiss()
-        }
-         */
     }
 
     fun hideKeyboard(view: View) {

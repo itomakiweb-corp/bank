@@ -3,7 +3,6 @@ package com.itomakiweb.android.bank.pages
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.itomakiweb.android.bank.R
 import com.itomakiweb.android.bank.libraries.ScopedAppActivity
 import kotlinx.android.synthetic.main.activity_high_and_low.*
@@ -17,11 +16,11 @@ class HighAndLowActivity : ScopedAppActivity() {
         // TODO 再起動時に問題が起きる可能性有り
         setTopFragment()
 
-        highAndLowFragment.setOnClickListener {
+        highAndLowFragmentArea.setOnClickListener {
             setMenuFragment()
         }
 
-        back.setOnClickListener {
+        backButton.setOnClickListener {
 
             if (supportFragmentManager.backStackEntryCount > 0) {
                 val dialogBuilder = AlertDialog.Builder(this)
@@ -56,7 +55,7 @@ class HighAndLowActivity : ScopedAppActivity() {
     fun setTopFragment() {
         val fragment = HighAndLowTopFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.highAndLowFragment, fragment)
+            .replace(R.id.highAndLowFragmentArea, fragment)
             .commit()
     }
 
@@ -66,7 +65,7 @@ class HighAndLowActivity : ScopedAppActivity() {
 
         val fragment = HighAndLowGameFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.highAndLowFragment, fragment)
+            .replace(R.id.highAndLowFragmentArea, fragment)
             .addToBackStack(null)
             .commit()
     }
@@ -77,7 +76,7 @@ class HighAndLowActivity : ScopedAppActivity() {
 
         val fragment = HighAndLowRuleFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.highAndLowFragment, fragment)
+            .replace(R.id.highAndLowFragmentArea, fragment)
             .addToBackStack(null)
             .commit()
     }
