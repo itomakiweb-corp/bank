@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -39,6 +40,8 @@ class MainActivity : ScopedAppActivity() {
             val requiredVersionCode = it["requiredVersionCode"] as Long
             if (BuildConfig.VERSION_CODE < requiredVersionCode) {
                 buttonAnonymousSignOut.setText(R.string.needUpdate)
+                buttonAnonymousSignOut.visibility = View.VISIBLE
+
                 return@fetchMaster
             }
 
@@ -49,7 +52,7 @@ class MainActivity : ScopedAppActivity() {
 
              */
             buttonAnonymousSignOut.setOnClickListener {
-                signOut()
+                //signOut()
             }
 
             // 画面が再利用されていない場合のみ、生成
