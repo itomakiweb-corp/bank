@@ -17,6 +17,7 @@ import com.itomakiweb.android.bank.libraries.Ref
 import com.itomakiweb.android.bank.libraries.ScopedAppActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : ScopedAppActivity() {
     private lateinit var auth: FirebaseAuth
 
@@ -143,14 +144,19 @@ class MainActivity : ScopedAppActivity() {
         // Create a new user with a first and last name
         val user = hashMapOf(
             "uid" to currentUser.uid,
-            "name" to "TODO",
+            "nameGoogle" to "",
+            "nameFull" to "",
+            "nameAlias" to "",
+            "iconUrl" to "",
             "moneyTotalCurrent" to 80000,
             "moneyOwnCurrent" to 0,
             "moneyBorrowCurrent" to 80000,
             "createdAt" to FieldValue.serverTimestamp(),
             "createdBy" to currentUser.uid,
             "updatedAt" to FieldValue.serverTimestamp(),
-            "updatedBy" to currentUser.uid
+            "updatedBy" to currentUser.uid,
+            "deletedAt" to null,
+            "deletedBy" to null
         )
 
         // Add a new document with a generated ID
@@ -177,10 +183,24 @@ class MainActivity : ScopedAppActivity() {
             "countSetMax" to 1200,
             "countGameTotalSets" to 0,
             "moneyBetRateSets" to 1000,
+            "moneyBetTotalSets" to 0,
+            "moneyPrizeTotalSets" to 0,
+            "moneyResultTotalSets" to 0,
+            "moneyResultTotalSetsAverage" to 0,
+            "countWinTotalSets" to 0,
+            "countWinStreakTotalSets" to 0,
+            "countWinStreakMaxTotalSets" to 0,
+            "rateWinTotalSets" to 0,
+            "countLoseTotalSets" to 0,
+            "countLoseStreakTotalSets" to 0,
+            "countLoseStreakMaxTotalSets" to 0,
+            "rateLoseTotalSets" to 0,
             "createdAt" to FieldValue.serverTimestamp(),
             "createdBy" to currentUser.uid,
             "updatedAt" to FieldValue.serverTimestamp(),
-            "updatedBy" to currentUser.uid
+            "updatedBy" to currentUser.uid,
+            "deletedAt" to null,
+            "deletedBy" to null
         )
 
         // Add a new document with a generated ID
