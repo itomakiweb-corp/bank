@@ -19,7 +19,7 @@ class Cloud {
     companion object {
         val instance = Cloud()
         val masterCollectionPath = "master"
-        val masterDocumentPath = "android"
+        val masterDocumentPath = "bank"
     }
 
     private lateinit var auth: FirebaseAuth

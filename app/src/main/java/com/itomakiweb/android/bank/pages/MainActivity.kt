@@ -38,7 +38,7 @@ class MainActivity : ScopedAppActivity() {
      */
     fun needUpdateIf(savedInstanceState: Bundle?) {
         Cloud.instance.fetchMaster {
-            val requiredVersionCode = it["requiredVersionCode"] as Long
+            val requiredVersionCode = it["requiredVersionCodeAndroid"] as Long
             if (BuildConfig.VERSION_CODE < requiredVersionCode) {
                 buttonAnonymousSignOut.setText(R.string.needUpdate)
                 buttonAnonymousSignOut.visibility = View.VISIBLE
