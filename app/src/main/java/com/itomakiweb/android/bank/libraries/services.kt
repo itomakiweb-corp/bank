@@ -18,8 +18,8 @@ import retrofit2.http.*
 class Cloud {
     companion object {
         val instance = Cloud()
-        val masterCollectionPath = "master"
-        val masterDocumentPath = "bank"
+        val masterCollectionPath = "104-bank"
+        val masterDocumentPath = "001-master"
     }
 
     private lateinit var auth: FirebaseAuth
