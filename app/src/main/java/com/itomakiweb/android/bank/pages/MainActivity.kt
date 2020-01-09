@@ -148,6 +148,7 @@ class MainActivity : ScopedAppActivity() {
             "nameFull" to "",
             "nameAlias" to "",
             "iconUrl" to "",
+            "role" to "guest",
             "moneyTotalCurrent" to 80000,
             "moneyOwnCurrent" to 0,
             "moneyBorrowCurrent" to 80000,
