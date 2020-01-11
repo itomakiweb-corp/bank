@@ -119,6 +119,7 @@
   - https://square.github.io/retrofit/
   - https://kotlinlang.org/docs/reference/coroutines/basics.html
   - https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#structured-concurrency-lifecycle-and-coroutine-parent-child-hierarchy
+  - https://www.clipstudio.net/ 画像制作
   
 ## etc
 
