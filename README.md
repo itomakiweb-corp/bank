@@ -115,11 +115,12 @@
         - 閲覧権限でも実行できてしまうので注意（環境変数は見られない）
     - https://script.google.com/home/executions
 - links
+  - https://drive.google.com/drive/folders/1N7RP5_wHdGhauEWRdI7PgQpWs44pirUH リリース用秘密鍵
+  - https://www.clipstudio.net/ 画像制作ソフト
   - https://android.benigumo.com/20190219/spacex-rest-api-retrofit-coroutine/
   - https://square.github.io/retrofit/
   - https://kotlinlang.org/docs/reference/coroutines/basics.html
   - https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#structured-concurrency-lifecycle-and-coroutine-parent-child-hierarchy
-  - https://www.clipstudio.net/ 画像制作
   
 ## etc
 
