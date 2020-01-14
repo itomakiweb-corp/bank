@@ -76,7 +76,8 @@ class HighAndLowPlayFragment : Fragment() {
     fun highAndLowGameCount() {
         var betMoneyCurrent: Long = 0
 
-        db.collection("highAndLow")
+        db.document(Cloud.mainDocumentPath)
+            .collection(Cloud.highAndLowCollectionPath)
             .whereEqualTo("createdBy", currentUser.uid)
             .get()
             .addOnSuccessListener { highAndLows ->
@@ -203,7 +204,7 @@ class HighAndLowPlayFragment : Fragment() {
     }
 
     fun betMoney(betMoneyCurrent: Long) {
-        db.collection("users")
+        db.collection(Cloud.usersCollectionPath)
             .document(currentUser.uid)
             .get()
             .addOnSuccessListener { user ->

@@ -98,7 +98,8 @@ class HighAndLowResultFragment : Fragment() {
 
         val gameResult = getGameResult(isHigh)
 
-        db.collection("highAndLow")
+        db.document(Cloud.mainDocumentPath)
+            .collection(Cloud.highAndLowCollectionPath)
             .whereEqualTo("createdBy", currentUser.uid)
             .get()
             .addOnSuccessListener { highAndLows ->
@@ -144,7 +145,7 @@ class HighAndLowResultFragment : Fragment() {
     }
 
     fun setMoney(transactionMoney: Long, gameResult: Boolean, moneyBetRateNext: Long, moneyPrize: Long) {
-        db.collection("users")
+        db.collection(Cloud.usersCollectionPath)
             .document(currentUser.uid)
             .get()
             .addOnSuccessListener { user ->

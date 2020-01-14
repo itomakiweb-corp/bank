@@ -161,7 +161,7 @@ class MainActivity : ScopedAppActivity() {
         )
 
         // Add a new document with a generated ID
-        db.collection("users")
+        db.collection(Cloud.usersCollectionPath)
             .document(currentUser.uid)
             .set(user)
             .addOnSuccessListener {
@@ -205,7 +205,8 @@ class MainActivity : ScopedAppActivity() {
         )
 
         // Add a new document with a generated ID
-        db.collection("highAndLow")
+        db.document(Cloud.mainDocumentPath)
+            .collection(Cloud.highAndLowCollectionPath)
             .add(highAndLow)
             .addOnSuccessListener { documentReference ->
                 Log.d(Ref.TAG_FIRESTORE, "highAndLow added with ID: ${documentReference.id}")

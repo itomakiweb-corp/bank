@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.itomakiweb.android.bank.R
+import com.itomakiweb.android.bank.libraries.Cloud
 import com.itomakiweb.android.bank.libraries.Ref
 import kotlinx.android.synthetic.main.fragment_main_menu.*
 
@@ -67,7 +68,7 @@ class MainMenuFragment : Fragment() {
     }
 
     fun whenAdminUser() {
-        db.collection("users")
+        db.collection(Cloud.usersCollectionPath)
             .document(currentUser.uid)
             .get()
             .addOnSuccessListener { user ->

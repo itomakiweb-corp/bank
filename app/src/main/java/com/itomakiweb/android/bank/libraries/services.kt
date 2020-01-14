@@ -18,8 +18,9 @@ import retrofit2.http.*
 class Cloud {
     companion object {
         val instance = Cloud()
-        val masterCollectionPath = "104-bank"
-        val masterDocumentPath = "001-master"
+        val usersCollectionPath = "100-users"
+        val mainDocumentPath = "104-bank/001-main"
+        val highAndLowCollectionPath = "101-highAndLow"
     }
 
     private lateinit var auth: FirebaseAuth
@@ -36,8 +37,7 @@ class Cloud {
     }
 
     fun fetchMaster(onSuccess: (DocumentSnapshot) -> Unit) {
-        db.collection(masterCollectionPath)
-            .document(masterDocumentPath)
+        db.document(mainDocumentPath)
             .get()
             .addOnSuccessListener { master ->
                 onSuccess(master)
