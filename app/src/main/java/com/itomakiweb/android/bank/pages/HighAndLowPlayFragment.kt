@@ -74,7 +74,7 @@ class HighAndLowPlayFragment : Fragment() {
     }
 
     fun highAndLowGameCount() {
-        var betMoneyCurrent: Long = 0
+        var betMoneyCurrent: Long
 
         db.document(Cloud.mainDocumentPath)
             .collection(Cloud.highAndLowCollectionPath)
@@ -132,7 +132,7 @@ class HighAndLowPlayFragment : Fragment() {
                             )
                             val usedCardView = ImageView(context)
                             usedCardView.setImageResource(usedCard.getResourceId(context!!))
-                            usedCardView.layoutParams = LinearLayout.LayoutParams(100, 100)
+                            usedCardView.layoutParams = LinearLayout.LayoutParams(100, Ref.match)
                             usedCardsArea.addView(usedCardView)
                         }
                         setRef.update(
