@@ -467,7 +467,8 @@ function getConfigs() {
     GITHUB_TODO_ASSIGNEE_IDS: [
       'MDQ6VXNlcjQzMjU1ODgw', // adachi-swivel
       'MDQ6VXNlcjQzNDM1OTg1', // bac0907
-      'MDQ6VXNlcjE2NTA1Mjcx', // itomakiweb
+      'MDQ6VXNlcjU5NDkzNDgy', // hidecharo
+      // 'MDQ6VXNlcjE2NTA1Mjcx', // itomakiweb
       'MDQ6VXNlcjQzMTE0NDQx', // kazucharo
       'MDQ6VXNlcjQ1MDA2Njgz', // tanukinoyu
       'MDQ6VXNlcjQ0MjUyMzIx', // undine411
