@@ -236,7 +236,7 @@ function updateIssueAndCloseMilestone() {
 - 今週のMilestoneをクローズしました\n\
   - ${currentMilestoneUrl}\n\
 - OPENなクエストは、次週のMilestoneへ移行しました\n\
-- 出来そうなクエストがあればチャレンジしてみましょう！Lets try it!\n\
+- 出来そうなクエストがあればチャレンジしてみましょう！Let\'s try it!\n\
   - ${nextMilestoneUrl}\n\
 - 以下から自動送信\n\
   - ${configs.URL_GAS}\n\
@@ -286,7 +286,8 @@ function fetchRepositoryInfoFromGithub() {
  *
  * @param {string[]} OPEN/CLOSED
  * @param {string} ASC: 昇順/DESC: 降順
- * @return {Object} Milestone
+ * @param {int} 先頭からの参照数
+ * @return {Object} レスポンスJSON
  */
 function fetchMilestonesFromGithub(states, direction, first) {
   const configs = getConfigs()
@@ -344,8 +345,7 @@ function fetchOpenIssueFromMilestone(number) {
  *
  * @see https://developer.github.com/v4/mutation/updateissue/
  *
- * @param {String} IssueID
- * @param {String} MilestoneID
+ * @param {Object} リクエスト内容
  * @return {Object} レスポンスJSON
  */
 function updateIssueInGithub(input) {
