@@ -20,8 +20,10 @@ function postDoneAndTodoToSlack() {
     .replace('${dueDateFormat}', dueDateFormat)
   log(title)
 
-  const doneMilestone = fetchMilestoneFromGithub(['CLOSED'], 'DESC')
-  const todoMilestone = fetchMilestoneFromGithub(['OPEN'], 'ASC')
+  const fetchDoneMilestone = fetchMilestonesFromGithub(['CLOSED'], 'DESC', 1)
+  const fetchTodoMilestone = fetchMilestonesFromGithub(['OPEN'], 'ASC', 1)
+  const doneMilestone = fetchDoneMilestone.data.repository.milestones.edges[0].node
+  const todoMilestone = fetchTodoMilestone.data.repository.milestones.edges[0].node
   log(doneMilestone)
   log(todoMilestone)
 
@@ -105,8 +107,10 @@ function postDoneAndTodoToSlackForOffline() {
     .replace('${dueDateFormat}', dueDateFormat)
   log(title)
 
-  const doneMilestone = fetchMilestoneFromGithub(['CLOSED'], 'DESC')
-  const todoMilestone = fetchMilestoneFromGithub(['OPEN'], 'ASC')
+  const fetchDoneMilestone = fetchMilestonesFromGithub(['CLOSED'], 'DESC', 1)
+  const fetchTodoMilestone = fetchMilestonesFromGithub(['OPEN'], 'ASC', 1)
+  const doneMilestone = fetchDoneMilestone.data.repository.milestones.edges[0].node
+  const todoMilestone = fetchTodoMilestone.data.repository.milestones.edges[0].node
   log(doneMilestone)
   log(todoMilestone)
 
@@ -201,7 +205,7 @@ function postMilestoneToGithub() {
  */
 function updateIssueAndCloseMilestone() {
   const configs = getConfigs()
-  const milestones = fetchTwoMilestonesFromGithub(['OPEN'], 'ASC')
+  const milestones = fetchMilestonesFromGithub(['OPEN'], 'ASC', 2)
   const currentMilestone = milestones.data.repository.milestones.edges[0].node
   const nextMilestone = milestones.data.repository.milestones.edges[1].node
   const currentMilestoneNum = currentMilestone.number
@@ -218,7 +222,11 @@ function updateIssueAndCloseMilestone() {
 
   for(var i in targetIssue) {
         var issueId = fetchIssue.data.repository.milestone.issues.edges[i].node.id
-        var updateIssue = updateIssueToNextMilestone(issueId, nextMilestoneId)
+        var input = {
+          id: issueId,
+          milestoneId: nextMilestoneId,
+        }
+        var updateIssue = updateIssueInGithub(input)
         log(updateIssue)
   }
 
@@ -238,7 +246,7 @@ function updateIssueAndCloseMilestone() {
     .replace('${nextMilestoneUrl}', nextMilestoneUrl)
     .replace('${configs.URL_GAS}', configs.URL_GAS)
     .replace('${configs.URL_GAS_SOURCE}', configs.URL_GAS_SOURCE)
-log(slackBody)
+  log(slackBody)
 
   const message = postMessageToSlack(slackBody)
   log(message)
@@ -280,11 +288,11 @@ function fetchRepositoryInfoFromGithub() {
  * @param {string} ASC: 昇順/DESC: 降順
  * @return {Object} Milestone
  */
-function fetchMilestoneFromGithub(states, direction) {
+function fetchMilestonesFromGithub(states, direction, first) {
   const configs = getConfigs()
-  const query = 'query($owner: String!, $name: String!, $states: [MilestoneState!], $direction: OrderDirection!) {\
+  const query = 'query($owner: String!, $name: String!, $states: [MilestoneState!], $direction: OrderDirection!, $first: Int) {\
     repository(owner: $owner, name: $name) {\
-      milestones(first:1, states: $states, orderBy: { field: DUE_DATE, direction: $direction }) {\
+      milestones(first: $first, states: $states, orderBy: { field: DUE_DATE, direction: $direction }) {\
         edges { node { id, url, number, title } }\
       }\
     }\
@@ -294,35 +302,7 @@ function fetchMilestoneFromGithub(states, direction) {
     name: configs.GITHUB_REPOSITORY,
     states: states,
     direction: direction,
-  }
-  const json = postGithubV4(query, variables)
-  // NOTE ひとまず、必ず返却される想定
-  const milestone = json.data.repository.milestones.edges[0].node
-
-  return milestone
-}
-
-/**
- * GitHubから、Milestoneを二つ取得する
- *
- * @param {string[]} OPEN/CLOSED
- * @param {string} ASC: 昇順/DESC: 降順
- * @return {Object} レスポンスJSON
- */
-function fetchTwoMilestonesFromGithub(states, direction) {
-  const configs = getConfigs()
-  const query = 'query($owner: String!, $name: String!, $states: [MilestoneState!], $direction: OrderDirection!) {\
-    repository(owner: $owner, name: $name) {\
-      milestones(first:2, states: $states, orderBy: { field: DUE_DATE, direction: $direction }) {\
-        edges { node { id, url, number, title } }\
-      }\
-    }\
-  }'
-  const variables = {
-    owner: configs.GITHUB_OWNER,
-    name: configs.GITHUB_REPOSITORY,
-    states: states,
-    direction: direction,
+    first: first,
   }
   const json = postGithubV4(query, variables)
   // NOTE ひとまず、必ず返却される想定
@@ -368,20 +348,18 @@ function fetchOpenIssueFromMilestone(number) {
  * @param {String} MilestoneID
  * @return {Object} レスポンスJSON
  */
-function updateIssueToNextMilestone(id, milestoneId) {
+function updateIssueInGithub(input) {
   const configs = getConfigs()
-  const query = 'mutation($id: ID!, $milestoneId: ID) {\
-    updateIssue(input: {id: $id, milestoneId: $milestoneId}) {\
+  const query = 'mutation($input: UpdateIssueInput!) {\
+    updateIssue(input: $input) {\
       issue{\
         title,\
         state\
-          milestone{ title }\
       }\
     }\
   }'
   const variables = {
-    id: id,
-    milestoneId: milestoneId,
+    input: input,
   }
   const json = postGithubV4(query, variables)
 
