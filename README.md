@@ -41,6 +41,7 @@
     - 終わらなかったクエストを、unfinishedとしてMilestoneの説明文に追記する
     - 終わらなかったクエストを、翌週のMilestoneに移動する
 
+
 ## Rule
 
 |対象|命名規則|備考|
@@ -52,6 +53,7 @@
 |View ID|lowerCamelCase|Kotlin変数名として記述することになるので、kebab-caseは不可|
 |Resource Name|lowerCamelCase|デフォルトはlower_snake_caseの模様だが、View IDと合わせる|
 |Resource Drawable|lower_snake_case|lowerCamelCaseでは、制約上表示できない|
+
 
 ## Screen
 
@@ -81,12 +83,29 @@
 |// QuestNewActivity|クエスト発行|-|
 |// PreferencesActivity|全体設定|-|
 
+
 ## Class
 
 |クラス|説明|備考|
 |:---|:---|:---|
 |DeckOfCards|トランプ一覧|-|
 |TODO|TODO|-|
+
+
+## Bot
+
+|fun name|explain|execution|trigger|
+|:---|:---|:---|:---|
+|postHangoutLinkToSlack|Notify Hangout|Tue 1900-2000|be-|
+|postMilestoneToGithub|Create Milestone next week|Thu 0600-0700|hidecharo|
+|postDoneAndTodoToSlack|Notify Done/Todo quests to GitHub/Slack|Thu 0600-0700|hidecharo|
+|(unknown: managed by kazucharo)|Notify Hangout|Thu 2000-2100|kazucharo|
+|updateIssueAndCloseMilestone|Move Issues to next Milestone and Close|Thu 2300-2400|yu-|
+|postDoneAndTodoToSlackForOffline|Notify Done/Todo quests to GitHub/Slack|Sat 0600-0700|hidecharo|
+|||||
+|||||
+|||||
+
 
 ## Env
 
@@ -121,6 +140,7 @@
   - https://square.github.io/retrofit/
   - https://kotlinlang.org/docs/reference/coroutines/basics.html
   - https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#structured-concurrency-lifecycle-and-coroutine-parent-child-hierarchy
+
   
 ## etc
 
