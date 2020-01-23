@@ -14,7 +14,7 @@
         android:id="@+id/titleLogo"
         android:layout_width="280dp"
         android:layout_height="280dp"
-        app:srcCompat="@drawable/bank_it_icon_square" />
+        app:srcCompat="@drawable/bank_it_icon_top" />
 
     <TextView
         android:id="@+id/topNotice"
