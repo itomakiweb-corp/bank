@@ -20,8 +20,10 @@ function postDoneAndTodoToSlack() {
     .replace('${dueDateFormat}', dueDateFormat)
   log(title)
 
-  const doneMilestone = fetchMilestoneFromGithub(['CLOSED'], 'DESC')
-  const todoMilestone = fetchMilestoneFromGithub(['OPEN'], 'ASC')
+  const fetchDoneMilestone = fetchMilestonesFromGithub(['CLOSED'], 'DESC', 1)
+  const fetchTodoMilestone = fetchMilestonesFromGithub(['OPEN'], 'ASC', 1)
+  const doneMilestone = fetchDoneMilestone.data.repository.milestones.edges[0].node
+  const todoMilestone = fetchTodoMilestone.data.repository.milestones.edges[0].node
   log(doneMilestone)
   log(todoMilestone)
 
@@ -105,8 +107,10 @@ function postDoneAndTodoToSlackForOffline() {
     .replace('${dueDateFormat}', dueDateFormat)
   log(title)
 
-  const doneMilestone = fetchMilestoneFromGithub(['CLOSED'], 'DESC')
-  const todoMilestone = fetchMilestoneFromGithub(['OPEN'], 'ASC')
+  const fetchDoneMilestone = fetchMilestonesFromGithub(['CLOSED'], 'DESC', 1)
+  const fetchTodoMilestone = fetchMilestonesFromGithub(['OPEN'], 'ASC', 1)
+  const doneMilestone = fetchDoneMilestone.data.repository.milestones.edges[0].node
+  const todoMilestone = fetchTodoMilestone.data.repository.milestones.edges[0].node
   log(doneMilestone)
   log(todoMilestone)
 
@@ -196,6 +200,59 @@ function postMilestoneToGithub() {
 }
 
 /**
+ * 木曜にその日までのをMilestoneクローズし、
+ * オープンなイシューは次週のマイルストーンへ移行する
+ */
+function updateIssueAndCloseMilestone() {
+  const configs = getConfigs()
+  const milestones = fetchMilestonesFromGithub(['OPEN'], 'ASC', 2)
+  const currentMilestone = milestones.data.repository.milestones.edges[0].node
+  const nextMilestone = milestones.data.repository.milestones.edges[1].node
+  const currentMilestoneNum = currentMilestone.number
+  const currentMilestoneId = currentMilestone.id
+  const nextMilestoneId = nextMilestone.id
+  const currentMilestoneUrl = currentMilestone.url
+  const nextMilestoneUrl = nextMilestone.url
+  log(milestones)
+
+  const fetchIssue = fetchOpenIssueFromMilestone(currentMilestoneNum)
+  const targetIssue = fetchIssue.data.repository.milestone.issues.edges
+
+  log(targetIssue)
+
+  for(var i in targetIssue) {
+        var issueId = fetchIssue.data.repository.milestone.issues.edges[i].node.id
+        var input = {
+          id: issueId,
+          milestoneId: nextMilestoneId,
+        }
+        var updateIssue = updateIssueInGithub(input)
+        log(updateIssue)
+  }
+
+  const closeMilestone = closeMilestoneInGithub(currentMilestoneNum)
+
+  const slackBody = '\
+- 今週のMilestoneをクローズしました\n\
+  - ${currentMilestoneUrl}\n\
+- OPENなクエストは、次週のMilestoneへ移行しました\n\
+- 出来そうなクエストがあればチャレンジしてみましょう！Let\'s try it!\n\
+  - ${nextMilestoneUrl}\n\
+- 以下から自動送信\n\
+  - ${configs.URL_GAS}\n\
+  - ${configs.URL_GAS_SOURCE}\n\
+'
+    .replace('${currentMilestoneUrl}', currentMilestoneUrl)
+    .replace('${nextMilestoneUrl}', nextMilestoneUrl)
+    .replace('${configs.URL_GAS}', configs.URL_GAS)
+    .replace('${configs.URL_GAS_SOURCE}', configs.URL_GAS_SOURCE)
+  log(slackBody)
+
+  const message = postMessageToSlack(slackBody)
+  log(message)
+}
+
+/**
  * GitHubから、リポジトリ関連情報を取得する
  *
  * @see https://developer.github.com/v4/object/repository/
@@ -229,13 +286,14 @@ function fetchRepositoryInfoFromGithub() {
  *
  * @param {string[]} OPEN/CLOSED
  * @param {string} ASC: 昇順/DESC: 降順
- * @return {Object} Milestone
+ * @param {int} 先頭からの参照数
+ * @return {Object} レスポンスJSON
  */
-function fetchMilestoneFromGithub(states, direction) {
+function fetchMilestonesFromGithub(states, direction, first) {
   const configs = getConfigs()
-  const query = 'query($owner: String!, $name: String!, $states: [MilestoneState!], $direction: OrderDirection!) {\
+  const query = 'query($owner: String!, $name: String!, $states: [MilestoneState!], $direction: OrderDirection!, $first: Int) {\
     repository(owner: $owner, name: $name) {\
-      milestones(first:1, states: $states, orderBy: { field: DUE_DATE, direction: $direction }) {\
+      milestones(first: $first, states: $states, orderBy: { field: DUE_DATE, direction: $direction }) {\
         edges { node { id, url, number, title } }\
       }\
     }\
@@ -245,12 +303,90 @@ function fetchMilestoneFromGithub(states, direction) {
     name: configs.GITHUB_REPOSITORY,
     states: states,
     direction: direction,
+    first: first,
   }
   const json = postGithubV4(query, variables)
   // NOTE ひとまず、必ず返却される想定
-  const milestone = json.data.repository.milestones.edges[0].node
 
-  return milestone
+  return json
+}
+
+/**
+ * MilestoneからOPENなIssueを取得する
+ *
+ * @see https://developer.github.com/v4/object/issueconnection/
+ *
+ * @param {Int} Milestoneナンバー
+ * @return {Object} レスポンスJSON
+ */
+function fetchOpenIssueFromMilestone(number) {
+  const configs = getConfigs()
+  const query = 'query($owner: String!, $name: String!, $number: Int!) {\
+    repository(owner: $owner, name: $name) {\
+      milestone(number: $number) {\
+        issues(first: 100, states: OPEN) {\
+          edges { node { id } }\
+        }\
+      }\
+    }\
+  }'
+  const variables = {
+    owner: configs.GITHUB_OWNER,
+    name: configs.GITHUB_REPOSITORY,
+    number: number,
+  }
+  const json = postGithubV4(query, variables)
+
+  return json
+}
+
+/**
+ * 対象のIssueを次の期間のMilestoneへ移動させる
+ *
+ * @see https://developer.github.com/v4/mutation/updateissue/
+ *
+ * @param {Object} リクエスト内容
+ * @return {Object} レスポンスJSON
+ */
+function updateIssueInGithub(input) {
+  const configs = getConfigs()
+  const query = 'mutation($input: UpdateIssueInput!) {\
+    updateIssue(input: $input) {\
+      issue{\
+        title,\
+        state\
+      }\
+    }\
+  }'
+  const variables = {
+    input: input,
+  }
+  const json = postGithubV4(query, variables)
+
+  return json
+}
+
+/**
+ * 対象のMilestoneをクローズする
+ *
+ * @see https://developer.github.com/v3/issues/milestones/
+ *
+ * @param {Int} Milestoneナンバー
+ */
+function closeMilestoneInGithub(milestoneNum) {
+  const configs = getConfigs()
+  const method = 'patch'
+
+  const path = 'repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/milestones/${targetMilestoneNum}'
+    .replace('${GITHUB_OWNER}', configs.GITHUB_OWNER)
+    .replace('${GITHUB_REPOSITORY}', configs.GITHUB_REPOSITORY)
+    .replace('${targetMilestoneNum}', milestoneNum)
+
+  const payload = {
+    state: 'closed',
+  }
+  const json = postGithubV3(method, path, payload)
+  log(json)
 }
 
 /**
