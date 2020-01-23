@@ -2,6 +2,8 @@ package com.itomakiweb.android.bank.pages
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -42,6 +44,12 @@ class MainActivity : ScopedAppActivity() {
             if (BuildConfig.VERSION_CODE < requiredVersionCode) {
                 buttonAnonymousSignOut.setText(R.string.needUpdate)
                 buttonAnonymousSignOut.visibility = View.VISIBLE
+                buttonAnonymousSignOut.setOnClickListener {
+                    val uri =
+                        Uri.parse("https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    startActivity(intent)
+                }
 
                 return@fetchMaster
             }
