@@ -14,6 +14,9 @@ class Ref {
         const val TAG_FIRESTORE = "Firestore"
         const val TAG_DEBUG = "DebugLog"
 
+        const val URL_STORE =
+            "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+
         const val match = LinearLayout.LayoutParams.MATCH_PARENT
         const val wrap = LinearLayout.LayoutParams.WRAP_CONTENT
 
