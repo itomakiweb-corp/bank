@@ -20,10 +20,11 @@ function postDoneAndTodoToSlack() {
     .replace('${dueDateFormat}', dueDateFormat)
   log(title)
 
-  const fetchDoneMilestone = fetchMilestonesFromGithub(['CLOSED'], 'DESC', 1)
-  const fetchTodoMilestone = fetchMilestonesFromGithub(['OPEN'], 'ASC', 1)
-  const doneMilestone = fetchDoneMilestone.data.repository.milestones.edges[0].node
-  const todoMilestone = fetchTodoMilestone.data.repository.milestones.edges[0].node
+  const fetchDoneMilestones = fetchMilestonesFromGithub(['CLOSED'], 'DESC', 1)
+  const fetchTodoMilestones = fetchMilestonesFromGithub(['OPEN'], 'ASC', 1)
+  // NOTE ひとまず、必ず返却される想定
+  const doneMilestone = fetchDoneMilestones[0].node
+  const todoMilestone = fetchTodoMilestones[0].node
   log(doneMilestone)
   log(todoMilestone)
 
@@ -107,10 +108,11 @@ function postDoneAndTodoToSlackForOffline() {
     .replace('${dueDateFormat}', dueDateFormat)
   log(title)
 
-  const fetchDoneMilestone = fetchMilestonesFromGithub(['CLOSED'], 'DESC', 1)
-  const fetchTodoMilestone = fetchMilestonesFromGithub(['OPEN'], 'ASC', 1)
-  const doneMilestone = fetchDoneMilestone.data.repository.milestones.edges[0].node
-  const todoMilestone = fetchTodoMilestone.data.repository.milestones.edges[0].node
+  const fetchDoneMilestones = fetchMilestonesFromGithub(['CLOSED'], 'DESC', 1)
+  const fetchTodoMilestones = fetchMilestonesFromGithub(['OPEN'], 'ASC', 1)
+  // NOTE ひとまず、必ず返却される想定
+  const doneMilestone = fetchDoneMilestones[0].node
+  const todoMilestone = fetchTodoMilestones[0].node
   log(doneMilestone)
   log(todoMilestone)
 
@@ -206,12 +208,13 @@ function postMilestoneToGithub() {
 function updateIssueAndCloseMilestone() {
   const configs = getConfigs()
   const milestones = fetchMilestonesFromGithub(['OPEN'], 'ASC', 2)
-  const currentMilestone = milestones.data.repository.milestones.edges[0].node
-  const nextMilestone = milestones.data.repository.milestones.edges[1].node
+  // NOTE ひとまず、必ず返却される想定
+  const currentMilestone = milestones[0].node
+  const nextMilestone = milestones[1].node
   const currentMilestoneNum = currentMilestone.number
   const currentMilestoneId = currentMilestone.id
   const nextMilestoneId = nextMilestone.id
-  const currentMilestoneUrl = currentMilestone.url
+  const currentMilestoneUrl = currentMilestone.url + '?closed=1'
   const nextMilestoneUrl = nextMilestone.url
   log(milestones)
 
@@ -306,9 +309,8 @@ function fetchMilestonesFromGithub(states, direction, first) {
     first: first,
   }
   const json = postGithubV4(query, variables)
-  // NOTE ひとまず、必ず返却される想定
 
-  return json
+  return json.data.repository.milestones.edges
 }
 
 /**
