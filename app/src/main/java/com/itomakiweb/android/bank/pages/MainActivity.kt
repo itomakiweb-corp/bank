@@ -101,7 +101,6 @@ class MainActivity : ScopedAppActivity() {
             .commit()
     }
 
-    // [START on_start_check_user]
     public override fun onStart() {
         super.onStart()
 
@@ -115,63 +114,30 @@ class MainActivity : ScopedAppActivity() {
         } else {
             hideProgressBar()
         }
-        // updateUI(currentUser)
     }
-    // [END on_start_check_user]
 
     private fun signInAnonymously() {
-        // [START signin_anonymously]
         auth.signInAnonymously()
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     Log.d(Ref.TAG_AUTH, "signInAnonymously:success")
                     val currentUser = auth.currentUser!!
-                    // Log.d(TAG, user.toString())
                     createUser(currentUser)
-                    // updateUI(user)
                     createHighAndLow(currentUser)
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w(Ref.TAG_AUTH, "signInAnonymously:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                    // updateUI(null)
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     hideProgressBar()
                 }
-
-                // [START_EXCLUDE]
-                // [END_EXCLUDE]
             }
-        // [END signin_anonymously]
     }
 
     private fun createUser(currentUser: FirebaseUser) {
-        // Access a Cloud Firestore instance from your Activity
-        val db = FirebaseFirestore.getInstance()
-        // Create a new user with a first and last name
-        val user = hashMapOf(
-            "uid" to currentUser.uid,
-            "nameGoogle" to "",
-            "nameFull" to "",
-            "nameAlias" to "",
-            "iconUrl" to "",
-            "role" to "guest",
-            "moneyTotalCurrent" to 80000,
-            "moneyOwnCurrent" to 0,
-            "moneyBorrowCurrent" to 80000,
-            "createdAt" to FieldValue.serverTimestamp(),
-            "createdBy" to currentUser.uid,
-            "updatedAt" to FieldValue.serverTimestamp(),
-            "updatedBy" to currentUser.uid,
-            "deletedAt" to null,
-            "deletedBy" to null
-        )
-
-        // Add a new document with a generated ID
-        db.collection(Cloud.usersCollectionPath)
-            .document(currentUser.uid)
-            .set(user)
+        Cloud.instance.createUser(currentUser)
             .addOnSuccessListener {
                 Log.d(Ref.TAG_FIRESTORE, "DocumentSnapshot added with ID: ${currentUser.uid}")
                 hideProgressBar()
@@ -184,38 +150,7 @@ class MainActivity : ScopedAppActivity() {
     }
 
     private fun createHighAndLow(currentUser: FirebaseUser) {
-        // Access a Cloud Firestore instance from your Activity
-        val db = FirebaseFirestore.getInstance()
-        // Create a new user with a first and last name
-        val highAndLow = hashMapOf(
-            "countSet" to 0,
-            "countSetMax" to 1200,
-            "countGameTotalSets" to 0,
-            "moneyBetRateSets" to 1000,
-            "moneyBetTotalSets" to 0,
-            "moneyPrizeTotalSets" to 0,
-            "moneyResultTotalSets" to 0,
-            "moneyResultTotalSetsAverage" to 0,
-            "countWinTotalSets" to 0,
-            "countWinStreakTotalSets" to 0,
-            "countWinStreakMaxTotalSets" to 0,
-            "rateWinTotalSets" to 0,
-            "countLoseTotalSets" to 0,
-            "countLoseStreakTotalSets" to 0,
-            "countLoseStreakMaxTotalSets" to 0,
-            "rateLoseTotalSets" to 0,
-            "createdAt" to FieldValue.serverTimestamp(),
-            "createdBy" to currentUser.uid,
-            "updatedAt" to FieldValue.serverTimestamp(),
-            "updatedBy" to currentUser.uid,
-            "deletedAt" to null,
-            "deletedBy" to null
-        )
-
-        // Add a new document with a generated ID
-        db.document(Cloud.mainDocumentPath)
-            .collection(Cloud.highAndLowCollectionPath)
-            .add(highAndLow)
+        Cloud.instance.createHighAndLow(currentUser)
             .addOnSuccessListener { documentReference ->
                 Log.d(Ref.TAG_FIRESTORE, "highAndLow added with ID: ${documentReference.id}")
                 hideProgressBar()
