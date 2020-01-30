@@ -33,7 +33,7 @@ function postDoneAndTodoToSlack() {
   const body = '\
 - [ ] Quest: Done\n\
   - ${doneUrl}\n\
-- [ ] Quest: Todo\
+- [ ] Quest: Todo\n\
   - ${todoUrl}\n\
   - set Milestone\n\
 - Quest: Ready\n\
@@ -120,7 +120,7 @@ function postDoneAndTodoToSlackForOffline() {
   const body = '\
 - [ ] Quest: Done (Thu)\n\
   - ${doneUrl}\n\
-- [ ] Quest: Todo (Sat)\
+- [ ] Quest: Todo (Sat)\n\
   - ${todoUrl}\n\
   - set Milestone\n\
 - Quest: Ready\n\
