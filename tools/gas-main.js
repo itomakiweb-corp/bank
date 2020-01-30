@@ -31,21 +31,20 @@ function postDoneAndTodoToSlack() {
   const doneUrl = doneMilestone.url + '?closed=1'
   const todoUrl = todoMilestone.url
   const body = '\
-- [ ] 先週やった内容\n\
+- [ ] Quest: Done\n\
   - ${doneUrl}\n\
-- [ ] 今週やる予定\n\
+- [ ] Quest: Todo\
   - ${todoUrl}\n\
-  - Milestoneをきちんと設定する\n\
-  - 今週の作業が完了したら、Milestoneをクローズする\n\
-- 既に着手できるクエスト\n\
+  - set Milestone\n\
+- Quest: Ready\n\
   - ${configs.URL_QUEST_READY}\n\
-- クエスト一覧\n\
+- Quest: List\n\
   - ${configs.URL_QUEST_LIST}\n\
-- クエスト追加\n\
+- Quest: New\n\
   - ${configs.URL_QUEST_NEW}\n\
-- 作業の流れ\n\
+- Quest: Flow\n\
   - ${configs.URL_MAIN}\n\
-- 以下から自動送信\n\
+- Auto send by\n\
   - ${configs.URL_GAS}\n\
   - ${configs.URL_GAS_SOURCE}\n\
 '
@@ -119,22 +118,20 @@ function postDoneAndTodoToSlackForOffline() {
   const doneUrl = doneMilestone.url + '?closed=1'
   const todoUrl = todoMilestone.url
   const body = '\
-- [ ] クエスト一覧\n\
-  - ${configs.URL_QUEST_LIST}\n\
-- [ ] 木曜日のまとめ\n\
+- [ ] Quest: Done (Thu)\n\
   - ${doneUrl}\n\
-- [ ] 土曜日の予定\n\
+- [ ] Quest: Todo (Sat)\
   - ${todoUrl}\n\
-  - Milestoneをきちんと設定する\n\
-- [ ] 既に着手できるクエスト\n\
+  - set Milestone\n\
+- Quest: Ready\n\
   - ${configs.URL_QUEST_READY}\n\
-- [ ] クエスト追加\n\
+- Quest: List\n\
+  - ${configs.URL_QUEST_LIST}\n\
+- Quest: New\n\
   - ${configs.URL_QUEST_NEW}\n\
-- [ ] 作業の流れ\n\
+- Quest: Flow\n\
   - ${configs.URL_MAIN}\n\
-- [ ] 以下から自動送信\n\
-  - ${configs.URL_GAS}\n\
-  - ${configs.URL_GAS_SOURCE}\n\
+- Auto send by\n\
 '
     .replace('${configs.URL_MAIN}', configs.URL_MAIN)
     .replace('${configs.URL_QUEST_LIST}', configs.URL_QUEST_LIST)
