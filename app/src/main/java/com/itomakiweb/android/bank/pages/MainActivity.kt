@@ -117,8 +117,30 @@ class MainActivity : ScopedAppActivity() {
                 if (task.isSuccessful) {
                     Log.d(Ref.TAG_AUTH, "signInAnonymously:success")
                     val currentUser = auth.currentUser!!
-                    createUser(currentUser)
-                    createHighAndLow(currentUser)
+                    Cloud.instance.createUser(currentUser)
+                        .addOnSuccessListener {
+                            Log.d(
+                                Ref.TAG_FIRESTORE,
+                                "DocumentSnapshot added with ID: ${currentUser.uid}"
+                            )
+                            hideProgressBar()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
+                            hideProgressBar()
+                        }
+                    Cloud.instance.createHighAndLow(currentUser)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(
+                                Ref.TAG_FIRESTORE,
+                                "highAndLow added with ID: ${documentReference.id}"
+                            )
+                            hideProgressBar()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
+                            hideProgressBar()
+                        }
                 } else {
                     Log.w(Ref.TAG_AUTH, "signInAnonymously:failure", task.exception)
                     Toast.makeText(
@@ -128,31 +150,6 @@ class MainActivity : ScopedAppActivity() {
                     ).show()
                     hideProgressBar()
                 }
-            }
-    }
-
-    private fun createUser(currentUser: FirebaseUser) {
-        Cloud.instance.createUser(currentUser)
-            .addOnSuccessListener {
-                Log.d(Ref.TAG_FIRESTORE, "DocumentSnapshot added with ID: ${currentUser.uid}")
-                hideProgressBar()
-            }
-            .addOnFailureListener { e ->
-                Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
-                hideProgressBar()
-            }
-
-    }
-
-    private fun createHighAndLow(currentUser: FirebaseUser) {
-        Cloud.instance.createHighAndLow(currentUser)
-            .addOnSuccessListener { documentReference ->
-                Log.d(Ref.TAG_FIRESTORE, "highAndLow added with ID: ${documentReference.id}")
-                hideProgressBar()
-            }
-            .addOnFailureListener { e ->
-                Log.w(Ref.TAG_FIRESTORE, "Error adding document", e)
-                hideProgressBar()
             }
     }
 
