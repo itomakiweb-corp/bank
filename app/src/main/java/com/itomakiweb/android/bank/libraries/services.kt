@@ -1,9 +1,12 @@
 package com.itomakiweb.android.bank.libraries
 
 import android.util.Log
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.itomakiweb.android.bank.BuildConfig
 import com.squareup.moshi.Moshi
@@ -12,8 +15,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
 /**
- * @see https://firebase.google.com/docs/firestore/?authuser=0
- * @see https://console.firebase.google.com/u/0/project/itomakiweb-tmp/database/firestore/data~2F000~2F000
+ * https://firebase.google.com/docs/firestore/
+ * https://console.firebase.google.com/u/0/project/itomakiweb-tmp/database/firestore/data~2F000~2F000
  */
 class Cloud {
     companion object {
@@ -47,12 +50,67 @@ class Cloud {
                 Log.w(Ref.TAG_FIRESTORE, "Failure fetch master.", exception)
             }
     }
+
+    fun createUser(currentUser: FirebaseUser): Task<Void> {
+        val user = hashMapOf(
+            "uid" to currentUser.uid,
+            "nameGoogle" to "",
+            "nameFull" to "",
+            "nameAlias" to "",
+            "iconUrl" to "",
+            "role" to "guest",
+            "moneyTotalCurrent" to 80000,
+            "moneyOwnCurrent" to 0,
+            "moneyBorrowCurrent" to 80000,
+            "createdAt" to FieldValue.serverTimestamp(),
+            "createdBy" to currentUser.uid,
+            "updatedAt" to FieldValue.serverTimestamp(),
+            "updatedBy" to currentUser.uid,
+            "deletedAt" to null,
+            "deletedBy" to null
+        )
+
+        return db.collection(usersCollectionPath)
+            .document(currentUser.uid)
+            .set(user)
+    }
+
+    fun createHighAndLow(currentUser: FirebaseUser): Task<DocumentReference> {
+        val highAndLow = hashMapOf(
+            "countSet" to 0,
+            "countSetMax" to 1200,
+            "countGameTotalSets" to 0,
+            "moneyBetRateSets" to 1000,
+            "moneyBetTotalSets" to 0,
+            "moneyPrizeTotalSets" to 0,
+            "moneyResultTotalSets" to 0,
+            "moneyResultTotalSetsAverage" to 0,
+            "countWinTotalSets" to 0,
+            "countWinStreakTotalSets" to 0,
+            "countWinStreakMaxTotalSets" to 0,
+            "rateWinTotalSets" to 0,
+            "countLoseTotalSets" to 0,
+            "countLoseStreakTotalSets" to 0,
+            "countLoseStreakMaxTotalSets" to 0,
+            "rateLoseTotalSets" to 0,
+            "createdAt" to FieldValue.serverTimestamp(),
+            "createdBy" to currentUser.uid,
+            "updatedAt" to FieldValue.serverTimestamp(),
+            "updatedBy" to currentUser.uid,
+            "deletedAt" to null,
+            "deletedBy" to null
+        )
+
+        return db.document(mainDocumentPath)
+            .collection(highAndLowCollectionPath)
+            .add(highAndLow)
+    }
 }
 
 /**
- * @see https://developer.github.com/v4/explorer/
- * @see https://developer.github.com/v4/
- * @see https://developer.github.com/v3/
+ * https://developer.github.com/v4/explorer/
+ * https://developer.github.com/v4/
+ * https://developer.github.com/v3/
  */
 interface GithubApi {
     companion object {
