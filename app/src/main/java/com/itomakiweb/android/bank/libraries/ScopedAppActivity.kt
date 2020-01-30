@@ -1,6 +1,9 @@
 package com.itomakiweb.android.bank.libraries
 
 import android.content.Context
+import android.content.pm.ActivityInfo
+import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -78,7 +81,7 @@ abstract class ScopedAppActivity: AppCompatActivity(), CoroutineScope by MainSco
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    public override fun onStop() {
+    override fun onStop() {
         super.onStop()
         hideProgressBar()
     }
