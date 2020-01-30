@@ -13,12 +13,17 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pages.QuestNewActivity"/>
+        <activity android:name=".pages.QuestNewActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".pages.HighAndLowActivity"
+            android:screenOrientation="portrait"
             android:hardwareAccelerated="false"/>
-        <activity android:name=".pages.StaffRoleActivity" />
-        <activity android:name=".pages.BlackJackActivity" />
-        <activity android:name=".pages.MainActivity">
+        <activity android:name=".pages.StaffRoleActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".pages.BlackJackActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".pages.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
